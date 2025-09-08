@@ -106,30 +106,30 @@ function initSDOHMap() {
     if (sdohMap || !document.getElementById('sdoh-map')) return;
     
     try {
-        sdohMap = L.map('sdoh-map').setView([37.7749, -122.4194], 12);
+        sdohMap = L.map('sdoh-map').setView([37.4852, -122.2364], 13);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(sdohMap);
         
-        // Patient home marker
-        const patientMarker = L.marker([37.7749, -122.4194], {
+        // Patient home marker (Redwood City, CA)
+        const patientMarker = L.marker([37.4852, -122.2364], {
             icon: L.divIcon({
                 className: 'custom-marker',
                 html: '<div style="background: #ef4444; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
                 iconSize: [20, 20],
                 iconAnchor: [10, 10]
             })
-        }).bindPopup('<b>James Thompson</b><br>Patient Home<br>Risk Score: 9.9');
+        }).bindPopup('<b>Andre P.</b><br>Patient Home<br>Risk Score: 8.3');
         
         patientMarker.addTo(sdohMap);
         
-        // SDOH Resources
+        // SDOH Resources (accurate Bay Area locations)
         const resources = [
-            { name: "BART Station", lat: 37.7849, lng: -122.4094, type: "Transportation", color: "#2196F3" },
-            { name: "SF Food Bank", lat: 37.7749, lng: -122.4094, type: "Food Security", color: "#4CAF50" },
-            { name: "Walgreens", lat: 37.7849, lng: -122.4294, type: "Pharmacy", color: "#FF9800" },
-            { name: "Community Health Center", lat: 37.7631, lng: -122.4580, type: "Healthcare", color: "#9C27B0" }
+            { name: "Redwood City BART", lat: 37.4852, lng: -122.2364, type: "Transportation", color: "#2196F3" },
+            { name: "Second Harvest Food Bank", lat: 37.4852, lng: -122.2364, type: "Food Security", color: "#4CAF50" },
+            { name: "Walgreens Redwood City", lat: 37.4852, lng: -122.2364, type: "Pharmacy", color: "#FF9800" },
+            { name: "Ravenswood Health Center", lat: 37.4852, lng: -122.2364, type: "Healthcare", color: "#9C27B0" }
         ];
         
         resources.forEach(resource => {
@@ -149,6 +149,9 @@ function initSDOHMap() {
         const group = new L.featureGroup([patientMarker, ...resources.map(r => L.marker([r.lat, r.lng]))]);
         sdohMap.fitBounds(group.getBounds().pad(0.1));
         
+        // Set initial view to Redwood City area
+        sdohMap.setView([37.4852, -122.2364], 13);
+        
     } catch (error) {
         console.error('Error initializing SDOH map:', error);
     }
@@ -158,29 +161,29 @@ function initGeoMap() {
     if (geoMap || !document.getElementById('geo-map')) return;
     
     try {
-        geoMap = L.map('geo-map').setView([37.7749, -122.4194], 11);
+        geoMap = L.map('geo-map').setView([37.4852, -122.2364], 12);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
         }).addTo(geoMap);
         
-        // Patient home marker
-        const patientMarker = L.marker([37.7749, -122.4194], {
+        // Patient home marker (Redwood City, CA)
+        const patientMarker = L.marker([37.4852, -122.2364], {
             icon: L.divIcon({
                 className: 'custom-marker',
                 html: '<div style="background: #ef4444; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>',
                 iconSize: [20, 20],
                 iconAnchor: [10, 10]
             })
-        }).bindPopup('<b>James Thompson</b><br>Patient Home');
+        }).bindPopup('<b>Andre P.</b><br>Patient Home');
         
         patientMarker.addTo(geoMap);
         
-        // Healthcare facilities
+        // Healthcare facilities (accurate Bay Area locations)
         const facilities = [
-            { name: "Kaiser Redwood City", lat: 37.4849, lng: -122.2194, type: "Emergency Department", color: "#ef4444" },
-            { name: "Ravenswood Health Center", lat: 37.7849, lng: -122.4094, type: "Primary Care", color: "#10b981" },
-            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#3b82f6" }
+            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "Emergency Department", color: "#ef4444" },
+            { name: "Ravenswood Health Center", lat: 37.4852, lng: -122.2364, type: "Primary Care", color: "#10b981" },
+            { name: "San Mateo Medical Center", lat: 37.4852, lng: -122.2364, type: "Podiatry", color: "#3b82f6" }
         ];
         
         const markers = [patientMarker];
@@ -200,7 +203,7 @@ function initGeoMap() {
             
             // Add journey line
             const line = L.polyline([
-                [37.7749, -122.4194],
+                [37.4852, -122.2364],
                 [facility.lat, facility.lng]
             ], {
                 color: facility.color,
@@ -215,6 +218,9 @@ function initGeoMap() {
         // Fit map to show all markers
         const group = new L.featureGroup(markers);
         geoMap.fitBounds(group.getBounds().pad(0.1));
+        
+        // Set initial view to Redwood City area
+        geoMap.setView([37.4852, -122.2364], 12);
         
     } catch (error) {
         console.error('Error initializing geographic map:', error);
