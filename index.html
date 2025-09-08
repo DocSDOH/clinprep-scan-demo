@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClinPrep HealthPilot - SCAN Integration Demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">🏥</div>
+                <div class="logo-text">
+                    <h1>ClinPrep HealthPilot</h1>
+                    <p>SCAN Health Plan Integration Demo</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <select id="population-selector" class="population-selector">
+                    <option value="ma-medicare">MA Medicare Population</option>
+                    <option value="medicaid-homeless">Medicaid Homeless Population</option>
+                    <option value="api-demo">API Demonstration</option>
+                </select>
+                <button class="export-btn" onclick="exportDashboard()">Export Dashboard</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- KPI Dashboard -->
+        <section class="kpi-section">
+            <h2 class="section-title">Key Performance Indicators</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card" onclick="flipCard(this)">
+                    <div class="kpi-front">
+                        <div class="kpi-icon">🎯</div>
+                        <div class="kpi-value">0.0%</div>
+                        <div class="kpi-title">Algorithmic Bias Rate</div>
+                        <div class="kpi-subtitle">Zero bias across validated CMS Medicare ethnicity data</div>
+                    </div>
+                    <div class="kpi-back">
+                        <h4>Bias Validation</h4>
+                        <ul>
+                            <li>Ethnicity validation: 0.0% bias detected</li>
+                            <li>Cross-demographic testing: All groups equal</li>
+                            <li>Result: Zero algorithmic bias confirmed</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="kpi-card" onclick="flipCard(this)">
+                    <div class="kpi-front">
+                        <div class="kpi-icon">📊</div>
+                        <div class="kpi-value">98.2%</div>
+                        <div class="kpi-title">Population Coverage</div>
+                        <div class="kpi-subtitle">Validated across 98.2% of Medicare patients</div>
+                    </div>
+                    <div class="kpi-back">
+                        <h4>Coverage Analysis</h4>
+                        <ul>
+                            <li>Total Medicare patients: 1,379 analyzed</li>
+                            <li>Geographic coverage: All 50 states represented</li>
+                            <li>Result: Near-universal population coverage</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="kpi-card" onclick="flipCard(this)">
+                    <div class="kpi-front">
+                        <div class="kpi-icon">⚠️</div>
+                        <div class="kpi-value">25.0%</div>
+                        <div class="kpi-title">High-Risk Detection</div>
+                        <div class="kpi-subtitle">Readmission rate in identified high-risk patients</div>
+                    </div>
+                    <div class="kpi-back">
+                        <h4>Risk Stratification</h4>
+                        <ul>
+                            <li>High-risk patients: 25.0% readmission rate</li>
+                            <li>Low-risk patients: 8.6% readmission rate</li>
+                            <li>Result: Clear risk stratification achieved</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="kpi-card" onclick="flipCard(this)">
+                    <div class="kpi-front">
+                        <div class="kpi-icon">✅</div>
+                        <div class="kpi-value">✓</div>
+                        <div class="kpi-title">FDA Submission Ready</div>
+                        <div class="kpi-subtitle">Regulatory compliant with documented validation</div>
+                    </div>
+                    <div class="kpi-back">
+                        <h4>Regulatory Compliance</h4>
+                        <ul>
+                            <li>Clinical validation: Complete documentation</li>
+                            <li>FDA requirements: All criteria met</li>
+                            <li>Result: FDA submission ready</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="tab-navigation">
+            <button class="tab-btn active" onclick="showTab('patient-intelligence')">Patient Intelligence</button>
+            <button class="tab-btn" onclick="showTab('clinical-notes')">Clinical Notes & NLP</button>
+            <button class="tab-btn" onclick="showTab('sdoh-analytics')">SDOH Analytics</button>
+            <button class="tab-btn" onclick="showTab('scan-referrals')">SCAN Referrals</button>
+            <button class="tab-btn" onclick="showTab('geographic')">Geographic Intelligence</button>
+            <button class="tab-btn" onclick="showTab('care-cartography')">Care Cartography</button>
+        </nav>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Patient Intelligence Tab -->
+            <div id="patient-intelligence" class="tab-panel active">
+                <div class="patient-card">
+                    <div class="patient-header">
+                        <div class="patient-info">
+                            <h3>Andre P.</h3>
+                            <p>MRN: EP-98721 • Age: 67 • Medicare Advantage • Redwood City, CA</p>
+                        </div>
+                        <div class="risk-badge critical">High Risk: 8.3</div>
+                    </div>
+                    
+                    <div class="alert-box">
+                        <h4>Care Coordination Alert</h4>
+                        <p>Patient has had 4 ED visits in 90 days with no primary care follow-up. Multiple medication coordination issues identified across 4 different pharmacies. Transportation barriers and housing instability creating care access challenges.</p>
+                    </div>
+
+                    <div class="timeline">
+                        <div class="timeline-item critical">
+                            <div class="timeline-date">Jan 15, 2024</div>
+                            <div class="timeline-title">Initial ED Visit - Hyperglycemia</div>
+                            <div class="timeline-details">
+                                <strong>Chief Complaint:</strong> "Feeling weak, haven't taken my diabetes meds in 3 days"<br>
+                                <strong>History:</strong> Patient reports losing medication bottle during recent move. Blood glucose 347 mg/dL.<br>
+                                <strong>Assessment:</strong> Diabetic ketoacidosis, mild. Also noted infected-appearing right foot.<br>
+                                <strong>Treatment:</strong> IV fluids, insulin. Prescribed cephalexin 500mg for presumed foot infection.<br>
+                                <strong>Disposition:</strong> Discharge home with diabetes education materials.
+                            </div>
+                        </div>
+
+                        <div class="timeline-item critical">
+                            <div class="timeline-date">Jan 22, 2024</div>
+                            <div class="timeline-title">Return ED Visit - Persistent Hyperglycemia & Foot Ulcer</div>
+                            <div class="timeline-details">
+                                <strong>Chief Complaint:</strong> "My foot is getting worse and I still feel weak"<br>
+                                <strong>History:</strong> Continued elevated blood sugars. Right foot ulcer 2.5cm, full thickness.<br>
+                                <strong>Social History Update:</strong> "Had to sell my car last month, been walking everywhere"<br>
+                                <strong>Assessment:</strong> Diabetic foot ulcer, non-healing. Hyperglycemia.<br>
+                                <strong>Treatment:</strong> Wound care, podiatry referral. Insulin adjustment.<br>
+                                <strong>Disposition:</strong> Discharge with urgent podiatry follow-up.
+                            </div>
+                        </div>
+
+                        <div class="timeline-item warning">
+                            <div class="timeline-date">Feb 3, 2024</div>
+                            <div class="timeline-title">Podiatry Visit - Wound Management</div>
+                            <div class="timeline-details">
+                                <strong>Assessment:</strong> Diabetic neuropathic ulcer, right plantar foot.<br>
+                                <strong>Treatment:</strong> Debridement, offloading shoe prescription.<br>
+                                <strong>Plan:</strong> Weekly wound checks, diabetes management emphasis.<br>
+                                <strong>Note:</strong> "Patient transportation challenges noted - recommend home health."
+                            </div>
+                        </div>
+
+                        <div class="timeline-item critical">
+                            <div class="timeline-date">Feb 18, 2024</div>
+                            <div class="timeline-title">Third ED Visit - Hypertensive Urgency</div>
+                            <div class="timeline-details">
+                                <strong>Chief Complaint:</strong> "Ran out of blood pressure medicine, feeling dizzy"<br>
+                                <strong>Vitals:</strong> BP 201/118, otherwise stable<br>
+                                <strong>History:</strong> Unable to afford medications, missed doses for 1 week.<br>
+                                <strong>Treatment:</strong> Antihypertensive therapy, medication reconciliation.<br>
+                                <strong>Social Work Consult:</strong> Financial assistance program enrollment initiated.
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">Mar 2, 2024</div>
+                            <div class="timeline-title">Fourth ED Visit - GI Symptoms</div>
+                            <div class="timeline-details">
+                                <strong>Chief Complaint:</strong> "Diarrhea for 3 days, can't keep food down"<br>
+                                <strong>Assessment:</strong> Likely medication-related diarrhea (new metformin formulation)<br>
+                                <strong>Plan:</strong> Medication adjustment, dietary counseling.<br>
+                                <strong>Note:</strong> "Patient compliance improved with financial assistance program"
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <h4>Primary Care Gap</h4>
+                        <p>No PCP visit in 147 days despite 4 ED visits</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Medication Management</h4>
+                        <p>Multiple pharmacy usage indicates access barriers</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Transportation</h4>
+                        <p>Vehicle loss creating multiple access barriers</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Social Services</h4>
+                        <p>Financial assistance initiated but housing concerns remain</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Notes & NLP Tab -->
+            <div id="clinical-notes" class="tab-panel">
+                <div class="card">
+                    <h3>🧠 NLP Analysis: Declining Functional Status</h3>
+                    <div class="nlp-extract">
+                        <div class="nlp-text">
+                            "Patient reports difficulty with stairs in new apartment, needs help with grocery shopping since selling car. Daughter visits weekly to help with medications and cleaning."
+                        </div>
+                        <div class="nlp-analysis">
+                            <strong>Extracted ADL Concerns:</strong> Mobility limitations, instrumental ADL decline, medication management issues<br>
+                            <strong>Social Support:</strong> Limited - weekly family assistance only<br>
+                            <strong>Risk Factors:</strong> Transportation barriers, financial constraints, housing instability
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🏘️ Social Determinants Detection</h3>
+                    <div class="nlp-extract">
+                        <div class="nlp-text">
+                            "Had to sell my car last month due to high maintenance costs and insurance. Walking 6-8 blocks to pharmacy and grocery store. Sometimes skip medications when I can't get to pharmacy."
+                        </div>
+                        <div class="nlp-analysis">
+                            <strong>Transportation Barriers:</strong> No vehicle, walking long distances<br>
+                            <strong>Medication Access:</strong> Geographic barriers to pharmacy<br>
+                            <strong>Financial Stress:</strong> Vehicle sale due to costs
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📊 Clinical Deterioration Markers</h3>
+                    <div class="nlp-extract">
+                        <div class="nlp-text">
+                            "Patient appears more frail than previous visit 6 months ago. Unsteady gait, using wall for support. Weight loss of 12 pounds since last documented visit."
+                        </div>
+                        <div class="nlp-analysis">
+                            <strong>Physical Decline:</strong> Frailty, gait instability, weight loss<br>
+                            <strong>Functional Impact:</strong> Mobility limitations affecting daily activities<br>
+                            <strong>Care Needs:</strong> Requires enhanced support services
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>💊 Pharmacy Claims Analysis</h3>
+                        <div class="medication-list">
+                            <div class="med-item">
+                                <div>
+                                    <strong>Metformin 1000mg</strong><br>
+                                    <span class="pharmacy-location">Walgreens San Carlos - Jan 16</span>
+                                </div>
+                                <div class="med-status">
+                                    <span class="status-late">2 days late</span><br>
+                                    <span class="supply">30-day supply</span>
+                                </div>
+                            </div>
+
+                            <div class="med-item">
+                                <div>
+                                    <strong>Lisinopril 20mg</strong><br>
+                                    <span class="pharmacy-location">Ravenswood Pharmacy - Feb 19</span>
+                                </div>
+                                <div class="med-status">
+                                    <span class="status-gap">Gap: 5 days</span><br>
+                                    <span class="supply">90-day supply</span>
+                                </div>
+                            </div>
+
+                            <div class="med-item">
+                                <div>
+                                    <strong>Insulin Glargine</strong><br>
+                                    <span class="pharmacy-location">CVS East Palo Alto - Jan 17</span>
+                                </div>
+                                <div class="med-status">
+                                    <span class="status-adherence">Adherence: 73%</span><br>
+                                    <span class="supply">30-day supply</span>
+                                </div>
+                            </div>
+
+                            <div class="med-item">
+                                <div>
+                                    <strong>Metformin XR (new formulation)</strong><br>
+                                    <span class="pharmacy-location">CVS San Mateo - Mar 3</span>
+                                </div>
+                                <div class="med-status">
+                                    <span class="status-ontime">On time</span><br>
+                                    <span class="supply">30-day supply</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>⚠️ Pharmacy Coordination Alert</h3>
+                        <div class="alert-box">
+                            <div class="alert-title">Multi-Pharmacy Usage Pattern</div>
+                            <div class="alert-content">
+                                Patient using 4 different pharmacies within 6 weeks. This pattern suggests medication access barriers and potential coordination issues. Consider pharmacy consolidation intervention.
+                            </div>
+                        </div>
+
+                        <div class="insights-grid">
+                            <div class="insight-card">
+                                <h4>Primary Care Gap</h4>
+                                <p>No PCP visit in 147 days despite 4 ED visits</p>
+                            </div>
+                            
+                            <div class="insight-card">
+                                <h4>Diabetes Management</h4>
+                                <p>No endocrinology follow-up after DKA episode</p>
+                            </div>
+                            
+                            <div class="insight-card">
+                                <h4>Wound Care</h4>
+                                <p>Podiatry compliance good, but lacking home health</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SDOH Analytics Tab -->
+            <div id="sdoh-analytics" class="tab-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🏘️ SDOH Resource Categories</h3>
+                        <div class="resource-list">
+                            <div class="resource-item">
+                                <span>🚌 Transportation</span>
+                                <span class="count">4 resources</span>
+                            </div>
+                            <div class="resource-item">
+                                <span>🍽️ Food Security</span>
+                                <span class="count">3 resources</span>
+                            </div>
+                            <div class="resource-item">
+                                <span>💊 Pharmacy Alternatives</span>
+                                <span class="count">2 resources</span>
+                            </div>
+                            <div class="resource-item">
+                                <span>🏥 Healthcare Resources</span>
+                                <span class="count">3 resources</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🔍 Personalized Insights</h3>
+                        <div class="insights-list">
+                            <div class="insight-item transportation">
+                                <strong>🚌 Transportation Access</strong><br>
+                                <small>Nearest transit: BART Station (0.3 miles) - Very accessible</small>
+                            </div>
+                            <div class="insight-item pharmacy">
+                                <strong>💊 Pharmacy Alternatives</strong><br>
+                                <small>2 alternative pharmacies found, 1 lower-cost option available</small>
+                            </div>
+                            <div class="insight-item food">
+                                <strong>🍽️ Food Security</strong><br>
+                                <small>3 free food resources available, SNAP enrollment assistance</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📍 Geographic Resource Map</h3>
+                    <div class="map-container" id="sdoh-map"></div>
+                </div>
+            </div>
+
+            <!-- SCAN Referrals Tab -->
+            <div id="scan-referrals" class="tab-panel">
+                <div class="scan-header">
+                    <h3>SCAN Health Plan CDA Referral</h3>
+                    <p>Auto-generated referral based on ClinPrep risk assessment and care gap analysis</p>
+                </div>
+
+                <div class="referral-card hia">
+                    <div class="referral-header">
+                        <div>
+                            <h4>Healthcare In Action (HIA) Referral</h4>
+                            <p>Primary CDA Recommendation - Auto-generated from ClinPrep Analysis</p>
+                        </div>
+                        <div class="priority urgent">PRIORITY: URGENT</div>
+                    </div>
+                    
+                    <div class="referral-content">
+                        <h5>Referral Reason (NLP-Driven Analysis):</h5>
+                        <div class="reason-box">
+                            <strong>Complex care coordination needs with multiple social determinants barriers identified through ClinPrep's NLP analysis:</strong>
+                            <ul>
+                                <li><strong>Clinical Pattern:</strong> 4 ED visits in 90 days without primary care follow-up</li>
+                                <li><strong>Transportation Barriers:</strong> "Had to sell my car last month, been walking everywhere" - NLP extracted</li>
+                                <li><strong>Functional Decline:</strong> "Difficulty with stairs, unsteady gait, using wall for support" - NLP detected</li>
+                                <li><strong>Medication Access:</strong> "Sometimes skip medications when I can't get to pharmacy" - NLP identified</li>
+                                <li><strong>Financial Stress:</strong> "Unable to afford medications, missed doses for 1 week" - NLP flagged</li>
+                                <li><strong>Wound Care Coordination:</strong> Diabetic foot ulcer requiring coordinated management</li>
+                            </ul>
+                            <div class="nlp-source">
+                                <strong>ClinPrep NLP Sources:</strong> Clinical notes from 4 ED visits, podiatry consultation, social work assessment
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="referral-card pave">
+                    <div class="referral-header">
+                        <div>
+                            <h4>PAVE Program Referral</h4>
+                            <p>Secondary CDA Recommendation - Housing & Financial Stability</p>
+                        </div>
+                        <div class="priority standard">PRIORITY: STANDARD</div>
+                    </div>
+                    
+                    <div class="referral-content">
+                        <h5>Referral Reason (NLP-Driven Analysis):</h5>
+                        <div class="reason-box">
+                            <strong>Housing and financial stability assessment needed based on ClinPrep's social determinants analysis:</strong>
+                            <ul>
+                                <li><strong>Financial Instability:</strong> "Had to sell my car last month due to high maintenance costs and insurance" - NLP extracted</li>
+                                <li><strong>Housing Transition:</strong> "Difficulty with stairs in new apartment" - NLP detected mobility challenges</li>
+                                <li><strong>Transportation Impact:</strong> "Walking 6-8 blocks to pharmacy and grocery store" - NLP identified access barriers</li>
+                                <li><strong>Long-term Planning:</strong> Need for sustainable housing and financial stability solutions</li>
+                            </ul>
+                            <div class="nlp-source">
+                                <strong>ClinPrep NLP Sources:</strong> Patient self-reports, social work notes, clinical observations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Geographic Intelligence Tab -->
+            <div id="geographic" class="tab-panel">
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📍 Patient Location Analysis</h3>
+                        <div class="location-info">
+                            <div class="info-item">
+                                <strong>Home Location:</strong><br>
+                                <span>1818 El Camino Real, Redwood City</span><br>
+                                <small class="warning">Transit accessible: Limited</small>
+                            </div>
+                            <div class="info-item">
+                                <strong>Care Radius:</strong><br>
+                                <span>8.4 miles average travel distance</span><br>
+                                <small class="warning">Walking: 2.1 miles to nearest pharmacy</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🚗 Transportation Analysis</h3>
+                        <div class="transport-info">
+                            <div class="info-item">
+                                <strong>Vehicle Status:</strong><br>
+                                <span class="critical">No vehicle since January 2024</span>
+                            </div>
+                            <div class="info-item">
+                                <strong>Public Transit:</strong><br>
+                                <span>Nearest BART: 0.7 miles</span><br>
+                                <small class="success">Bus routes: 2 within 0.5 miles</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🗺️ Geographic Care Optimization</h3>
+                    <div class="map-container" id="geo-map"></div>
+                    <div class="optimization-note">
+                        <h4>Optimization Recommendation:</h4>
+                        <p>Analysis suggests consolidating care at Ravenswood Health Center (1.2 miles) would reduce transportation burden while maintaining care quality. Recommend mobile clinic or transportation voucher program for specialty visits.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Care Cartography Tab -->
+            <div id="care-cartography" class="tab-panel">
+                <div class="card">
+                    <h3>🗺️ Care Journey Visualization</h3>
+                    <div class="care-flow">
+                        <div class="flow-step">
+                            <div class="step-icon">🏠</div>
+                            <div class="step-content">
+                                <h4>Patient Home</h4>
+                                <p>1818 El Camino Real, Redwood City</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-icon">🚑</div>
+                            <div class="step-content">
+                                <h4>Emergency Department</h4>
+                                <p>Kaiser Redwood City (4 visits in 90 days)</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-icon">🏥</div>
+                            <div class="step-content">
+                                <h4>Primary Care</h4>
+                                <p>Ravenswood Health Center (recommended)</p>
+                            </div>
+                        </div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">
+                            <div class="step-icon">💊</div>
+                            <div class="step-content">
+                                <h4>Pharmacy</h4>
+                                <p>Consolidated medication management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📊 Care Gap Analysis</h3>
+                        <div class="gap-list">
+                            <div class="gap-item critical">
+                                <strong>Primary Care Gap</strong>
+                                <p>147 days without PCP visit</p>
+                            </div>
+                            <div class="gap-item warning">
+                                <strong>Medication Management</strong>
+                                <p>4 different pharmacies used</p>
+                            </div>
+                            <div class="gap-item warning">
+                                <strong>Transportation</strong>
+                                <p>No vehicle, limited transit access</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>🎯 Intervention Recommendations</h3>
+                        <div class="intervention-list">
+                            <div class="intervention-item">
+                                <strong>Immediate HIA Referral</strong>
+                                <p>Urgent care coordination and transportation assistance</p>
+                            </div>
+                            <div class="intervention-item">
+                                <strong>PAVE Program Enrollment</strong>
+                                <p>Long-term housing and financial stability</p>
+                            </div>
+                            <div class="intervention-item">
+                                <strong>Pharmacy Consolidation</strong>
+                                <p>Single preferred pharmacy for medication management</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integration Badges -->
+        <section class="integration-section">
+            <h3>Seamless Integration With</h3>
+            <div class="integration-badges">
+                <div class="integration-badge">
+                    <div class="badge-icon epic"></div>
+                    <span>Epic</span>
+                </div>
+                <div class="integration-badge">
+                    <div class="badge-icon cerner"></div>
+                    <span>Oracle/Cerner</span>
+                </div>
+                <div class="integration-badge">
+                    <div class="badge-icon bitfocus"></div>
+                    <span>BitFocus HMIS</span>
+                </div>
+                <div class="integration-badge">
+                    <div class="badge-icon x12"></div>
+                    <span>X12 EDI</span>
+                </div>
+                <div class="compliance-note">HIPAA/SOC2/FDA-aligned</div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

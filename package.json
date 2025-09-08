@@ -1,0 +1,48 @@
+{
+  "name": "clinprep-scan-demo",
+  "version": "1.0.0",
+  "description": "ClinPrep HealthPilot SCAN Health Plan Integration Demo",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "serve": "npx http-server -p 8000 -o",
+    "dev": "npx live-server --port=8000 --open=/",
+    "build": "echo 'No build process needed - static files only'",
+    "test": "echo 'No tests configured'",
+    "lint": "echo 'No linting configured'",
+    "deploy": "gh-pages -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelryder/clinprep-scan-demo.git"
+  },
+  "keywords": [
+    "healthcare",
+    "patient-intelligence",
+    "sdoh",
+    "scan-health-plan",
+    "medicare-advantage",
+    "care-coordination",
+    "health-analytics",
+    "clinical-decision-support"
+  ],
+  "author": "Michael Ryder <michael@clinprep.health>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelryder/clinprep-scan-demo/issues"
+  },
+  "homepage": "https://michaelryder.github.io/clinprep-scan-demo/",
+  "devDependencies": {
+    "gh-pages": "^6.0.0",
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

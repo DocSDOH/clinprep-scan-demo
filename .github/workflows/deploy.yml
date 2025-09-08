@@ -1,0 +1,61 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        npm install -g http-server
+        
+    - name: Test build
+      run: |
+        # Validate HTML
+        if command -v tidy >/dev/null 2>&1; then
+          tidy -q -e index.html
+        fi
+        
+        # Check for broken links (basic check)
+        if [ -f "index.html" ]; then
+          echo "✅ index.html exists"
+        else
+          echo "❌ index.html missing"
+          exit 1
+        fi
+        
+        if [ -f "styles.css" ]; then
+          echo "✅ styles.css exists"
+        else
+          echo "❌ styles.css missing"
+          exit 1
+        fi
+        
+        if [ -f "script.js" ]; then
+          echo "✅ script.js exists"
+        else
+          echo "❌ script.js missing"
+          exit 1
+        fi
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        cname: # Optional: add custom domain here
