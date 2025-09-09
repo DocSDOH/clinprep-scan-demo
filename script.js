@@ -86,6 +86,22 @@ function flipCard(card) {
     card.classList.toggle('flipped');
 }
 
+// CDA Card toggling functionality
+function toggleCDA(header) {
+    const card = header.parentElement;
+    const content = card.querySelector('.cda-content');
+    
+    if (content.style.display === 'none') {
+        content.style.display = 'block';
+        card.classList.remove('collapsed');
+        card.classList.add('expanded');
+    } else {
+        content.style.display = 'none';
+        card.classList.remove('expanded');
+        card.classList.add('collapsed');
+    }
+}
+
 // Map initialization functions
 function initializeMaps() {
     // Initialize geographic map if the tab is active

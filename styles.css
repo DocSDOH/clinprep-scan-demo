@@ -1012,12 +1012,39 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.cda-header:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .cda-header h4 {
     color: #1e293b;
     margin: 0;
     font-size: 1.125rem;
+}
+
+.priority {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.priority.recommended {
+    background-color: #dc2626;
+    color: white;
+}
+
+.priority.consider {
+    background-color: #64748b;
+    color: white;
 }
 
 .cda-content h5 {
