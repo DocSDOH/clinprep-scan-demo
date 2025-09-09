@@ -123,11 +123,12 @@ function initCareMap() {
         
         // Care sites with accurate coordinates
         const careSites = [
-            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "ED Visits (2)", color: "#ef4444", address: "1150 Veterans Blvd, Redwood City, CA 94063" },
-            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "ED Visits (2)", color: "#3b82f6", address: "300 Pasteur Dr, Stanford, CA 94305" },
-            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#10b981", address: "222 W 39th Ave, San Mateo, CA 94403" },
-            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#8b5cf6", address: "1885 Bay Rd, East Palo Alto, CA 94303" },
-            { name: "Fair Oaks Community Center", lat: 37.4852, lng: -122.2364, type: "HSA Office", color: "#f59e0b", address: "2600 Middlefield Rd, Redwood City, CA 94063" }
+            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "ED Visits (2)", color: "#dc2626", address: "1150 Veterans Blvd, Redwood City, CA 94063" },
+            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "ED Visits (2)", color: "#dc2626", address: "300 Pasteur Dr, Stanford, CA 94305" },
+            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#ea580c", address: "222 W 39th Ave, San Mateo, CA 94403" },
+            { name: "Stanford Menlo Park Internal Medicine", lat: 37.4538, lng: -122.1817, type: "PCP (AWV/WMV)", color: "#059669", address: "1300 Crane St, Menlo Park, CA 94025" },
+            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#7c3aed", address: "1885 Bay Rd, East Palo Alto, CA 94303" },
+            { name: "Fair Oaks Community Center", lat: 37.4852, lng: -122.2364, type: "HSA Office", color: "#d97706", address: "2600 Middlefield Rd, Redwood City, CA 94063" }
         ];
         
         careSites.forEach(site => {
@@ -202,10 +203,11 @@ function initGeoMap() {
         
         // Healthcare facilities (accurate Bay Area locations)
         const facilities = [
-            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "Emergency Department", color: "#ef4444" },
-            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "Emergency Department", color: "#3b82f6" },
-            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#10b981" },
-            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#8b5cf6" }
+            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "Emergency Department", color: "#dc2626" },
+            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "Emergency Department", color: "#dc2626" },
+            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#ea580c" },
+            { name: "Stanford Menlo Park Internal Medicine", lat: 37.4538, lng: -122.1817, type: "PCP (AWV/WMV)", color: "#059669" },
+            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#7c3aed" }
         ];
         
         const markers = [patientMarker];

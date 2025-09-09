@@ -40,13 +40,18 @@
 
     <!-- Main Content -->
     <main class="main-content">
+        <!-- Banner Statement -->
+        <section class="banner-section">
+            <h1 class="banner-title">Orchestrating Pathways</h1>
+            <p class="banner-subtitle">Transforming fragmented data into high-intent asset utilization and protection at the margin</p>
+        </section>
+
         <!-- KPI Dashboard -->
         <section class="kpi-section">
             <h2 class="section-title">Key Performance Indicators</h2>
             <div class="kpi-grid">
                 <div class="kpi-card" onclick="flipCard(this)">
                     <div class="kpi-front">
-                        <div class="kpi-icon">🎯</div>
                         <div class="kpi-value">0.0%</div>
                         <div class="kpi-title">Algorithmic Bias Rate</div>
                         <div class="kpi-subtitle">Zero bias across validated CMS Medicare ethnicity data</div>
@@ -63,7 +68,6 @@
 
                 <div class="kpi-card" onclick="flipCard(this)">
                     <div class="kpi-front">
-                        <div class="kpi-icon">📊</div>
                         <div class="kpi-value">98.2%</div>
                         <div class="kpi-title">Population Coverage</div>
                         <div class="kpi-subtitle">Validated across 98.2% of Medicare patients</div>
@@ -80,7 +84,6 @@
 
                 <div class="kpi-card" onclick="flipCard(this)">
                     <div class="kpi-front">
-                        <div class="kpi-icon">⚠️</div>
                         <div class="kpi-value">4</div>
                         <div class="kpi-title">ED Visits in 6 Months</div>
                         <div class="kpi-subtitle">Multiple system utilization without coordination</div>
@@ -97,7 +100,6 @@
 
                 <div class="kpi-card" onclick="flipCard(this)">
                     <div class="kpi-front">
-                        <div class="kpi-icon">✅</div>
                         <div class="kpi-value">✓</div>
                         <div class="kpi-title">CDA Integration Ready</div>
                         <div class="kpi-subtitle">Automated referral generation with full context</div>
@@ -144,8 +146,8 @@
                 </div>
 
                 <div class="grid-2">
-                    <div class="card">
-                        <h3>🏥 ED Visit #1 - Kaiser Redwood City</h3>
+                <div class="card">
+                    <h3>ED Visit #1 - Kaiser Redwood City</h3>
                         <div class="claims-details">
                             <div class="claim-item">
                                 <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
@@ -160,7 +162,7 @@
                     </div>
                     
                     <div class="card">
-                        <h3>🏥 ED Visit #2 - Stanford Medical Center</h3>
+                        <h3>ED Visit #2 - Stanford Medical Center</h3>
                         <div class="claims-details">
                             <div class="claim-item">
                                 <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
@@ -177,7 +179,7 @@
 
                 <div class="grid-2">
                     <div class="card">
-                        <h3>🏥 ED Visit #3 - Kaiser Redwood City</h3>
+                        <h3>ED Visit #3 - Kaiser Redwood City</h3>
                         <div class="claims-details">
                             <div class="claim-item">
                                 <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
@@ -193,7 +195,7 @@
                     </div>
                     
                     <div class="card">
-                        <h3>🏥 ED Visit #4 - Stanford Medical Center</h3>
+                        <h3>ED Visit #4 - Stanford Medical Center</h3>
                         <div class="claims-details">
                             <div class="claim-item">
                                 <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
@@ -209,7 +211,7 @@
                 </div>
 
                 <div class="card">
-                    <h3>💊 Pharmacy Claims Pattern</h3>
+                    <h3>Pharmacy Claims Pattern</h3>
                     <div class="pharmacy-claims">
                         <div class="claim-item">
                             <strong>Mail Order Pharmacy:</strong> 90-day refills sent to 2014 El Camino Real, Redwood City, CA<br>
@@ -368,7 +370,7 @@
             <div id="geographic-intelligence" class="tab-panel">
                 <div class="grid-2">
                     <div class="card">
-                        <h3>📍 Patient Location Analysis</h3>
+                        <h3>Patient Location Analysis</h3>
                         <div class="location-details">
                             <div class="location-item">
                                 <strong>Current Address:</strong> 2014 El Camino Real, Redwood City, CA 94063<br>
@@ -380,7 +382,7 @@
                     </div>
                     
                     <div class="card">
-                        <h3>🚗 Transportation Analysis</h3>
+                        <h3>Transportation Analysis</h3>
                         <div class="transport-details">
                             <div class="transport-item">
                                 <strong>Vehicle Status:</strong> Sold due to financial constraints<br>
@@ -393,7 +395,7 @@
                 </div>
 
                 <div class="card">
-                    <h3>🗺️ Care Radius Analysis</h3>
+                    <h3>Care Radius Analysis</h3>
                     <div class="map-container" id="geo-map"></div>
                     <div class="care-distances">
                         <div class="distance-grid">
@@ -405,6 +407,9 @@
                             </div>
                             <div class="distance-item">
                                 <strong>San Mateo Medical Center:</strong> 3.2 miles (public transit: 45 minutes)
+                            </div>
+                            <div class="distance-item">
+                                <strong>Stanford Menlo Park Internal Medicine:</strong> 1.2 miles (walking: 24 minutes)
                             </div>
                             <div class="distance-item">
                                 <strong>CVS East Palo Alto:</strong> 4.1 miles (public transit: 1 hour)
