@@ -1,7 +1,7 @@
 // Global variables
-let currentTab = 'patient-intelligence';
-let sdohMap = null;
+let currentTab = 'claims-analysis';
 let geoMap = null;
+let careMap = null;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -74,13 +74,10 @@ function showTab(tabName) {
     currentTab = tabName;
     
     // Initialize maps when their tabs are shown
-    if (tabName === 'sdoh-analytics' && !sdohMap) {
-        initSDOHMap();
-    } else if (tabName === 'geographic' && !geoMap) {
+    if (tabName === 'geographic-intelligence' && !geoMap) {
         initGeoMap();
-    } else if (tabName === 'clinical-notes') {
-        // Initialize any clinical notes specific functionality
-        console.log('Clinical Notes & NLP tab activated');
+    } else if (tabName === 'care-cartography' && !careMap) {
+        initCareMap();
     }
 }
 
@@ -91,28 +88,28 @@ function flipCard(card) {
 
 // Map initialization functions
 function initializeMaps() {
-    // Initialize SDOH map if the tab is active
-    if (currentTab === 'sdoh-analytics') {
-        initSDOHMap();
+    // Initialize geographic map if the tab is active
+    if (currentTab === 'geographic-intelligence') {
+        initGeoMap();
     }
     
-    // Initialize geographic map if the tab is active
-    if (currentTab === 'geographic') {
-        initGeoMap();
+    // Initialize care cartography map if the tab is active
+    if (currentTab === 'care-cartography') {
+        initCareMap();
     }
 }
 
-function initSDOHMap() {
-    if (sdohMap || !document.getElementById('sdoh-map')) return;
+function initCareMap() {
+    if (careMap || !document.getElementById('care-map')) return;
     
     try {
-        sdohMap = L.map('sdoh-map').setView([37.4852, -122.2364], 13);
+        careMap = L.map('care-map').setView([37.4852, -122.2364], 11);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
-        }).addTo(sdohMap);
+        }).addTo(careMap);
         
-        // Patient home marker (Redwood City, CA)
+        // Patient home marker
         const patientMarker = L.marker([37.4852, -122.2364], {
             icon: L.divIcon({
                 className: 'custom-marker',
@@ -120,40 +117,64 @@ function initSDOHMap() {
                 iconSize: [20, 20],
                 iconAnchor: [10, 10]
             })
-        }).bindPopup('<b>Andre P.</b><br>Patient Home<br>Risk Score: 8.3');
+        }).bindPopup('<b>Andre P.</b><br>2014 El Camino Real<br>Redwood City, CA 94063');
         
-        patientMarker.addTo(sdohMap);
+        patientMarker.addTo(careMap);
         
-        // SDOH Resources (accurate Bay Area locations)
-        const resources = [
-            { name: "Redwood City BART", lat: 37.4852, lng: -122.2364, type: "Transportation", color: "#2196F3" },
-            { name: "Second Harvest Food Bank", lat: 37.4852, lng: -122.2364, type: "Food Security", color: "#4CAF50" },
-            { name: "Walgreens Redwood City", lat: 37.4852, lng: -122.2364, type: "Pharmacy", color: "#FF9800" },
-            { name: "Ravenswood Health Center", lat: 37.4852, lng: -122.2364, type: "Healthcare", color: "#9C27B0" }
+        // Care sites with accurate coordinates
+        const careSites = [
+            { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "ED Visits (2)", color: "#ef4444", address: "1150 Veterans Blvd, Redwood City, CA 94063" },
+            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "ED Visits (2)", color: "#3b82f6", address: "300 Pasteur Dr, Stanford, CA 94305" },
+            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#10b981", address: "222 W 39th Ave, San Mateo, CA 94403" },
+            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#8b5cf6", address: "1885 Bay Rd, East Palo Alto, CA 94303" },
+            { name: "Fair Oaks Community Center", lat: 37.4852, lng: -122.2364, type: "HSA Office", color: "#f59e0b", address: "2600 Middlefield Rd, Redwood City, CA 94063" }
         ];
         
-        resources.forEach(resource => {
-            const marker = L.marker([resource.lat, resource.lng], {
+        careSites.forEach(site => {
+            const marker = L.marker([site.lat, site.lng], {
                 icon: L.divIcon({
                     className: 'custom-marker',
-                    html: `<div style="background: ${resource.color}; width: 14px; height: 14px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-                    iconSize: [14, 14],
-                    iconAnchor: [7, 7]
+                    html: `<div style="background: ${site.color}; width: 16px; height: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+                    iconSize: [16, 16],
+                    iconAnchor: [8, 8]
                 })
-            }).bindPopup(`<b>${resource.name}</b><br>${resource.type}`);
+            }).bindPopup(`<b>${site.name}</b><br>${site.type}<br>${site.address}`);
             
-            marker.addTo(sdohMap);
+            marker.addTo(careMap);
+            
+            // Add journey line from patient home
+            const line = L.polyline([
+                [37.4852, -122.2364],
+                [site.lat, site.lng]
+            ], {
+                color: site.color,
+                weight: 2,
+                opacity: 0.6,
+                dashArray: '5, 5'
+            });
+            
+            line.addTo(careMap);
         });
         
-        // Fit map to show all markers
-        const group = new L.featureGroup([patientMarker, ...resources.map(r => L.marker([r.lat, r.lng]))]);
-        sdohMap.fitBounds(group.getBounds().pad(0.1));
+        // Add county boundaries (simplified)
+        const sanMateoCounty = L.polygon([
+            [37.7, -122.5],
+            [37.7, -122.0],
+            [37.3, -122.0],
+            [37.3, -122.5]
+        ], {
+            color: '#0369a1',
+            weight: 2,
+            opacity: 0.3,
+            fillOpacity: 0.1
+        }).bindPopup('San Mateo County').addTo(careMap);
         
-        // Set initial view to Redwood City area
-        sdohMap.setView([37.4852, -122.2364], 13);
+        // Fit map to show all markers
+        const group = new L.featureGroup([patientMarker, ...careSites.map(s => L.marker([s.lat, s.lng]))]);
+        careMap.fitBounds(group.getBounds().pad(0.1));
         
     } catch (error) {
-        console.error('Error initializing SDOH map:', error);
+        console.error('Error initializing care cartography map:', error);
     }
 }
 
@@ -182,8 +203,9 @@ function initGeoMap() {
         // Healthcare facilities (accurate Bay Area locations)
         const facilities = [
             { name: "Kaiser Redwood City", lat: 37.4852, lng: -122.2364, type: "Emergency Department", color: "#ef4444" },
-            { name: "Ravenswood Health Center", lat: 37.4852, lng: -122.2364, type: "Primary Care", color: "#10b981" },
-            { name: "San Mateo Medical Center", lat: 37.4852, lng: -122.2364, type: "Podiatry", color: "#3b82f6" }
+            { name: "Stanford Medical Center", lat: 37.4339, lng: -122.1700, type: "Emergency Department", color: "#3b82f6" },
+            { name: "San Mateo Medical Center", lat: 37.5631, lng: -122.3580, type: "Podiatry", color: "#10b981" },
+            { name: "Ravenswood Health Center", lat: 37.4683, lng: -122.1431, type: "SCAN Preferred", color: "#8b5cf6" }
         ];
         
         const markers = [patientMarker];
