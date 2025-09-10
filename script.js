@@ -116,10 +116,10 @@ function initializeMaps() {
 }
 
 function initCareMap() {
-    if (careMap || !document.getElementById('care-map')) return;
+    if (careMap || !document.getElementById('careMap')) return;
     
     try {
-        careMap = L.map('care-map').setView([37.4852, -122.2364], 11);
+        careMap = L.map('careMap').setView([37.4852, -122.2364], 11);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
@@ -196,10 +196,10 @@ function initCareMap() {
 }
 
 function initGeoMap() {
-    if (geoMap || !document.getElementById('geo-map')) return;
+    if (geoMap || !document.getElementById('geoMap')) return;
     
     try {
-        geoMap = L.map('geo-map').setView([37.4852, -122.2364], 12);
+        geoMap = L.map('geoMap').setView([37.4852, -122.2364], 12);
         
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors'
@@ -398,4 +398,5 @@ window.addEventListener('load', logPerformance);
 // Export functions for global access
 window.showTab = showTab;
 window.flipCard = flipCard;
+window.toggleCDA = toggleCDA;
 window.exportDashboard = exportDashboard;
