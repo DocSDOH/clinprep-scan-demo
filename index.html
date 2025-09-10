@@ -282,122 +282,93 @@
             <!-- Integration Architecture Tab -->
             <div id="integration-architecture" class="tab-panel">
                 <div class="integration-content">
-                    <h3>Integration Architecture</h3>
-                    <div class="integration-overview">
-                        <div class="integration-flow">
-                            <div class="flow-step">
-                                <div class="step-content">
-                                    <h4>Data Sources</h4>
-                                    <p>Core EMR systems, pharmacy claims feeds, payer eligibility data</p>
+                    <!-- Technical Integration Overview Card -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">Technical Integration Overview</h3>
+                        <div class="integration-overview">
+                            <div class="integration-flow">
+                                <div class="flow-step">
+                                    <div class="step-content">
+                                        <h4>Data Sources</h4>
+                                        <p>Core EMR systems, pharmacy claims feeds, payer eligibility data</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flow-arrow">→</div>
-                            <div class="flow-step">
-                                <div class="step-content">
-                                    <h4>NLP Processing</h4>
-                                    <p>Automated extraction of clinical signals and social determinants</p>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <div class="step-content">
+                                        <h4>NLP Processing</h4>
+                                        <p>Automated extraction of clinical signals and social determinants</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="flow-arrow">→</div>
-                            <div class="flow-step">
-                                <div class="step-content">
-                                    <h4>Referral Generation</h4>
-                                    <p>High-fidelity referrals with clinical evidence trail</p>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-step">
+                                    <div class="step-content">
+                                        <h4>Referral Generation</h4>
+                                        <p>High-fidelity referrals with clinical evidence trail</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="high-level-integration">
-                        <h4>High-level integration (no proprietary detail)</h4>
+
+                    <!-- High-level Integration Card -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">High-level integration (no proprietary detail)</h3>
                         <div class="integration-steps">
-                            <div class="integration-step">
-                                <div class="step-number">1</div>
+                            <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 16px;">
+                                <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">1</div>
                                 <div class="step-content">
-                                    <h5>Ingest</h5>
-                                    <p>Secure, read-only connectors to EMR systems and claims feeds</p>
+                                    <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Ingest</h5>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">Secure, read-only connectors to EMR systems and claims feeds</p>
                                 </div>
                             </div>
-                            <div class="integration-step">
-                                <div class="step-number">2</div>
+                            <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 16px;">
+                                <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">2</div>
                                 <div class="step-content">
-                                    <h5>Normalize</h5>
-                                    <p>Standardize claims and clinical notes into internal canonical format</p>
+                                    <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Normalize</h5>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">Standardize claims and clinical notes into internal canonical format</p>
                                 </div>
                             </div>
-                            <div class="integration-step">
-                                <div class="step-number">3</div>
+                            <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 16px;">
+                                <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">3</div>
                                 <div class="step-content">
-                                    <h5>Signal Extraction</h5>
-                                    <p>NLP extracts candidate SDOH and clinical gaps</p>
+                                    <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Signal Extraction</h5>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">NLP extracts candidate SDOH and clinical gaps</p>
                                 </div>
                             </div>
-                            <div class="integration-step">
-                                <div class="step-number">4</div>
+                            <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 0;">
+                                <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">4</div>
                                 <div class="step-content">
-                                    <h5>Action Routing</h5>
-                                    <p>High-fidelity referrals are queued to existing SCAN programs</p>
+                                    <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Action Routing</h5>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">High-fidelity referrals are queued to existing SCAN programs</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="security-note">
-                            <p><strong>Security Note:</strong> In-network deployment with HIPAA alignment. All data processing occurs within SCAN's secure environment.</p>
+                        
+                        <div style="background: var(--light-gray); border-radius: 8px; padding: 16px; margin-top: 20px;">
+                            <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);"><strong>Security Note:</strong> In-network deployment with HIPAA alignment. All data processing occurs within SCAN's secure environment.</p>
                         </div>
                     </div>
 
-                    <div class="integration-checklist">
-                        <h4>Integration Checklist</h4>
-                        <div class="checklist-item">
-                            <div class="checklist-header" onclick="toggleChecklist(this)">
-                                <span class="checklist-title">Operational fit</span>
-                                <span class="checklist-toggle">+</span>
+                    <!-- Integration Checklist Card -->
+                    <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">Integration Checklist for CIO</h3>
+                        <div class="checklist-grid" style="display: grid; gap: 16px;">
+                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
+                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Operational fit</h5>
+                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Lightweight, vendor-neutral connectors to existing EHRs</p>
                             </div>
-                            <div class="checklist-content">
-                                <p>Lightweight, vendor-neutral connectors to existing EHRs</p>
+                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
+                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Financial impact</h5>
+                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Preserves margin by preventing post-risk-adjustment utilization spikes</p>
                             </div>
-                        </div>
-                        <div class="checklist-item">
-                            <div class="checklist-header" onclick="toggleChecklist(this)">
-                                <span class="checklist-title">Financial impact</span>
-                                <span class="checklist-toggle">+</span>
+                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
+                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Security & compliance</h5>
+                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">HIPAA-safe, deployable within SCAN environment</p>
                             </div>
-                            <div class="checklist-content">
-                                <p>Preserves margin by preventing post-risk-adjustment utilization spikes</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item">
-                            <div class="checklist-header" onclick="toggleChecklist(this)">
-                                <span class="checklist-title">Security & compliance</span>
-                                <span class="checklist-toggle">+</span>
-                            </div>
-                            <div class="checklist-content">
-                                <p>HIPAA-safe, deployable within SCAN environment</p>
-                            </div>
-                        </div>
-                        <div class="checklist-item">
-                            <div class="checklist-header" onclick="toggleChecklist(this)">
-                                <span class="checklist-title">Actionability</span>
-                                <span class="checklist-toggle">+</span>
-                            </div>
-                            <div class="checklist-content">
-                                <p>Referral triggers routed to existing SCAN programs</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="technical-specs">
-                        <h4>Technical Specifications</h4>
-                        <div class="spec-grid">
-                            <div class="spec-item">
-                                <strong>Security:</strong> Enterprise-grade security and compliance framework
-                            </div>
-                            <div class="spec-item">
-                                <strong>Integration:</strong> HIPAA-compliant data pipeline
-                            </div>
-                            <div class="spec-item">
-                                <strong>Scalability:</strong> Cloud-native architecture
-                            </div>
-                            <div class="spec-item">
-                                <strong>Audit:</strong> Transparent methodology with full audit capabilities
+                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
+                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Actionability</h5>
+                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Referral triggers routed to existing SCAN programs</p>
                             </div>
                         </div>
                     </div>
