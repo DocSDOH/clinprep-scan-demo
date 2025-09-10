@@ -431,7 +431,7 @@ function initializeStoryCurve() {
     storyChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['Baseline', 'Jan 15', 'Feb 12', 'Feb 19', 'Mar 25', 'Apr 2'],
+            labels: ['Baseline', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5'],
             datasets: [{
                 data: storyData[currentStoryMode].data,
                 borderColor: storyData[currentStoryMode].color,
