@@ -1,7 +1,5 @@
 // Global variables
-let currentTab = 'claims-analysis';
-let geoMap = null;
-let careMap = null;
+let currentTab = 'clinical-intelligence';
 let storyChart = null;
 let currentStoryMode = 'current';
 let dashboardVisible = false;
@@ -17,9 +15,6 @@ function initializeApp() {
     
     // Initialize story curve
     initializeStoryCurve();
-    
-    // Initialize maps when needed
-    initializeMaps();
     
     // Set default population
     updatePopulationDisplay('ma-medicare');
@@ -78,21 +73,6 @@ function showTab(tabName) {
     
     // Update current tab
     currentTab = tabName;
-    
-    // Initialize charts and maps when their tabs are shown
-    if (tabName === 'clinical-intelligence') {
-        setTimeout(() => {
-            initializeClinicalChart();
-        }, 100);
-    } else if (tabName === 'care-geography') {
-        setTimeout(() => {
-            initCareGeographyMap();
-        }, 100);
-    } else if (tabName === 'geographic-intelligence' && !geoMap) {
-        initGeoMap();
-    } else if (tabName === 'care-cartography' && !careMap) {
-        initCareMap();
-    }
 }
 
 // KPI Card flipping functionality

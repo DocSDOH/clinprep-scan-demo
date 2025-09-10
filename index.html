@@ -6,6 +6,7 @@
     <title>Strategic Care Optimization Platform - Executive Review</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .company-logo {
             height: 40px;
@@ -116,210 +117,82 @@
             </div>
         </div>
 
-        <!-- Clean Tab Navigation -->
+        <!-- Simplified Tab Navigation -->
         <div class="tab-navigation">
-            <button class="tab-btn active" onclick="showTab('key-outcomes')">Key Outcomes</button>
-            <button class="tab-btn" onclick="showTab('clinical-intelligence')">Clinical Intelligence</button>
-            <button class="tab-btn" onclick="showTab('integration-architecture')">Integration Architecture</button>
-            <button class="tab-btn" onclick="showTab('care-geography')">Care Geography</button>
+            <button class="tab-btn active" onclick="showTab('clinical-intelligence')">Clinical Intelligence</button>
+            <button class="tab-btn" onclick="showTab('summary-analysis')">Summary Analysis</button>
         </div>
 
-        <!-- Clean Tab Content -->
+        <!-- Tab Content -->
         <div class="tab-content">
-            <!-- Key Outcomes Tab -->
-            <div id="key-outcomes" class="tab-panel active">
-                <div class="outcomes-content">
-                    <h3>Key Outcomes</h3>
-                    <div class="outcome-grid">
-                        <div class="outcome-item">
-                            <h4>High-fidelity Care Asset Deployment</h4>
-                            <p>Precise targeting of care coordination resources while limiting runaway costs at the margin</p>
-                        </div>
-                        <div class="outcome-item">
-                            <h4>Context Visibility for Care Gaps</h4>
-                            <p>Complete visibility into each care gap with underlying social determinants and barriers</p>
-                        </div>
-                        <div class="outcome-item">
-                            <h4>Zero Workflow Disruption</h4>
-                            <p>Seamless cross-system integration without impacting existing clinical workflows</p>
-                        </div>
-                        <div class="outcome-item">
-                            <h4>Auto Referral Generation</h4>
-                            <p>Automated referral generation with clinical evidence trail and audit capabilities</p>
-                        </div>
-                    </div>
-                    <div class="risk-mitigation">
-                        <h4>Risk Mitigation</h4>
-                        <div class="risk-grid">
-                            <div class="risk-item">Zero algorithmic bias across validated populations</div>
-                            <div class="risk-item">Enterprise security and compliance framework</div>
-                            <div class="risk-item">Transparent methodology with audit capabilities</div>
-                            <div class="risk-item">Existing data utilization (no new collection requirements)</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Clinical Intelligence Tab -->
-            <div id="clinical-intelligence" class="tab-panel">
+            <div id="clinical-intelligence" class="tab-panel active">
                 <div class="clinical-content">
-                    <h3>Clinical Intelligence & CDA Referrals</h3>
-                    <div class="story-container">
-                        <canvas id="clinicalStoryCurve" class="story-canvas"></canvas>
-                    </div>
-                    <div class="clinical-insights">
-                        <h4>Key Clinical Insights</h4>
-                        <div class="insight-grid">
-                            <div class="insight-item">
-                                <strong>Medication Adherence Patterns:</strong> Identified through routine documentation analysis
-                            </div>
-                            <div class="insight-item">
-                                <strong>Social Determinants:</strong> Transportation barriers surfaced via NLP extraction
-                            </div>
-                            <div class="insight-item">
-                                <strong>Care Coordination Gaps:</strong> Cross-system communication breakdowns identified
-                            </div>
-                            <div class="insight-item">
-                                <strong>Risk Stratification:</strong> Early intervention opportunities detected
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sanitized-claims">
-                        <h4>Sanitized Claims & NLP</h4>
-                        <div class="claims-table-container">
-                            <table class="claims-table">
-                                <thead>
-                                    <tr>
-                                        <th>Period</th>
-                                        <th>Site (redacted)</th>
-                                        <th>Primary DX</th>
-                                        <th>CPT</th>
-                                        <th>Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Dec 2023</td>
-                                        <td>PCP Office A</td>
-                                        <td>Z00.00</td>
-                                        <td>99397</td>
-                                        <td>AWV: Normal EKG, updated screening tests, controlled conditions</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jan 2024</td>
-                                        <td>PCP Office A</td>
-                                        <td>Z00.00</td>
-                                        <td>99213</td>
-                                        <td>Routine follow-up: Weight gain noted, obesity diagnosis added</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jan 15, 2024</td>
-                                        <td>ED Facility B</td>
-                                        <td>E11.65</td>
-                                        <td>99284</td>
-                                        <td>ED #1: Hyperglycemia, glucose 400 mg/dL, medication non-adherence</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Feb 12, 2024</td>
-                                        <td>ED Facility C</td>
-                                        <td>E11.65</td>
-                                        <td>99284</td>
-                                        <td>ED #2: Ran out of insulin, stage 2 ulcer documented but coded as foot pain</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Feb 19, 2024</td>
-                                        <td>Specialty Clinic D</td>
-                                        <td>L97.429</td>
-                                        <td>99213</td>
-                                        <td>Podiatry: Properly diagnosed stage 2 diabetic ulcer left heel</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Mar 25, 2024</td>
-                                        <td>ED Facility B</td>
-                                        <td>I16.0</td>
-                                        <td>99284</td>
-                                        <td>ED #3: Hypertensive urgency, ran out of all meds, social work consult</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apr 2, 2024</td>
-                                        <td>ED Facility C</td>
-                                        <td>K59.1</td>
-                                        <td>99284</td>
-                                        <td>ED #4: GI symptoms, likely medication-related diarrhea</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="nlp-note">
-                            <p><strong>Note:</strong> NLP summaries are clinician-facing interpretations (sanitized). Underlying scoring and weights remain proprietary and are not shown here.</p>
-                        </div>
-                    </div>
-
+                    <h3>Clinical Intelligence & Care Journey</h3>
+                    <p style="margin-bottom: 24px; color: var(--neutral-gray);">The story curve above demonstrates the patient's care trajectory and the impact of early intervention through automated care coordination referrals.</p>
+                    
+                    <!-- CDA Referral Examples -->
                     <div class="cda-referrals">
-                        <h4>CDA Referral Examples</h4>
+                        <h4>Automated CDA Referral Examples</h4>
                         <div class="cda-grid">
                             <div class="cda-item recommended">
-                                <h5>RECOMMENDED: Care Coordination Program A</h5>
-                                <p>Qualified by: Multiple ED visits pattern, chronic disease management gaps, medication non-adherence signals</p>
+                                <h5>Healthcare In Action (HIA) - RECOMMENDED</h5>
+                                <p>Triggered by: Multiple ED visits, medication non-adherence patterns</p>
                             </div>
                             <div class="cda-item recommended">
-                                <h5>RECOMMENDED: Transportation Support Program B</h5>
-                                <p>Qualified by: Transportation barriers identified in clinical notes, social determinants of health indicators</p>
+                                <h5>PAVE Program - RECOMMENDED</h5>
+                                <p>Triggered by: Transportation barriers, housing instability signals</p>
                             </div>
                             <div class="cda-item consider">
-                                <h5>CONSIDER: Social Support Program C</h5>
-                                <p>Qualified by: Financial stress indicators, housing instability signals, social isolation patterns</p>
+                                <h5>MyPlace Health - CONSIDER</h5>
+                                <p>Triggered by: Complex care coordination needs, chronic disease management gaps</p>
                             </div>
                             <div class="cda-item consider">
-                                <h5>CONSIDER: Medication Management Program D</h5>
-                                <p>Qualified by: Complex medication regimens, adherence gaps, pharmacy utilization patterns</p>
+                                <h5>Guaranteed Health - CONSIDER</h5>
+                                <p>Triggered by: Financial assistance needs, medication access barriers</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Integration Architecture Tab -->
-            <div id="integration-architecture" class="tab-panel">
-                <div class="integration-content">
-                    <!-- Technical Integration Overview Card -->
+            <!-- Summary Analysis Tab -->
+            <div id="summary-analysis" class="tab-panel">
+                <div class="summary-content">
+                    <h3>Summary Analysis</h3>
+                    
+                    <!-- Key Outcomes Summary -->
                     <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">Technical Integration Overview</h3>
-                        <div class="integration-overview">
-                            <div class="integration-flow">
-                                <div class="flow-step">
-                                    <div class="step-content">
-                                        <h4>Data Sources</h4>
-                                        <p>Core EMR systems, pharmacy claims feeds, payer eligibility data</p>
-                                    </div>
-                                </div>
-                                <div class="flow-arrow">→</div>
-                                <div class="flow-step">
-                                    <div class="step-content">
-                                        <h4>NLP Processing</h4>
-                                        <p>Automated extraction of clinical signals and social determinants</p>
-                                    </div>
-                                </div>
-                                <div class="flow-arrow">→</div>
-                                <div class="flow-step">
-                                    <div class="step-content">
-                                        <h4>Referral Generation</h4>
-                                        <p>High-fidelity referrals with clinical evidence trail</p>
-                                    </div>
-                                </div>
+                        <h4>Key Outcomes</h4>
+                        <div class="outcome-grid">
+                            <div class="outcome-item">
+                                <h5>High-fidelity Care Asset Deployment</h5>
+                                <p>Precise targeting of care coordination resources while limiting runaway costs at the margin</p>
+                            </div>
+                            <div class="outcome-item">
+                                <h5>Context Visibility</h5>
+                                <p>Full visibility into patient care across multiple health systems and care settings</p>
+                            </div>
+                            <div class="outcome-item">
+                                <h5>Zero Workflow Disruption</h5>
+                                <p>Seamless integration with existing clinical workflows and care coordination programs</p>
+                            </div>
+                            <div class="outcome-item">
+                                <h5>Auto Referral Generation</h5>
+                                <p>Automated generation of high-fidelity referrals to appropriate care coordination programs</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- High-level Integration Card -->
+                    <!-- Integration Architecture Summary -->
                     <div style="background: white; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">High-level integration (no proprietary detail)</h3>
+                        <h4>Integration Architecture</h4>
                         <div class="integration-steps">
                             <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 16px;">
                                 <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">1</div>
                                 <div class="step-content">
                                     <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Ingest</h5>
-                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">Secure, read-only connectors to EMR systems and claims feeds</p>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">Secure, read-only connectors to core EMR systems and claims feeds</p>
                                 </div>
                             </div>
                             <div class="integration-step" style="display: flex; align-items: flex-start; margin-bottom: 16px;">
@@ -340,592 +213,35 @@
                                 <div class="step-number" style="background: var(--primary-blue); color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-weight: 600; margin-right: 16px; flex-shrink: 0;">4</div>
                                 <div class="step-content">
                                     <h5 style="margin: 0 0 8px 0; color: var(--dark-gray);">Action Routing</h5>
-                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">High-fidelity referrals are queued to existing SCAN programs</p>
+                                    <p style="margin: 0; color: var(--neutral-gray); line-height: 1.5;">High-fidelity referrals are queued to existing care coordination programs</p>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div style="background: var(--light-gray); border-radius: 8px; padding: 16px; margin-top: 20px;">
-                            <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);"><strong>Security Note:</strong> In-network deployment with HIPAA alignment. All data processing occurs within SCAN's secure environment.</p>
-                        </div>
                     </div>
 
-                    <!-- Integration Checklist Card -->
+                    <!-- Geographic Intelligence Summary -->
                     <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                        <h3 style="margin-bottom: 16px; color: var(--dark-gray);">Integration Checklist for CIO</h3>
-                        <div class="checklist-grid" style="display: grid; gap: 16px;">
-                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
-                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Operational fit</h5>
-                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Lightweight, vendor-neutral connectors to existing EHRs</p>
-                            </div>
-                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
-                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Financial impact</h5>
-                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Preserves margin by preventing post-risk-adjustment utilization spikes</p>
-                            </div>
-                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
-                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Security & compliance</h5>
-                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">HIPAA-safe, deployable within SCAN environment</p>
-                            </div>
-                            <div style="background: var(--light-gray); border-radius: 8px; padding: 16px;">
-                                <h5 style="margin: 0 0 8px 0; color: var(--primary-blue);">Actionability</h5>
-                                <p style="margin: 0; font-size: 14px; color: var(--neutral-gray);">Referral triggers routed to existing SCAN programs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Care Geography Tab -->
-            <div id="care-geography" class="tab-panel">
-                <div class="geography-content">
-                    <h3>Care Geography & Resource Optimization</h3>
-                    <div class="map-container" id="careGeographyMap"></div>
-                    <div class="geography-analysis">
                         <h4>Geographic Intelligence</h4>
                         <div class="geo-grid">
                             <div class="geo-item">
                                 <h5>Care Radius Analysis</h5>
-                                <p>Patient location to care sites: 2.1 miles to nearest ED, 8.4 miles to specialty care</p>
+                                <p>Patient home location within &lt;5 mile radius of multiple care facilities</p>
                             </div>
                             <div class="geo-item">
                                 <h5>Transportation Patterns</h5>
-                                <p>Public transit + walking identified as primary transportation method</p>
-                            </div>
-                            <div class="geo-item">
-                                <h5>Network Coverage</h5>
-                                <p>3 primary care providers within 1 mile radius, 2 specialty care within 5 miles</p>
+                                <p>Public transit access and walking distance analysis for care coordination</p>
                             </div>
                             <div class="geo-item">
                                 <h5>Resource Optimization</h5>
-                                <p>Geographic clustering of high-utilization patients for targeted resource allocation</p>
+                                <p>Optimal placement of care coordination resources within service area</p>
+                            </div>
+                            <div class="geo-item">
+                                <h5>Network Coverage</h5>
+                                <p>Care coordination network providers within accessible distance</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Legacy Claims Analysis Tab (Hidden) -->
-            <div id="claims-analysis" class="tab-panel" style="display: none;">
-                <h3>Claims Analysis - MA Program Billing Codes</h3>
-                
-                <div class="claims-details">
-                    <h4>ED Visit Claims</h4>
-                    
-                    <div class="claim-item">
-                        <strong>ED Visit #1 - Kaiser Redwood City (01/15/24)</strong><br>
-                        <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                        <strong>ICD-10:</strong> E11.65 (Type 2 diabetes mellitus with hyperglycemia), L30.9 (Dermatitis, unspecified)<br>
-                        <strong>CPT:</strong> 99284 (Emergency department visit, expanded problem focused), 36415 (Collection of venous blood by venipuncture), 93000 (Electrocardiogram, routine ECG with at least 12 leads)<br>
-                        <strong>NPI:</strong> 1234567890 (Kaiser Foundation Hospitals)<br>
-                        <strong>Procedures:</strong> Saline bolus, Insulin 10 units IV, Basic labs, EKG<br>
-                        <strong>Discharge Meds:</strong> Insulin glargine 10 units daily, Augmentin 875mg BID<br>
-                        <strong>Pharmacy:</strong> CVS East Palo Alto (NPI: 9876543210)
-                    </div>
-
-                    <div class="claim-item">
-                        <strong>ED Visit #2 - Stanford Medical Center (02/12/24)</strong><br>
-                        <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                        <strong>ICD-10:</strong> E11.65 (Type 2 diabetes mellitus with hyperglycemia), M79.3 (Panniculitis, unspecified)<br>
-                        <strong>CPT:</strong> 99284 (Emergency department visit, expanded problem focused), 73610 (Radiologic examination, ankle; 2 views)<br>
-                        <strong>NPI:</strong> 1122334455 (Stanford Health Care)<br>
-                        <strong>Procedures:</strong> Insulin 10 units IV, X-ray left foot<br>
-                        <strong>Discharge Meds:</strong> Insulin 10 units nightly x2 weeks<br>
-                        <strong>Pharmacy:</strong> Walgreens San Carlos (NPI: 5544332211)<br>
-                        <strong>Note:</strong> Physical exam documented 0.5cm x 1cm stage 2 ulcer, but billing only coded "foot pain"
-                    </div>
-
-                    <div class="claim-item">
-                        <strong>ED Visit #3 - Kaiser Redwood City (03/25/24)</strong><br>
-                        <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                        <strong>ICD-10:</strong> I16.0 (Hypertensive urgency), E11.9 (Type 2 diabetes mellitus without complications), E66.9 (Obesity, unspecified), R42 (Dizziness and giddiness)<br>
-                        <strong>CPT:</strong> 99284 (Emergency department visit, expanded problem focused), 36415 (Collection of venous blood by venipuncture)<br>
-                        <strong>NPI:</strong> 1234567890 (Kaiser Foundation Hospitals)<br>
-                        <strong>Procedures:</strong> Antihypertensive therapy IV, Medication reconciliation<br>
-                        <strong>Discharge Meds:</strong> All usual medications with BP dose adjustment<br>
-                        <strong>Pharmacy:</strong> Ravenswood Family Health Center (NPI: 9988776655)<br>
-                        <strong>Social Work:</strong> Ride voucher provided, referral to HSA office
-                    </div>
-
-                    <div class="claim-item">
-                        <strong>ED Visit #4 - Stanford Medical Center (04/02/24)</strong><br>
-                        <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                        <strong>ICD-10:</strong> K59.1 (Functional diarrhea), E11.9 (Type 2 diabetes mellitus without complications)<br>
-                        <strong>CPT:</strong> 99284 (Emergency department visit, expanded problem focused), 36415 (Collection of venous blood by venipuncture), 74000 (Radiologic examination, abdomen; single anteroposterior view)<br>
-                        <strong>NPI:</strong> 1122334455 (Stanford Health Care)<br>
-                        <strong>Procedures:</strong> Labs, IV fluids, X-ray abdomen<br>
-                        <strong>Discharge Meds:</strong> None<br>
-                        <strong>Assessment:</strong> Likely medication-related diarrhea (new metformin formulation)
-                    </div>
-                </div>
-
-                <div class="pharmacy-claims">
-                    <h4>Pharmacy Claims Pattern</h4>
-                    <div class="claim-item">
-                        <strong>Address on File:</strong> 2014 El Camino Real, Redwood City, CA 94063<br>
-                        <strong>Mail Order Pharmacy:</strong> 90-day refills sent to same address throughout 2023-2024<br>
-                        <strong>Pharmacy Dispensing Pattern:</strong><br>
-                        • CVS East Palo Alto (01/15/24) - Insulin pickup<br>
-                        • Walgreens San Carlos (02/12/24) - Insulin pickup<br>
-                        • Ravenswood Family Health Center (03/25/24) - All medications<br>
-                        • Mail Order (ongoing) - 90-day supplies to home address<br>
-                        <strong>Critical Gap:</strong> Patient receiving medications at home address while experiencing transportation barriers
-                    </div>
-                </div>
-            </div>
-
-            <!-- Care Gaps Tab -->
-            <div id="care-gaps" class="tab-panel">
-                <h3>Care Gaps - Missed Opportunities for Intervention</h3>
-                
-                <div class="gaps-grid">
-                    <div class="gap-item critical">
-                        <h4>Medication Adherence Assessment Gap</h4>
-                        <p><strong>ED Visit #1:</strong> No medication adherence assessment performed despite hyperglycemia presentation</p>
-                        <p><strong>Impact:</strong> Missed opportunity to identify non-adherence early</p>
-                        <p><strong>ClinPrep Intervention:</strong> NLP would flag "haven't taken diabetes meds in 3 days" for immediate HIA referral</p>
-                    </div>
-
-                    <div class="gap-item critical">
-                        <h4>Documentation-Coding Disconnect</h4>
-                        <p><strong>ED Visit #2:</strong> Physical exam documented stage 2 diabetic ulcer, but billing only coded "foot pain"</p>
-                        <p><strong>Impact:</strong> Under-captured severity, missed care coordination opportunity</p>
-                        <p><strong>ClinPrep Intervention:</strong> Cross-reference clinical notes with billing codes to identify documentation gaps</p>
-                    </div>
-
-                    <div class="gap-item warning">
-                        <h4>Social Determinants Screening Gap</h4>
-                        <p><strong>ED Visit #2:</strong> Transportation barriers noted in nurse notes but SDOH screener not performed</p>
-                        <p><strong>Impact:</strong> Missed PAVE program eligibility identification</p>
-                        <p><strong>ClinPrep Intervention:</strong> NLP extraction of "difficulty paying for transportation" triggers PAVE referral</p>
-                    </div>
-
-                    <div class="gap-item critical">
-                        <h4>Medication Reconciliation Gap</h4>
-                        <p><strong>ED Visit #3:</strong> Insulin not refilled despite being out of all medications</p>
-                        <p><strong>Impact:</strong> Continued medication access issues</p>
-                        <p><strong>ClinPrep Intervention:</strong> Comprehensive medication reconciliation with MyPlace Health coordination</p>
-                    </div>
-
-                    <div class="gap-item warning">
-                        <h4>Cross-System Care Coordination Gap</h4>
-                        <p><strong>Pattern:</strong> Care across Kaiser, Stanford, and SMMC without coordinated follow-up</p>
-                        <p><strong>Impact:</strong> Fragmented care, repeated ED visits</p>
-                        <p><strong>ClinPrep Intervention:</strong> Unified care coordination through HIA program</p>
-                    </div>
-
-                    <div class="gap-item critical">
-                        <h4>Risk Score Timing Gap</h4>
-                        <p><strong>Critical Issue:</strong> WMV at 65, AWV at 66 locked in risk score before clinical cascade</p>
-                        <p><strong>Impact:</strong> SCAN bears full cost of high utilization without risk adjustment</p>
-                        <p><strong>ClinPrep Intervention:</strong> Early CDA intervention prevents costly events that impact marginal profitability</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Integration, Clinical Notes, and NLP Tab -->
-            <div id="integration-nlp" class="tab-panel">
-                <h3>Integration, Clinical Notes, and NLP Analysis</h3>
-                
-                <div class="integration-overview">
-                    <h4>Multi-System Integration</h4>
-                    <p>ClinPrep integrates data from multiple health systems to provide comprehensive patient context:</p>
-                    <ul>
-                        <li><strong>Epic (Kaiser):</strong> ED visits, medication history, risk assessments</li>
-                        <li><strong>Epic (Stanford):</strong> ED visits, specialist referrals, social work notes</li>
-                        <li><strong>Athena (SMMC Podiatry):</strong> Specialist care, wound documentation</li>
-                        <li><strong>Pharmacy Systems:</strong> Medication dispensing, adherence patterns</li>
-                    </ul>
-                </div>
-
-                <div class="context-analysis">
-                    <h4>NLP Signal Extraction from Clinical Notes</h4>
-                    
-                    <div class="context-item">
-                        <h4>Transportation Barriers</h4>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">"Patient having difficulty paying for transportation to get to his work and pay for his rent"</div>
-                            <div class="nlp-analysis">
-                                <strong>Source:</strong> Stanford ED nurse notes (02/12/24)<br>
-                                <strong>NLP Analysis:</strong> Transportation barrier identified but not captured in structured data<br>
-                                <strong>CDA Trigger:</strong> PAVE program eligibility for transportation assistance
-                            </div>
-                            <div class="nlp-source">Stanford Medical Center ED - Nurse Documentation</div>
-                        </div>
-                    </div>
-
-                    <div class="context-item">
-                        <h4>Financial Instability</h4>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">"Noted he sold his car because he couldn't afford it any longer. Taking public transportation and walking a lot"</div>
-                            <div class="nlp-analysis">
-                                <strong>Source:</strong> Kaiser ED social work consult (03/25/24)<br>
-                                <strong>NLP Analysis:</strong> Financial stress impacting transportation and mobility<br>
-                                <strong>CDA Trigger:</strong> PAVE program for housing and transportation support
-                            </div>
-                            <div class="nlp-source">Kaiser Redwood City ED - Social Work Documentation</div>
-                        </div>
-                    </div>
-
-                    <div class="context-item">
-                        <h4>Medication Non-Adherence</h4>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">"Ran out of all his meds - including diabetes meds, missed doses for 1 week"</div>
-                            <div class="nlp-analysis">
-                                <strong>Source:</strong> Kaiser ED history (03/25/24)<br>
-                                <strong>NLP Analysis:</strong> Systematic medication access issues<br>
-                                <strong>CDA Trigger:</strong> HIA program for medication management and adherence support
-                            </div>
-                            <div class="nlp-source">Kaiser Redwood City ED - History and Physical</div>
-                        </div>
-                    </div>
-
-                    <div class="context-item">
-                        <h4>Documentation-Coding Discrepancy</h4>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">"Physical exam: 0.5cm x 1cm stage 2 ulceration at the left heel" vs "Final diagnosis: foot pain, unspecified"</div>
-                            <div class="nlp-analysis">
-                                <strong>Source:</strong> Stanford ED documentation vs billing (02/12/24)<br>
-                                <strong>NLP Analysis:</strong> Clinical severity under-captured in billing codes<br>
-                                <strong>Impact:</strong> Missed care coordination and risk adjustment opportunities
-                            </div>
-                            <div class="nlp-source">Stanford Medical Center ED - Clinical Documentation vs Billing</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="medication-list">
-                    <h4>Medication Adherence Analysis</h4>
-                    <div class="med-item">
-                        <div>
-                            <strong>Metformin XR 1000mg</strong><br>
-                            <span class="pharmacy-location">Mail Order → 2014 El Camino Real</span>
-                        </div>
-                        <div class="med-status">
-                            <div class="status-gap">Formulation Change Issue</div>
-                            <div class="supply">90-day supply</div>
-                        </div>
-                    </div>
-                    <div class="med-item">
-                        <div>
-                            <strong>Lisinopril 10mg</strong><br>
-                            <span class="pharmacy-location">Mail Order → 2014 El Camino Real</span>
-                        </div>
-                        <div class="med-status">
-                            <div class="status-late">Dose Adjustment Needed</div>
-                            <div class="supply">90-day supply</div>
-                        </div>
-                    </div>
-                    <div class="med-item">
-                        <div>
-                            <strong>Insulin Glargine 10 units</strong><br>
-                            <span class="pharmacy-location">Multiple pharmacies</span>
-                        </div>
-                        <div class="med-status">
-                            <div class="status-gap">Access Issues</div>
-                            <div class="supply">2-week supplies</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Geographic Intelligence Tab -->
-            <div id="geographic-intelligence" class="tab-panel">
-                <h3>Geographic Intelligence - Care Access Analysis</h3>
-                
-                <div class="location-details">
-                    <h4>Patient Location</h4>
-                    <div class="location-item">
-                        <strong>Home Address:</strong> 2014 El Camino Real, Redwood City, CA 94063<br>
-                        <strong>Coordinates:</strong> 37.4851°N, 122.2051°W<br>
-                        <strong>Transportation:</strong> Public transit + walking (car sold due to financial constraints)
-                    </div>
-                </div>
-
-                <div class="care-distances">
-                    <h4>Care Site Distances</h4>
-                    <div class="distance-grid">
-                        <div class="distance-item">
-                            <strong>Kaiser Redwood City ED</strong><br>
-                            Distance: 2.1 miles<br>
-                            Travel time: 15 min (car), 45 min (transit)<br>
-                            Visits: 2 ED visits
-                        </div>
-                        <div class="distance-item">
-                            <strong>Stanford Medical Center ED</strong><br>
-                            Distance: 8.4 miles<br>
-                            Travel time: 25 min (car), 90 min (transit)<br>
-                            Visits: 2 ED visits
-                        </div>
-                        <div class="distance-item">
-                            <strong>San Mateo Medical Center</strong><br>
-                            Distance: 3.2 miles<br>
-                            Travel time: 12 min (car), 60 min (transit)<br>
-                            Visits: 1 podiatry visit
-                        </div>
-                        <div class="distance-item">
-                            <strong>Stanford Menlo Park Internal Medicine</strong><br>
-                            Distance: 4.1 miles<br>
-                            Travel time: 15 min (car), 50 min (transit)<br>
-                            Status: SCAN preferred provider
-                        </div>
-                    </div>
-                </div>
-
-                <div class="transport-details">
-                    <h4>Transportation Analysis</h4>
-                    <div class="transport-item">
-                        <strong>Transportation Barriers Identified:</strong><br>
-                        • Sold car due to financial constraints (March 2024)<br>
-                        • Relies on public transportation and walking<br>
-                        • Difficulty affording Uber/Lyft for medical appointments<br>
-                        • Social work provided ride voucher for ED discharge
-                    </div>
-                </div>
-
-                <div class="resources-grid">
-                    <div class="resource-item">
-                        <h4>SCAN Network Resources</h4>
-                        <p><strong>Primary Care:</strong> 3 PCPs within 1 mile of home address</p>
-                        <p><strong>Specialty Care:</strong> SCAN preferred providers within 5 miles</p>
-                        <p><strong>Pharmacy:</strong> Multiple SCAN preferred pharmacies within 2 miles</p>
-                        <p><strong>Transportation:</strong> PAVE program can provide ride assistance</p>
-                    </div>
-                    <div class="resource-item">
-                        <h4>Community Resources</h4>
-                        <p><strong>HSA Office:</strong> Fair Oaks Community Center (2.3 miles)</p>
-                        <p><strong>Public Transit:</strong> Caltrain and SamTrans access</p>
-                        <p><strong>Food Assistance:</strong> Multiple food banks within 3 miles</p>
-                        <p><strong>Housing Support:</strong> PAVE program housing assistance</p>
-                    </div>
-                </div>
-
-                <div class="map-container" id="geoMap"></div>
-            </div>
-
-            <!-- SCAN CDA Referrals Tab -->
-            <div id="scan-cda-referrals" class="tab-panel">
-                <h3>SCAN CDA Referrals - High-Fidelity Intervention Opportunities</h3>
-                
-                <div class="cda-grid">
-                    <div class="cda-card pave expanded">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>PAVE</h4>
-                            <span class="priority recommended">RECOMMENDED</span>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualification Criteria Met:</h5>
-                            <ul>
-                                <li>Transportation barriers: "sold his car", "couldn't afford uber"</li>
-                                <li>Housing instability: "difficulty paying rent"</li>
-                                <li>Financial constraints: Multiple ED visits due to medication access</li>
-                                <li>Social determinants: Transportation to work affected</li>
-                            </ul>
-                            <h5>Intervention Opportunities:</h5>
-                            <ul>
-                                <li>Ride vouchers for medical appointments</li>
-                                <li>Housing stability support</li>
-                                <li>Financial assistance coordination</li>
-                                <li>Transportation to work support</li>
-                            </ul>
-                            <p><strong>Timing:</strong> Early intervention after ED Visit #2 when transportation barriers first identified</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card hia expanded">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Healthcare In Action (HIA)</h4>
-                            <span class="priority recommended">RECOMMENDED</span>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualification Criteria Met:</h5>
-                            <ul>
-                                <li>Multiple ED visits: 4 visits in 3 months</li>
-                                <li>Chronic disease management gaps: Diabetes, hypertension</li>
-                                <li>Medication adherence issues: "ran out of insulin", "missed doses"</li>
-                                <li>Care coordination needs: Multiple health systems</li>
-                            </ul>
-                            <h5>Intervention Opportunities:</h5>
-                            <ul>
-                                <li>Medication management and adherence support</li>
-                                <li>Care coordination across health systems</li>
-                                <li>Chronic disease management coaching</li>
-                                <li>Preventive care navigation</li>
-                            </ul>
-                            <p><strong>Timing:</strong> Immediate referral after ED Visit #1 when medication non-adherence first identified</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card myplace collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>MyPlace Health</h4>
-                            <span class="priority consider">CONSIDER</span>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualification Criteria:</h5>
-                            <ul>
-                                <li>Complex care coordination needs</li>
-                                <li>Multiple chronic conditions</li>
-                                <li>Medication management challenges</li>
-                                <li>Social determinants impact</li>
-                            </ul>
-                            <h5>Intervention Opportunities:</h5>
-                            <ul>
-                                <li>Comprehensive care management</li>
-                                <li>Medication reconciliation and management</li>
-                                <li>Social determinants support</li>
-                                <li>Care team coordination</li>
-                            </ul>
-                            <p><strong>Timing:</strong> Consider after HIA and PAVE interventions established</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card guaranteed collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Guaranteed Health</h4>
-                            <span class="priority consider">CONSIDER</span>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualification Criteria:</h5>
-                            <ul>
-                                <li>High-risk patient profile</li>
-                                <li>Multiple ED utilization</li>
-                                <li>Chronic disease complexity</li>
-                                <li>Social determinants impact</li>
-                            </ul>
-                            <h5>Intervention Opportunities:</h5>
-                            <ul>
-                                <li>Risk-based care management</li>
-                                <li>Predictive analytics support</li>
-                                <li>Proactive intervention protocols</li>
-                                <li>Outcome-based care delivery</li>
-                            </ul>
-                            <p><strong>Timing:</strong> Consider for long-term risk management after acute interventions</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card homeward collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Homeward</h4>
-                            <span class="priority consider">CONSIDER</span>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualification Criteria:</h5>
-                            <ul>
-                                <li>Rural or underserved area access</li>
-                                <li>Transportation barriers</li>
-                                <li>Care coordination needs</li>
-                                <li>Technology-enabled care delivery</li>
-                            </ul>
-                            <h5>Intervention Opportunities:</h5>
-                            <ul>
-                                <li>Virtual care delivery</li>
-                                <li>Remote monitoring capabilities</li>
-                                <li>Technology-enabled care coordination</li>
-                                <li>Access to specialty care</li>
-                            </ul>
-                            <p><strong>Timing:</strong> Consider for ongoing care management and monitoring</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="integration-value">
-                    <h4>SCAN CDA Integration Value</h4>
-                    <div class="value-item">
-                        <h4>Internal Referral Advantage</h4>
-                        <p>Andre qualifies for internal SCAN CDA referrals regardless of out-of-network care locations. External health systems (Kaiser, Stanford, SMMC) lack visibility into these programs, but SCAN can make internal referrals to prevent ongoing high utilization and effectively stabilize his care trajectory.</p>
-                    </div>
-                    <div class="value-item">
-                        <h4>Risk Score Protection</h4>
-                        <p>Early CDA intervention prevents costly clinical events that impact marginal profitability. With Andre's risk score locked in for 2024, preventing additional high-cost events directly protects SCAN's margin.</p>
-                    </div>
-                    <div class="value-item">
-                        <h4>High-Fidelity Referrals</h4>
-                        <p>ClinPrep's NLP analysis provides specific, contextual reasons for CDA referrals based on clinical documentation, ensuring high-fidelity, targeted interventions rather than generic referrals.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Care Cartography Tab -->
-            <div id="care-cartography" class="tab-panel">
-                <h3>Care Cartography - Visual Care Journey Mapping</h3>
-                
-                <div class="care-sites">
-                    <h4>Care Site Utilization Pattern</h4>
-                    <div class="site-item">
-                        <strong>Kaiser Redwood City ED</strong><br>
-                        <strong>Address:</strong> 1150 Veterans Blvd, Redwood City, CA 94063<br>
-                        <strong>Coordinates:</strong> 37.4844°N, 122.2038°W<br>
-                        <strong>Visits:</strong> 2 ED visits (01/15/24, 03/25/24)<br>
-                        <strong>Distance from home:</strong> 2.1 miles<br>
-                        <strong>Transportation:</strong> Public transit + walking
-                    </div>
-                    <div class="site-item">
-                        <strong>Stanford Medical Center ED</strong><br>
-                        <strong>Address:</strong> 300 Pasteur Dr, Stanford, CA 94305<br>
-                        <strong>Coordinates:</strong> 37.4419°N, 122.1430°W<br>
-                        <strong>Visits:</strong> 2 ED visits (02/12/24, 04/02/24)<br>
-                        <strong>Distance from home:</strong> 8.4 miles<br>
-                        <strong>Transportation:</strong> Public transit + walking
-                    </div>
-                    <div class="site-item">
-                        <strong>San Mateo Medical Center</strong><br>
-                        <strong>Address:</strong> 222 W 39th Ave, San Mateo, CA 94403<br>
-                        <strong>Coordinates:</strong> 37.4636°N, 122.2297°W<br>
-                        <strong>Visits:</strong> 1 podiatry visit (02/19/24)<br>
-                        <strong>Distance from home:</strong> 3.2 miles<br>
-                        <strong>Transportation:</strong> Public transit + walking
-                    </div>
-                </div>
-
-                <div class="scan-resources">
-                    <h4>SCAN Network Resources</h4>
-                    <div class="resource-item">
-                        <strong>Stanford Menlo Park Internal Medicine</strong><br>
-                        <strong>Address:</strong> 1300 Crane St, Menlo Park, CA 94025<br>
-                        <strong>Coordinates:</strong> 37.4538°N, 122.1817°W<br>
-                        <strong>Distance from home:</strong> 4.1 miles<br>
-                        <strong>Status:</strong> SCAN preferred provider<br>
-                        <strong>Services:</strong> Primary care, chronic disease management
-                    </div>
-                    <div class="resource-item">
-                        <strong>Fair Oaks Community Center</strong><br>
-                        <strong>Address:</strong> 2600 Middlefield Rd, Redwood City, CA 94063<br>
-                        <strong>Coordinates:</strong> 37.4721°N, 122.1989°W<br>
-                        <strong>Distance from home:</strong> 2.3 miles<br>
-                        <strong>Services:</strong> HSA office, financial assistance programs<br>
-                        <strong>Status:</strong> Referred by Kaiser social work
-                    </div>
-                </div>
-
-                <div class="population-insights">
-                    <h4>Population Health Insights</h4>
-                    <div class="insight-item">
-                        <h4>Care Radius Analysis</h4>
-                        <p>Andre's care pattern shows utilization within a 8.4-mile radius from his home, with most care occurring within 3.2 miles. This suggests good geographic access to care, but transportation barriers are the primary limiting factor.</p>
-                    </div>
-                    <div class="insight-item">
-                        <h4>Resource Allocation Opportunities</h4>
-                        <p>SCAN could optimize resource allocation by placing PAVE transportation services and HIA care coordination in this geographic area to serve similar high-risk patients with transportation barriers.</p>
-                    </div>
-                    <div class="insight-item">
-                        <h4>Hot Spot Identification</h4>
-                        <p>This area represents a "hot spot" for high-risk patients with social determinants impacting care access. SCAN could consider targeted interventions in this geographic area.</p>
-                    </div>
-                </div>
-
-                <div class="cda-allocation">
-                    <h4>CDA Resource Allocation Strategy</h4>
-                    <p>Based on Andre's care pattern and social determinants, the following CDA allocation would optimize outcomes:</p>
-                    <ul>
-                        <li><strong>PAVE:</strong> Transportation vouchers, housing stability support</li>
-                        <li><strong>HIA:</strong> Medication management, care coordination</li>
-                        <li><strong>MyPlace Health:</strong> Comprehensive care management</li>
-                        <li><strong>Geographic Focus:</strong> 5-mile radius around 2014 El Camino Real</li>
-                        <li><strong>Timing:</strong> Immediate intervention after first ED visit</li>
-                    </ul>
-                </div>
-
-                <div class="map-container" id="careMap"></div>
             </div>
         </div>
 
@@ -934,39 +250,44 @@
             <h3>Enterprise Healthcare System Integration</h3>
             <div class="integration-badges">
                 <div class="integration-badge">
-                    <div class="badge-icon epic"></div>
-                    <span>Core EMR Systems</span>
+                    <strong>Core EMR Systems</strong>
+                    <span>Read-only integration</span>
                 </div>
                 <div class="integration-badge">
-                    <div class="badge-icon cerner"></div>
-                    <span>Pharmacy Claims Feeds</span>
+                    <strong>Pharmacy Claims Feeds</strong>
+                    <span>Real-time processing</span>
                 </div>
                 <div class="integration-badge">
-                    <div class="badge-icon bitfocus"></div>
-                    <span>Payer Eligibility Data</span>
-                </div>
-                <div class="integration-badge">
-                    <div class="badge-icon x12"></div>
+                    <strong>Payer Eligibility Data</strong>
                     <span>Standard EDI</span>
                 </div>
+                <div class="integration-badge">
+                    <strong>Care Coordination Programs</strong>
+                    <span>Automated referrals</span>
+                </div>
             </div>
-            <p class="compliance-note">Enterprise-grade security and compliance framework</p>
+            <div class="compliance-note">
+                <p><strong>Enterprise-grade security and compliance framework</strong> - HIPAA-compliant data processing within secure healthcare environment</p>
+            </div>
         </div>
 
-        <!-- Enhanced Footer Disclaimer -->
+        <!-- Footer Disclaimer -->
         <footer class="footer-disclaimer">
             <div class="disclaimer-content">
-                <h4>Strategic Illustration Disclaimer</h4>
-                <p><strong>This demo is for strategic illustration only. Nothing shown herein constitutes SCAN's final design or implementation—and the underlying algorithmic logic is proprietary.</strong> All patient data is fictional and used for demonstration purposes only.</p>
-                <p><strong>Not for Clinical Use:</strong> This demonstration is not intended for clinical decision-making or patient care. All examples are fictional and should not be used as a basis for medical decisions or care planning.</p>
-                <p><strong>Proprietary Information:</strong> This demonstration contains conceptual frameworks and proprietary intellectual property. Underlying algorithms, methodologies, and technical implementations are confidential and proprietary.</p>
-                <p class="copyright-notice"><strong>© 2025 ClinPrep Health. Proprietary and Confidential.</strong> This demonstration uses fictional patient scenarios for strategic illustration only. No actual patient data or operational details are represented.</p>
+                <h4>Confidentiality Notice</h4>
+                <p><strong>This is a conceptual demonstration platform.</strong> All patient data, clinical scenarios, and care coordination examples presented are fictional and created for illustrative purposes only. This demonstration does not represent actual patient care, real clinical outcomes, or operational healthcare data.</p>
+                
+                <p><strong>Technical Integration Details:</strong> The integration architecture, data processing methods, and algorithmic approaches shown are conceptual representations. Actual implementation would require comprehensive security reviews, compliance validation, and technical feasibility assessments.</p>
+                
+                <p><strong>Care Coordination Programs:</strong> References to specific care coordination programs and referral processes are for demonstration purposes only and do not represent actual program capabilities, eligibility criteria, or operational workflows.</p>
+                
+                <p><strong>Intellectual Property:</strong> This demonstration contains proprietary concepts and methodologies. All content is confidential and intended solely for authorized review. Distribution, reproduction, or use of this material without explicit written permission is prohibited.</p>
+                
+                <p><strong>Copyright Notice:</strong> © 2025 ClinPrep Health. All rights reserved. This material is proprietary and confidential.</p>
             </div>
         </footer>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
