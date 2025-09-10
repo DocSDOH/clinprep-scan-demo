@@ -184,6 +184,77 @@
                             </div>
                         </div>
                     </div>
+                    <div class="sanitized-claims">
+                        <h4>Sanitized Claims & NLP</h4>
+                        <div class="claims-table-container">
+                            <table class="claims-table">
+                                <thead>
+                                    <tr>
+                                        <th>Period</th>
+                                        <th>Site (redacted)</th>
+                                        <th>Primary DX</th>
+                                        <th>CPT</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Dec 2023</td>
+                                        <td>PCP Office A</td>
+                                        <td>Z00.00</td>
+                                        <td>99397</td>
+                                        <td>AWV: Normal EKG, updated screening tests, controlled conditions</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jan 2024</td>
+                                        <td>PCP Office A</td>
+                                        <td>Z00.00</td>
+                                        <td>99213</td>
+                                        <td>Routine follow-up: Weight gain noted, obesity diagnosis added</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jan 15, 2024</td>
+                                        <td>ED Facility B</td>
+                                        <td>E11.65</td>
+                                        <td>99284</td>
+                                        <td>ED #1: Hyperglycemia, glucose 400 mg/dL, medication non-adherence</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Feb 12, 2024</td>
+                                        <td>ED Facility C</td>
+                                        <td>E11.65</td>
+                                        <td>99284</td>
+                                        <td>ED #2: Ran out of insulin, stage 2 ulcer documented but coded as foot pain</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Feb 19, 2024</td>
+                                        <td>Specialty Clinic D</td>
+                                        <td>L97.429</td>
+                                        <td>99213</td>
+                                        <td>Podiatry: Properly diagnosed stage 2 diabetic ulcer left heel</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mar 25, 2024</td>
+                                        <td>ED Facility B</td>
+                                        <td>I16.0</td>
+                                        <td>99284</td>
+                                        <td>ED #3: Hypertensive urgency, ran out of all meds, social work consult</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Apr 2, 2024</td>
+                                        <td>ED Facility C</td>
+                                        <td>K59.1</td>
+                                        <td>99284</td>
+                                        <td>ED #4: GI symptoms, likely medication-related diarrhea</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="nlp-note">
+                            <p><strong>Note:</strong> NLP summaries are clinician-facing interpretations (sanitized). Underlying scoring and weights remain proprietary and are not shown here.</p>
+                        </div>
+                    </div>
+
                     <div class="cda-referrals">
                         <h4>CDA Referral Examples</h4>
                         <div class="cda-grid">
@@ -236,6 +307,83 @@
                             </div>
                         </div>
                     </div>
+                    <div class="high-level-integration">
+                        <h4>High-level integration (no proprietary detail)</h4>
+                        <div class="integration-steps">
+                            <div class="integration-step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h5>Ingest</h5>
+                                    <p>Secure, read-only connectors to EMR systems and claims feeds</p>
+                                </div>
+                            </div>
+                            <div class="integration-step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h5>Normalize</h5>
+                                    <p>Standardize claims and clinical notes into internal canonical format</p>
+                                </div>
+                            </div>
+                            <div class="integration-step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h5>Signal Extraction</h5>
+                                    <p>NLP extracts candidate SDOH and clinical gaps</p>
+                                </div>
+                            </div>
+                            <div class="integration-step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h5>Action Routing</h5>
+                                    <p>High-fidelity referrals are queued to existing SCAN programs</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="security-note">
+                            <p><strong>Security Note:</strong> In-network deployment with HIPAA alignment. All data processing occurs within SCAN's secure environment.</p>
+                        </div>
+                    </div>
+
+                    <div class="integration-checklist">
+                        <h4>Integration Checklist</h4>
+                        <div class="checklist-item">
+                            <div class="checklist-header" onclick="toggleChecklist(this)">
+                                <span class="checklist-title">Operational fit</span>
+                                <span class="checklist-toggle">+</span>
+                            </div>
+                            <div class="checklist-content">
+                                <p>Lightweight, vendor-neutral connectors to existing EHRs</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-header" onclick="toggleChecklist(this)">
+                                <span class="checklist-title">Financial impact</span>
+                                <span class="checklist-toggle">+</span>
+                            </div>
+                            <div class="checklist-content">
+                                <p>Preserves margin by preventing post-risk-adjustment utilization spikes</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-header" onclick="toggleChecklist(this)">
+                                <span class="checklist-title">Security & compliance</span>
+                                <span class="checklist-toggle">+</span>
+                            </div>
+                            <div class="checklist-content">
+                                <p>HIPAA-safe, deployable within SCAN environment</p>
+                            </div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checklist-header" onclick="toggleChecklist(this)">
+                                <span class="checklist-title">Actionability</span>
+                                <span class="checklist-toggle">+</span>
+                            </div>
+                            <div class="checklist-content">
+                                <p>Referral triggers routed to existing SCAN programs</p>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="technical-specs">
                         <h4>Technical Specifications</h4>
                         <div class="spec-grid">

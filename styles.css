@@ -1346,6 +1346,69 @@ body {
     color: #374151;
 }
 
+/* Sanitized Claims & NLP */
+.sanitized-claims {
+    margin-top: 2rem;
+}
+
+.sanitized-claims h4 {
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.claims-table-container {
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.claims-table th {
+    background: #f8fafc;
+    color: #374151;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.claims-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #64748b;
+}
+
+.claims-table tr:last-child td {
+    border-bottom: none;
+}
+
+.claims-table tr:hover {
+    background: #f8fafc;
+}
+
+.nlp-note {
+    padding: 1rem;
+    background: #f0f9ff;
+    border-radius: 0.5rem;
+    border: 1px solid #bae6fd;
+}
+
+.nlp-note p {
+    color: #374151;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
 /* CDA Referrals */
 .cda-referrals {
     margin-top: 2rem;
@@ -1480,6 +1543,145 @@ body {
     border: 1px solid #bae6fd;
     font-size: 0.875rem;
     color: #374151;
+}
+
+/* High-level Integration */
+.high-level-integration {
+    margin-top: 2rem;
+}
+
+.high-level-integration h4 {
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.integration-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.integration-step {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: #2563eb;
+    color: white;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.integration-step .step-content h5 {
+    color: #1e293b;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.integration-step .step-content p {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.security-note {
+    padding: 1rem;
+    background: #fef2f2;
+    border-radius: 0.5rem;
+    border: 1px solid #fecaca;
+}
+
+.security-note p {
+    color: #7f1d1d;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* Integration Checklist */
+.integration-checklist {
+    margin-top: 2rem;
+}
+
+.integration-checklist h4 {
+    color: #374151;
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.checklist-item {
+    margin-bottom: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: #f8fafc;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.checklist-header:hover {
+    background: #f1f5f9;
+}
+
+.checklist-title {
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.checklist-toggle {
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 1.125rem;
+    transition: transform 0.2s;
+}
+
+.checklist-item.expanded .checklist-toggle {
+    transform: rotate(45deg);
+}
+
+.checklist-content {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.checklist-item.expanded .checklist-content {
+    max-height: 100px;
+    padding: 0.75rem 1rem;
+}
+
+.checklist-content p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.4;
 }
 
 /* Care Geography */

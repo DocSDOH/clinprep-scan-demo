@@ -116,6 +116,17 @@ function toggleCDA(header) {
     }
 }
 
+// Checklist toggle functionality
+function toggleChecklist(header) {
+    const item = header.parentElement;
+    
+    if (item.classList.contains('expanded')) {
+        item.classList.remove('expanded');
+    } else {
+        item.classList.add('expanded');
+    }
+}
+
 // Map initialization functions
 function initializeMaps() {
     // Initialize geographic map if the tab is active
@@ -701,6 +712,7 @@ function showDataAnalysis() {
 window.showTab = showTab;
 window.flipCard = flipCard;
 window.toggleCDA = toggleCDA;
+window.toggleChecklist = toggleChecklist;
 window.exportDashboard = exportDashboard;
 window.showStoryMode = showStoryMode;
 window.showDataAnalysis = showDataAnalysis;
