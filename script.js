@@ -2,6 +2,9 @@
 let currentTab = 'claims-analysis';
 let geoMap = null;
 let careMap = null;
+let storyChart = null;
+let currentStoryMode = 'current';
+let dashboardVisible = false;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -11,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeApp() {
     // Set up event listeners
     setupEventListeners();
+    
+    // Initialize story curve
+    initializeStoryCurve();
     
     // Initialize maps when needed
     initializeMaps();
@@ -395,8 +401,172 @@ function logPerformance() {
 // Call performance logging after page load
 window.addEventListener('load', logPerformance);
 
+// Story Curve Functions
+function initializeStoryCurve() {
+    const canvas = document.getElementById('storyCurve');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Story data
+    const storyData = {
+        current: {
+            data: [30, 45, 65, 70, 85, 100],
+            color: '#dc2626',
+            tension: 0.2,
+            fill: false
+        },
+        optimized: {
+            data: [30, 35, 25, 20, 18, 15],
+            color: '#059669',
+            tension: 0.1,
+            fill: false
+        }
+    };
+    
+    if (storyChart) {
+        storyChart.destroy();
+    }
+    
+    storyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Baseline', 'Jan 15', 'Feb 12', 'Feb 19', 'Mar 25', 'Apr 2'],
+            datasets: [{
+                data: storyData[currentStoryMode].data,
+                borderColor: storyData[currentStoryMode].color,
+                borderWidth: 4,
+                pointRadius: 8,
+                pointBorderWidth: 0,
+                pointBackgroundColor: storyData[currentStoryMode].color,
+                tension: storyData[currentStoryMode].tension,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { 
+                legend: { display: false }, 
+                tooltip: { enabled: false } 
+            },
+            scales: {
+                x: { 
+                    display: true, 
+                    grid: { display: false },
+                    ticks: { 
+                        color: '#6b7280',
+                        font: { size: 12 }
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: 110,
+                    display: true,
+                    grid: { 
+                        display: true,
+                        color: '#f3f4f6'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                }
+            },
+            elements: {
+                point: {
+                    hoverRadius: 10
+                }
+            }
+        }
+    });
+
+    revealStoryMoments();
+}
+
+function showStoryMode(mode) {
+    currentStoryMode = mode;
+    
+    // Update button states
+    document.querySelectorAll('.story-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Reinitialize chart
+    initializeStoryCurve();
+}
+
+function revealStoryMoments() {
+    // Hide all moments first
+    document.querySelectorAll('.story-moment').forEach(moment => {
+        moment.style.display = 'none';
+        moment.classList.remove('visible');
+    });
+
+    // Show moments for the current mode
+    if (currentStoryMode === 'current') {
+        // Show crisis moments with a staggered delay
+        const moments = ['baseline', 'crisis1', 'trigger1', 'crisis2', 'crisis3'];
+        moments.forEach((id, index) => {
+            setTimeout(() => {
+                const moment = document.getElementById(`moment-${id}`);
+                if (moment) {
+                    moment.style.display = 'block';
+                    setTimeout(() => moment.classList.add('visible'), 100);
+                }
+            }, index * 800);
+        });
+    } else {
+        // Show intervention moments with a hopeful progression
+        const moments = ['intervention1', 'intervention2', 'intervention3'];
+        moments.forEach((id, index) => {
+            setTimeout(() => {
+                const moment = document.getElementById(`moment-${id}`);
+                if (moment) {
+                    moment.style.display = 'block';
+                    setTimeout(() => moment.classList.add('visible'), 100);
+                }
+            }, index * 800);
+        });
+    }
+}
+
+function showDataAnalysis() {
+    dashboardVisible = !dashboardVisible;
+    
+    const patientCard = document.querySelector('.patient-card');
+    const tabNavigation = document.querySelector('.tab-navigation');
+    const tabContent = document.querySelector('.tab-content');
+    const integrationSection = document.querySelector('.integration-section');
+    
+    if (dashboardVisible) {
+        // Show dashboard elements
+        if (patientCard) patientCard.style.display = 'block';
+        if (tabNavigation) tabNavigation.style.display = 'flex';
+        if (tabContent) tabContent.style.display = 'block';
+        if (integrationSection) integrationSection.style.display = 'block';
+        
+        // Update button text
+        event.target.textContent = 'Hide Data Analysis';
+        
+        // Scroll to dashboard
+        setTimeout(() => {
+            if (patientCard) patientCard.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    } else {
+        // Hide dashboard elements
+        if (patientCard) patientCard.style.display = 'none';
+        if (tabNavigation) tabNavigation.style.display = 'none';
+        if (tabContent) tabContent.style.display = 'none';
+        if (integrationSection) integrationSection.style.display = 'none';
+        
+        // Update button text
+        event.target.textContent = 'Show Data Analysis';
+    }
+}
+
 // Export functions for global access
 window.showTab = showTab;
 window.flipCard = flipCard;
 window.toggleCDA = toggleCDA;
 window.exportDashboard = exportDashboard;
+window.showStoryMode = showStoryMode;
+window.showDataAnalysis = showDataAnalysis;

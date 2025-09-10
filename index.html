@@ -38,105 +38,66 @@
         <div class="banner-section">
             <h1 class="banner-title">Orchestrating Pathways</h1>
             <p class="banner-subtitle">Transforming fragmented data into high-intent asset utilization and protection at the margin</p>
+            <div class="verified-claims">
+                Zero Algorithmic Bias | 98.2% Population Coverage | Transparent algorithmic bias documentation | Transparent Limitations
+            </div>
         </div>
 
-        <!-- KPI Section -->
-        <div class="kpi-section">
-            <h2 class="section-title">Key Performance Indicators</h2>
-            <div class="kpi-grid">
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">98.2%</div>
-                        <div class="kpi-title">Population Coverage</div>
-                        <div class="kpi-subtitle">Validated across 98.2% of Medicare patients</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Coverage Analysis</h4>
-                        <ul>
-                            <li>Total Medicare patients: 1,379 analyzed</li>
-                            <li>Coverage achieved: 98.2% of population</li>
-                            <li>Exclusions: 1.8% transparently documented</li>
-                            <li>Geographic coverage: All 50 states represented</li>
-                            <li>Demographic diversity: Full spectrum included</li>
-                            <li>Validation method: Comprehensive population sampling</li>
-                            <li>Result: Near-universal population coverage</li>
-                            <li>Transparent exclusion documentation provided</li>
-                            <li>FDA submission ready with coverage validation</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> Comprehensive validation across 98.2% of Medicare patients ensures broad population coverage with transparent documentation of the 1.8% exclusions, demonstrating robust applicability across diverse patient populations.</p>
-                        <p><strong>Data Source:</strong> CMS Medicare population validation study across 1,379 patients representing 98.2% coverage with transparent exclusion documentation for FDA submission readiness</p>
-                    </div>
+        <!-- Story Curve Section -->
+        <div class="story-curve-section">
+            <div class="story-controls">
+                <button class="story-btn active" onclick="showStoryMode('current')">Current Crisis Path</button>
+                <button class="story-btn" onclick="showStoryMode('optimized')">CDA Intervention Path</button>
+                <button class="story-btn" onclick="showDataAnalysis()">Show Data Analysis</button>
+            </div>
+            
+            <div class="story-container">
+                <canvas id="storyCurve" class="story-canvas"></canvas>
+                
+                <!-- Story Moments -->
+                <div class="story-moment" id="moment-baseline" style="top: 80px; left: 80px;">
+                    <div class="moment-title">A Stable Beginning</div>
+                    <div class="moment-detail">Andre, 67, with diabetes and hypertension. Regular PCP visits. Controlled conditions. His story begins under control.</div>
                 </div>
 
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">0.0%</div>
-                        <div class="kpi-title">Algorithmic Bias Rate</div>
-                        <div class="kpi-subtitle">Zero bias across validated CMS Medicare ethnicity data (1.8% exclusions transparently documented)</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Bias Validation</h4>
-                        <ul>
-                            <li>Ethnicity validation: 0.0% bias detected</li>
-                            <li>Gender validation: 0.0% bias detected</li>
-                            <li>Age validation: 0.0% bias detected</li>
-                            <li>Geographic validation: 0.0% bias detected</li>
-                            <li>Socioeconomic validation: 0.0% bias detected</li>
-                            <li>Validation cohort: 1,379 Medicare patients</li>
-                            <li>Statistical significance: p < 0.001</li>
-                            <li>FDA submission ready with bias validation</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> Comprehensive bias testing across all protected classes demonstrates zero algorithmic bias, ensuring equitable care delivery across diverse patient populations with transparent documentation of validation methods.</p>
-                        <p><strong>Data Source:</strong> CMS Medicare population validation study across 1,379 patients with comprehensive bias testing across ethnicity, gender, age, geographic, and socioeconomic factors for FDA submission readiness</p>
-                    </div>
+                <div class="story-moment crisis" id="moment-crisis1" style="top: 160px; left: 220px;">
+                    <div class="moment-title">Crisis #1: Kaiser ED</div>
+                    <div class="moment-detail">Hyperglycemia. Glucose at 400 mg/dL. The system sees symptoms, not the story.</div>
+                    <div class="nlp-quote">"Haven't taken my diabetes meds in 3 days"</div>
                 </div>
 
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">25.0%</div>
-                        <div class="kpi-title">Superior Risk Differentiation</div>
-                        <div class="kpi-subtitle">High-Risk Detection: 25.0% readmission rate in identified high-risk patients vs 8.6% in low-risk</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Risk Stratification</h4>
-                        <ul>
-                            <li>High-risk patients: 25.0% readmission rate</li>
-                            <li>Low-risk patients: 8.6% readmission rate</li>
-                            <li>Risk differentiation: 2.9x higher in high-risk group</li>
-                            <li>Validation cohort: 1,379 Medicare patients</li>
-                            <li>Statistical significance: p < 0.001</li>
-                            <li>Follow-up period: 12 months post-discharge</li>
-                            <li>Result: Clear risk stratification achieved</li>
-                            <li>High-risk identification accuracy: 94%</li>
-                            <li>FDA submission ready with clinical validation</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> ClinPrep's risk stratification demonstrates clear differentiation with 25.0% readmission rate in high-risk patients versus 8.6% in low-risk patients, providing actionable clinical insights for targeted interventions.</p>
-                        <p><strong>Data Source:</strong> Clinical validation study across 1,379 Medicare patients with 12-month follow-up demonstrating clear risk stratification and readmission rate differentiation for FDA submission readiness</p>
-                    </div>
+                <div class="story-moment trigger" id="moment-trigger1" style="top: 240px; left: 320px;">
+                    <div class="moment-title">Signal Missed</div>
+                    <div class="moment-detail">Medication non-adherence documented but no care coordination triggered. The first domino falls.</div>
                 </div>
 
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">✓</div>
-                        <div class="kpi-title">Live Vendor Agnostic Adapters</div>
-                        <div class="kpi-subtitle">Deployment ready comprehensive modular data ingestion and normalization framework</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Integration Capabilities</h4>
-                        <ul>
-                            <li>Epic integration: Live production deployment</li>
-                            <li>Cerner integration: Live production deployment</li>
-                            <li>Athena integration: Live production deployment</li>
-                            <li>X12 EDI integration: Live production deployment</li>
-                            <li>HL7 FHIR integration: Live production deployment</li>
-                            <li>Real-time data processing: < 5 second latency</li>
-                            <li>Data normalization: 99.9% accuracy</li>
-                            <li>Uptime: 99.99% availability</li>
-                            <li>Scalability: Handles 1M+ transactions/day</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> Comprehensive modular data ingestion framework provides vendor-agnostic integration capabilities with real-time processing, ensuring seamless data flow across diverse healthcare systems with enterprise-grade reliability.</p>
-                        <p><strong>Data Source:</strong> Live production deployments across Epic, Cerner, Athena, and X12 EDI systems with comprehensive monitoring and validation of data accuracy and processing latency</p>
-                    </div>
+                <div class="story-moment crisis" id="moment-crisis2" style="top: 280px; left: 460px;">
+                    <div class="moment-title">Crisis #2: Stanford ED</div>
+                    <div class="moment-detail">Ran out of insulin. Diabetic ulcer developing. Social barriers emerge.</div>
+                    <div class="nlp-quote">"Had to sell my car last month, been walking everywhere"</div>
+                </div>
+
+                <div class="story-moment crisis" id="moment-crisis3" style="top: 340px; left: 680px;">
+                    <div class="moment-title">The Cascade Continues</div>
+                    <div class="moment-detail">Two more ED visits. Hypertensive urgency. Financial barriers deepen. The system sees episodes, not the underlying story.</div>
+                </div>
+
+                <!-- Optimized Story Moments -->
+                <div class="story-moment intervention" id="moment-intervention1" style="top: 120px; left: 220px; display: none;">
+                    <div class="moment-title">Intervention: HIA Activated</div>
+                    <div class="moment-detail">ClinPrep's NLP engine flags medication non-adherence. Healthcare In Action team deployed within 24 hours.</div>
+                    <div class="nlp-quote">Automatic referral: "Patient exhibits medication management gaps"</div>
+                </div>
+
+                <div class="story-moment intervention" id="moment-intervention2" style="top: 100px; left: 460px; display: none;">
+                    <div class="moment-title">Intervention: PAVE Engaged</div>
+                    <div class="moment-detail">Transportation barriers identified. PAVE program provides ride vouchers and connects Andre to local resources.</div>
+                    <div class="nlp-quote">Triggered by: "sold my car", "couldn't afford uber"</div>
+                </div>
+
+                <div class="story-moment intervention" id="moment-intervention3" style="top: 80px; left: 680px; display: none;">
+                    <div class="moment-title">A New Story</div>
+                    <div class="moment-detail">Stability. Prevention. Coordinated care. Andre's trajectory transforms from crisis to management.</div>
                 </div>
             </div>
         </div>
@@ -720,6 +681,7 @@
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
