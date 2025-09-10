@@ -3,687 +3,759 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClinPrep HealthPilot - SCAN Integration Demo</title>
+    <title>ClinPrep | Andre P. Care Journey Analysis</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .company-logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 12px;
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #eff6ff;
+            --success-green: #059669;
+            --warning-orange: #d97706;
+            --danger-red: #dc2626;
+            --neutral-gray: #6b7280;
+            --light-gray: #f8fafc;
+            --dark-gray: #1f2937;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: var(--primary-blue);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: var(--neutral-gray);
+            font-size: 16px;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 24px;
+        }
+
+        .story-curve-container {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .patient-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .patient-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .patient-info h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .patient-info p {
+            color: var(--neutral-gray);
+            font-size: 14px;
+        }
+
+        .risk-badge {
+            background: var(--danger-red);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            color: var(--neutral-gray);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .curve-canvas {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn.primary {
+            background: var(--primary-blue);
+            color: white;
+            border-color: var(--primary-blue);
+        }
+
+        .btn.secondary {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .claims-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            margin-bottom: 16px;
+        }
+
+        .claims-table th,
+        .claims-table td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .claims-table th {
+            background: var(--light-gray);
+            font-weight: 600;
+        }
+
+        .flag-high { color: var(--danger-red); font-weight: 600; }
+        .flag-medium { color: var(--warning-orange); font-weight: 600; }
+        .flag-low { color: var(--success-green); font-weight: 600; }
+
+        .map-container {
+            height: 300px;
             border-radius: 8px;
-            object-fit: contain;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: var(--light-gray);
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--neutral-gray);
+            margin-top: 4px;
+        }
+
+        .narrative-timeline {
+            background: var(--light-gray);
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.6;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .timeline-event {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .timeline-event:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .event-date {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .event-details {
+            margin-top: 4px;
+            color: var(--neutral-gray);
+        }
+
+        .nlp-highlight {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-style: italic;
+        }
+
+        .cda-intervention {
+            background: #dcfce7;
+            border-left: 3px solid var(--success-green);
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .intervention-title {
+            font-weight: 600;
+            color: var(--success-green);
+        }
+
+        .reveal-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .reveal-content {
+            background: white;
+            margin: 20px;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .close-reveal {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--neutral-gray);
+        }
+
+        @media (max-width: 1024px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <img src="https://raw.githubusercontent.com/DocSDOH/clinprep-scan-demo/main/logo.png" alt="ClinPrep Logo" class="company-logo">
-                <div class="logo-text">
-                    <h1>ClinPrep</h1>
-                    <p>Population Health Intelligence Platform</p>
+    <div class="container">
+        <header class="header">
+            <h1>ClinPrep Patient Intelligence Platform</h1>
+            <p>Andre P. - Care Journey Analysis with CDA Optimization</p>
+        </header>
+
+        <div class="main-layout">
+            <div class="story-curve-container">
+                <div class="controls">
+                    <button class="btn primary" onclick="toggleOptimizedPath()">Toggle CDA Optimization</button>
+                    <button class="btn secondary" onclick="showRevealLayer()">Show Claims Data</button>
+                    <button class="btn secondary" onclick="progressiveReveal()">Progressive Intervention</button>
                 </div>
-            </div>
-            <div class="header-controls">
-                <select id="population-selector" class="population-selector">
-                    <option value="ma-medicare">MA Medicare Population</option>
-                    <option value="medicaid-homeless">Medicaid Homeless Population</option>
-                    <option value="api-demo">API Demonstration</option>
-                </select>
-                <button class="export-btn" onclick="exportDashboard()">Export Dashboard</button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Banner Statement -->
-        <section class="banner-section">
-            <h1 class="banner-title">Orchestrating Pathways</h1>
-            <p class="banner-subtitle">Transforming fragmented data into high-intent asset utilization and protection at the margin</p>
-        </section>
-
-        <!-- KPI Dashboard -->
-        <section class="kpi-section">
-            <h2 class="section-title">Key Performance Indicators</h2>
-            <div class="kpi-grid">
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">98.2%</div>
-                        <div class="kpi-title">Population Coverage</div>
-                        <div class="kpi-subtitle">Validated across 98.2% of Medicare patients</div>
+                
+                <canvas id="storyCurve" class="curve-canvas"></canvas>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="currentCost">$28,457</div>
+                        <div class="metric-label">Current Total Cost</div>
                     </div>
-                    <div class="kpi-back">
-                        <h4>Coverage Analysis</h4>
-                        <ul>
-                            <li>Total Medicare patients: 1,379 analyzed</li>
-                            <li>Coverage achieved: 98.2% of population</li>
-                            <li>Exclusions: 1.8% transparently documented</li>
-                            <li>Geographic coverage: All 50 states represented</li>
-                            <li>Demographic diversity: Full spectrum included</li>
-                            <li>Validation method: Comprehensive population sampling</li>
-                            <li>Result: Near-universal population coverage</li>
-                            <li>Transparent exclusion documentation provided</li>
-                            <li>FDA submission ready with coverage validation</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> Comprehensive validation across 98.2% of Medicare patients ensures broad population coverage with transparent documentation of the 1.8% exclusions, demonstrating robust applicability across diverse patient populations.</p>
-                        <p><strong>Data Source:</strong> CMS Medicare population validation study across 1,379 patients representing 98.2% coverage with transparent exclusion documentation for FDA submission readiness</p>
+                    <div class="metric-card">
+                        <div class="metric-value" id="optimizedCost">$8,240</div>
+                        <div class="metric-label">With CDA Optimization</div>
                     </div>
-                </div>
-
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">0.0%</div>
-                        <div class="kpi-title">Algorithmic Bias Rate</div>
-                        <div class="kpi-subtitle">Zero bias across validated CMS Medicare ethnicity data (1.8% exclusions transparently documented)</div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="edVisits">4</div>
+                        <div class="metric-label">ED Visits (Current)</div>
                     </div>
-                    <div class="kpi-back">
-                        <h4>Bias Validation</h4>
-                        <ul>
-                            <li>Ethnicity validation: 0.0% bias detected</li>
-                            <li>Cross-demographic testing: All groups equal</li>
-                            <li>Result: Zero algorithmic bias confirmed</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">25.0%</div>
-                        <div class="kpi-title">Superior Risk Differentiation</div>
-                        <div class="kpi-subtitle">High-Risk Detection: 25.0% readmission rate in identified high-risk patients vs 8.6% in low-risk</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Risk Stratification</h4>
-                        <ul>
-                            <li>High-risk patients: 25.0% readmission rate</li>
-                            <li>Low-risk patients: 8.6% readmission rate</li>
-                            <li>Risk differentiation: 2.9x higher in high-risk group</li>
-                            <li>Validation cohort: 1,379 Medicare patients</li>
-                            <li>Statistical significance: p < 0.001</li>
-                            <li>Follow-up period: 12 months post-discharge</li>
-                            <li>Result: Clear risk stratification achieved</li>
-                            <li>High-risk identification accuracy: 94%</li>
-                            <li>FDA submission ready with clinical validation</li>
-                        </ul>
-                        <p><strong>Methodology:</strong> ClinPrep's risk stratification demonstrates clear differentiation with 25.0% readmission rate in high-risk patients versus 8.6% in low-risk patients, providing actionable clinical insights for targeted interventions.</p>
-                        <p><strong>Data Source:</strong> Clinical validation study across 1,379 Medicare patients with 12-month follow-up demonstrating clear risk stratification and readmission rate differentiation for FDA submission readiness</p>
-                    </div>
-                </div>
-
-                <div class="kpi-card" onclick="flipCard(this)">
-                    <div class="kpi-front">
-                        <div class="kpi-value">✓</div>
-                        <div class="kpi-title">Live Vendor Agnostic Adapters</div>
-                        <div class="kpi-subtitle">Deployment ready comprehensive modular data ingestion and normalization framework</div>
-                    </div>
-                    <div class="kpi-back">
-                        <h4>Integration Capabilities</h4>
-                        <ul>
-                            <li>Epic: Full integration with clinical workflows</li>
-                            <li>Cerner: Comprehensive data extraction</li>
-                            <li>Athena: Practice management integration</li>
-                            <li>X12 EDI: Claims processing automation</li>
-                            <li>Result: Seamless multi-system connectivity</li>
-                        </ul>
+                    <div class="metric-card">
+                        <div class="metric-value" id="optimizedED">0</div>
+                        <div class="metric-label">ED Visits (Optimized)</div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Navigation Tabs -->
-        <nav class="tab-navigation">
-            <button class="tab-btn active" onclick="showTab('claims-analysis')">Claims Analysis</button>
-            <button class="tab-btn" onclick="showTab('care-gaps')">Care Gaps</button>
-            <button class="tab-btn" onclick="showTab('integration-nlp')">Integration & NLP</button>
-            <button class="tab-btn" onclick="showTab('geographic-intelligence')">Geographic Intelligence</button>
-            <button class="tab-btn" onclick="showTab('scan-cda-referrals')">SCAN CDA Referrals</button>
-            <button class="tab-btn" onclick="showTab('care-cartography')">Care Cartography</button>
-        </nav>
-
-        <!-- Tab Content -->
-        <div class="tab-content">
-            <!-- Claims Analysis Tab -->
-            <div id="claims-analysis" class="tab-panel active">
+            <div class="side-panel">
                 <div class="patient-card">
                     <div class="patient-header">
                         <div class="patient-info">
-                            <h3>Andre P. - Claims Analysis</h3>
-                            <p>MRN: EP-98721 • Age: 67 • Medicare Advantage • 2014 El Camino Real, Redwood City, CA</p>
+                            <h2>Andre P.</h2>
+                            <p>MRN: EP-98721 | DOB: 1958-03-15</p>
                         </div>
-                        <div class="risk-badge critical">High Risk: 8.3</div>
+                        <div class="risk-badge">High Risk: 8.3</div>
                     </div>
-                    
-                    <div class="alert-box">
-                        <h4>Claims Pattern Alert</h4>
-                        <p>4 ED visits across 2 different health systems in 6 months. Multiple pharmacy utilization with 90-day mail order refills sent to previous address. No PCP coordination between ED visits.</p>
-                    </div>
-                </div>
 
-                <div class="grid-2">
-                <div class="card">
-                    <h3>ED Visit #1 - Kaiser Redwood City</h3>
-                        <div class="claims-details">
-                            <div class="claim-item">
-                                <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                                <strong>ICD-10:</strong> E11.9 (Diabetes mellitus type 2 without complications), L30.9 (Dermatitis, unspecified)<br>
-                                <strong>CPT:</strong> 99281 (Emergency department visit), 36415 (Collection of venous blood)<br>
-                                <strong>NPI:</strong> 1234567890 (Kaiser Foundation Hospital)<br>
-                                <strong>Procedures:</strong> Saline bolus, Insulin 10 units, Basic labs, EKG<br>
-                                <strong>Discharge Meds:</strong> Insulin glargine 10 units daily, Augmentin<br>
-                                <strong>Pharmacy:</strong> CVS East Palo Alto
-                            </div>
-                        </div>
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="showTab('claims')">Claims</button>
+                        <button class="tab-btn" onclick="showTab('timeline')">Timeline</button>
+                        <button class="tab-btn" onclick="showTab('geography')">Geography</button>
+                        <button class="tab-btn" onclick="showTab('cda')">CDA</button>
                     </div>
-                    
-                    <div class="card">
-                        <h3>ED Visit #2 - Stanford Medical Center</h3>
-                        <div class="claims-details">
-                            <div class="claim-item">
-                                <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                                <strong>ICD-10:</strong> E11.9 (Diabetes mellitus with hyperglycemia), M79.3 (Panniculitis, unspecified)<br>
-                                <strong>CPT:</strong> 99282 (Emergency department visit), 73610 (Radiologic examination, ankle)<br>
-                                <strong>NPI:</strong> 0987654321 (Stanford Health Care)<br>
-                                <strong>Procedures:</strong> Insulin bolus 10 units, X-ray left foot<br>
-                                <strong>Discharge Meds:</strong> Insulin 10 units nightly (2 weeks)<br>
-                                <strong>Pharmacy:</strong> Walgreens San Carlos
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>ED Visit #3 - Kaiser Redwood City</h3>
-                        <div class="claims-details">
-                            <div class="claim-item">
-                                <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                                <strong>ICD-10:</strong> I16.0 (Hypertensive urgency), E11.9 (Diabetes mellitus), E66.9 (Obesity, unspecified)<br>
-                                <strong>CPT:</strong> 99283 (Emergency department visit), 36415 (Collection of venous blood)<br>
-                                <strong>NPI:</strong> 1234567890 (Kaiser Foundation Hospital)<br>
-                                <strong>Procedures:</strong> IV antihypertensive therapy, Medication reconciliation<br>
-                                <strong>Discharge Meds:</strong> All usual medications with BP dose adjustment<br>
-                                <strong>Pharmacy:</strong> Ravenswood Pharmacy<br>
-                                <strong>Social Work:</strong> Ride voucher provided, HSA referral
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>ED Visit #4 - Stanford Medical Center</h3>
-                        <div class="claims-details">
-                            <div class="claim-item">
-                                <strong>POS:</strong> 23 (Emergency Room - Hospital)<br>
-                                <strong>ICD-10:</strong> K59.1 (Functional diarrhea), R11.0 (Nausea)<br>
-                                <strong>CPT:</strong> 99281 (Emergency department visit), 74018 (Radiologic examination, abdomen)<br>
-                                <strong>NPI:</strong> 0987654321 (Stanford Health Care)<br>
-                                <strong>Procedures:</strong> Labs, IV fluids, X-ray abdomen<br>
-                                <strong>Discharge Meds:</strong> None<br>
-                                <strong>Assessment:</strong> Medication-related diarrhea (Metformin XR)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>Pharmacy Claims Pattern</h3>
-                    <div class="pharmacy-claims">
-                        <div class="claim-item">
-                            <strong>Mail Order Pharmacy:</strong> 90-day refills sent to 2014 El Camino Real, Redwood City, CA<br>
-                            <strong>Medications:</strong> Metformin, Lisinopril, Atorvastatin (all controlled conditions)<br>
-                            <strong>Issue:</strong> Address on file with PCP, insurance, and pharmacies - patient moved but didn't update<br>
-                            <strong>Result:</strong> Patient not receiving medications, leading to ED visits for medication access
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Care Gaps Tab -->
-            <div id="care-gaps" class="tab-panel">
-                <div class="card">
-                    <h3>🚨 Critical Care Gaps Identified</h3>
-                    <div class="gaps-grid">
-                        <div class="gap-item critical">
-                            <h4>Primary Care Coordination Failure</h4>
-                            <p><strong>Gap:</strong> No PCP follow-up after 4 ED visits in 6 months</p>
-                            <p><strong>Impact:</strong> Uncontrolled diabetes progression, medication non-adherence</p>
-                            <p><strong>Missed Opportunity:</strong> PCP could have coordinated care between ED visits</p>
-                        </div>
-                        
-                        <div class="gap-item critical">
-                            <h4>Medication Management Breakdown</h4>
-                            <p><strong>Gap:</strong> Insulin not refilled after ED visit #3</p>
-                            <p><strong>Impact:</strong> Continued hyperglycemia, potential DKA risk</p>
-                            <p><strong>Missed Opportunity:</strong> Medication reconciliation incomplete</p>
-                        </div>
-                        
-                        <div class="gap-item warning">
-                            <h4>Diagnosis Coding Inconsistency</h4>
-                            <p><strong>Gap:</strong> Foot ulcer not consistently coded across visits</p>
-                            <p><strong>Impact:</strong> Risk adjustment under-coding, missed care coordination</p>
-                            <p><strong>Missed Opportunity:</strong> Podiatry follow-up not tracked</p>
-                        </div>
-                        
-                        <div class="gap-item warning">
-                            <h4>Social Determinants Unaddressed</h4>
-                            <p><strong>Gap:</strong> Transportation barriers mentioned but not systematically addressed</p>
-                            <p><strong>Impact:</strong> Continued care access issues</p>
-                            <p><strong>Missed Opportunity:</strong> Early intervention with CDA programs</p>
-                        </div>
-                        
-                        <div class="gap-item warning">
-                            <h4>Cross-System Communication Failure</h4>
-                            <p><strong>Gap:</strong> ED providers not reviewing outside records</p>
-                            <p><strong>Impact:</strong> Repeated workups, missed context</p>
-                            <p><strong>Missed Opportunity:</strong> Comprehensive care planning</p>
-                        </div>
-                        
-                        <div class="gap-item warning">
-                            <h4>Address Update Failure</h4>
-                            <p><strong>Gap:</strong> Mail order medications sent to old address</p>
-                            <p><strong>Impact:</strong> Medication non-adherence, ED visits for med access</p>
-                            <p><strong>Missed Opportunity:</strong> Proactive address verification</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Integration & NLP Tab -->
-            <div id="integration-nlp" class="tab-panel">
-                <div class="card">
-                    <h3>🔗 Multi-System Integration & NLP Analysis</h3>
-                    <div class="integration-overview">
-                        <p><strong>Systems Integrated:</strong> Epic (Kaiser), Epic (Stanford), Cerner (San Mateo Medical Center), Athena (Podiatry)</p>
-                        <p><strong>Data Sources:</strong> Clinical notes, billing codes, pharmacy claims, social determinants screeners</p>
-                    </div>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>🧠 NLP Analysis: Social Determinants</h3>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">
-                                "Patient was having difficulty paying for transportation to get to his work and pay for his rent but this was in a nurse note in free text and the SDOH screener they used in the ED wasn't performed."
-                            </div>
-                            <div class="nlp-analysis">
-                                <strong>Extracted SDOH Factors:</strong> Transportation barriers, financial stress, housing instability<br>
-                                <strong>System Gap:</strong> SDOH screener not performed despite clear indicators<br>
-                                <strong>Risk Factors:</strong> High risk for continued ED utilization
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🧠 NLP Analysis: Medication Adherence</h3>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">
-                                "They noted that the patient ran out of insulin but didn't ask why and just assumed he wasn't able to get in with his PCP."
-                            </div>
-                            <div class="nlp-analysis">
-                                <strong>Extracted Issues:</strong> Medication access barriers, assumption-based care<br>
-                                <strong>System Gap:</strong> No root cause analysis for medication non-adherence<br>
-                                <strong>Risk Factors:</strong> Continued medication management failures
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>🧠 NLP Analysis: Care Coordination</h3>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">
-                                "The attending didn't look or really care about the referral to the podiatrist, they just wanted to 'move the meat' in a busy ER so just signed off on the note without much of an addendum."
-                            </div>
-                            <div class="nlp-analysis">
-                                <strong>Extracted Issues:</strong> Care coordination failure, time pressure affecting quality<br>
-                                <strong>System Gap:</strong> Referral follow-up not tracked<br>
-                                <strong>Risk Factors:</strong> Specialty care gaps, wound care complications
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>🧠 NLP Analysis: Financial Stress</h3>
-                        <div class="nlp-extract">
-                            <div class="nlp-text">
-                                "Noted he sold his car because he couldn't afford it any longer. Taking public transportation and walking a lot."
-                            </div>
-                            <div class="nlp-analysis">
-                                <strong>Extracted Issues:</strong> Transportation barriers, financial instability<br>
-                                <strong>System Gap:</strong> No systematic financial assistance coordination<br>
-                                <strong>Risk Factors:</strong> Continued care access barriers
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>📊 Cross-System Context Building</h3>
-                    <div class="context-analysis">
-                        <div class="context-item">
-                            <h4>Kaiser System Context</h4>
-                            <p>Patient established with PCP, had AWV at 65, 65.5, 66, 66.75. Weight gain noted, obesity diagnosis added. 90-day mail order refills established.</p>
-                        </div>
-                        <div class="context-item">
-                            <h4>Stanford System Context</h4>
-                            <p>No prior relationship. ED visits treated as isolated events. No access to Kaiser records or care plan.</p>
-                        </div>
-                        <div class="context-item">
-                            <h4>San Mateo Medical Center Context</h4>
-                            <p>Podiatry referral from Stanford ED. Stage 2 ulcer diagnosis. No coordination with primary care or other systems.</p>
-                        </div>
-                        <div class="context-item">
-                            <h4>ClinPrep Integration Value</h4>
-                            <p>Provides complete cross-system visibility, identifies care gaps, enables proactive CDA referrals before crisis escalation.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Geographic Intelligence Tab -->
-            <div id="geographic-intelligence" class="tab-panel">
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>Patient Location Analysis</h3>
-                        <div class="location-details">
-                            <div class="location-item">
-                                <strong>Current Address:</strong> 2014 El Camino Real, Redwood City, CA 94063<br>
-                                <strong>Previous Address:</strong> Same address (on file with all systems)<br>
-                                <strong>Geographic Area:</strong> San Mateo County<br>
-                                <strong>Transit Access:</strong> Limited - nearest BART 0.7 miles
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <h3>Transportation Analysis</h3>
-                        <div class="transport-details">
-                            <div class="transport-item">
-                                <strong>Vehicle Status:</strong> Sold due to financial constraints<br>
-                                <strong>Primary Transport:</strong> Public transportation and walking<br>
-                                <strong>Care Access Impact:</strong> Significant barriers to PCP and specialty care<br>
-                                <strong>ED Utilization:</strong> Increased due to transportation barriers
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>Care Radius Analysis</h3>
-                    <div class="map-container" id="geo-map"></div>
-                    <div class="care-distances">
-                        <div class="distance-grid">
-                            <div class="distance-item">
-                                <strong>Kaiser Redwood City ED:</strong> 2.1 miles (walking: 42 minutes)
-                            </div>
-                            <div class="distance-item">
-                                <strong>Stanford Medical Center ED:</strong> 8.4 miles (public transit: 1.5 hours)
-                            </div>
-                            <div class="distance-item">
-                                <strong>San Mateo Medical Center:</strong> 3.2 miles (public transit: 45 minutes)
-                            </div>
-                            <div class="distance-item">
-                                <strong>Stanford Menlo Park Internal Medicine:</strong> 1.2 miles (walking: 24 minutes)
-                            </div>
-                            <div class="distance-item">
-                                <strong>CVS East Palo Alto:</strong> 4.1 miles (public transit: 1 hour)
-                            </div>
-                            <div class="distance-item">
-                                <strong>Walgreens San Carlos:</strong> 1.8 miles (walking: 36 minutes)
-                            </div>
-                            <div class="distance-item">
-                                <strong>Ravenswood Pharmacy:</strong> 2.3 miles (walking: 46 minutes)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>🏛️ Community Resources</h3>
-                    <div class="resources-grid">
-                        <div class="resource-item">
-                            <h4>HSA Office - Fair Oaks Community Center</h4>
-                            <p><strong>Distance:</strong> 1.2 miles (walking: 24 minutes)</p>
-                            <p><strong>Services:</strong> Financial assistance, housing support, transportation vouchers</p>
-                            <p><strong>SCAN Integration:</strong> Direct referral pathway for financial assistance</p>
-                        </div>
-                        <div class="resource-item">
-                            <h4>Redwood City BART Station</h4>
-                            <p><strong>Distance:</strong> 0.7 miles (walking: 14 minutes)</p>
-                            <p><strong>Services:</strong> Regional transportation access</p>
-                            <p><strong>SCAN Integration:</strong> Transportation assistance program eligibility</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SCAN CDA Referrals Tab -->
-            <div id="scan-cda-referrals" class="tab-panel">
-                <div class="scan-header">
-                    <h3>SCAN Health Plan CDA Referral Analysis</h3>
-                    <p>Automated referral generation based on comprehensive care analysis and qualifying criteria</p>
-                </div>
-
-                <div class="cda-grid">
-                    <div class="cda-card pave expanded">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>PAVE Program</h4>
-                            <div class="priority recommended">RECOMMENDED</div>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualifying Criteria Met:</h5>
-                            <ul>
-                                <li>Medicare Advantage member with complex social needs</li>
-                                <li>Transportation barriers affecting care access</li>
-                                <li>Financial instability (sold vehicle due to costs)</li>
-                                <li>Housing concerns (rent payment difficulties)</li>
-                            </ul>
-                            <h5>Recommended Services:</h5>
-                            <p>Housing stability assessment, financial counseling, transportation assistance, long-term care planning</p>
+                    <div id="claims" class="tab-content active">
+                        <table class="claims-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Provider</th>
+                                    <th>ICD-10</th>
+                                    <th>Cost</th>
+                                    <th>Flag</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01/15/24</td>
+                                    <td>Kaiser RWC ED</td>
+                                    <td>E11.65, L30.9</td>
+                                    <td>$8,450</td>
+                                    <td class="flag-high">High</td>
+                                </tr>
+                                <tr>
+                                    <td>02/12/24</td>
+                                    <td>Stanford ED</td>
+                                    <td>E11.65, M79.3</td>
+                                    <td>$7,230</td>
+                                    <td class="flag-high">High</td>
+                                </tr>
+                                <tr>
+                                    <td>02/19/24</td>
+                                    <td>SMMC Podiatry</td>
+                                    <td>L97.429, E11.9</td>
+                                    <td>$340</td>
+                                    <td class="flag-medium">Med</td>
+                                </tr>
+                                <tr>
+                                    <td>03/25/24</td>
+                                    <td>Kaiser RWC ED</td>
+                                    <td>I16.0, E11.9</td>
+                                    <td>$9,180</td>
+                                    <td class="flag-high">High</td>
+                                </tr>
+                                <tr>
+                                    <td>04/02/24</td>
+                                    <td>Stanford ED</td>
+                                    <td>K59.1, E11.9</td>
+                                    <td>$3,257</td>
+                                    <td class="flag-medium">Med</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="font-size: 12px; color: var(--neutral-gray);">
+                            <strong>Address on file:</strong> 2014 El Camino Real, Redwood City, CA<br>
+                            <strong>Pharmacy Pattern:</strong> 4 different locations (CVS EPA, Walgreens SC, Ravenswood, Mail Order)
                         </div>
                     </div>
 
-                    <div class="cda-card hia expanded">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Healthcare In Action (HIA)</h4>
-                            <div class="priority recommended">RECOMMENDED</div>
-                        </div>
-                        <div class="cda-content">
-                            <h5>Qualifying Criteria Met:</h5>
-                            <ul>
-                                <li>4 ED visits in 6 months without PCP coordination</li>
-                                <li>Medication management failures</li>
-                                <li>Multiple health system utilization</li>
-                                <li>Transportation barriers to care</li>
-                            </ul>
-                            <h5>Recommended Services:</h5>
-                            <p>Care coordination, medication management, transportation assistance, PCP engagement</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card myplace collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>MyPlace Health</h4>
-                            <div class="priority consider">CONSIDER</div>
-                        </div>
-                        <div class="cda-content" style="display: none;">
-                            <h5>Qualifying Criteria Met:</h5>
-                            <ul>
-                                <li>Community-based care needs</li>
-                                <li>Social determinants affecting health</li>
-                                <li>Preference for local care delivery</li>
-                            </ul>
-                            <h5>Recommended Services:</h5>
-                            <p>Community health worker support, local care coordination, social services navigation</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card guaranteed collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Guaranteed Health</h4>
-                            <div class="priority consider">CONSIDER</div>
-                        </div>
-                        <div class="cda-content" style="display: none;">
-                            <h5>Qualifying Criteria Met:</h5>
-                            <ul>
-                                <li>Complex chronic conditions (diabetes, hypertension, obesity)</li>
-                                <li>Medication adherence challenges</li>
-                                <li>Care coordination needs</li>
-                            </ul>
-                            <h5>Recommended Services:</h5>
-                            <p>Chronic care management, medication therapy management, care coordination</p>
-                        </div>
-                    </div>
-
-                    <div class="cda-card homeward collapsed">
-                        <div class="cda-header" onclick="toggleCDA(this)">
-                            <h4>Homeward</h4>
-                            <div class="priority consider">CONSIDER</div>
-                        </div>
-                        <div class="cda-content" style="display: none;">
-                            <h5>Qualifying Criteria Met:</h5>
-                            <ul>
-                                <li>Rural/underserved area access challenges</li>
-                                <li>Transportation barriers</li>
-                                <li>Preference for home-based care</li>
-                            </ul>
-                            <h5>Recommended Services:</h5>
-                            <p>Home-based care delivery, telehealth coordination, local provider network</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>SCAN CDA Integration Value</h3>
-                    <div class="integration-value">
-                        <div class="value-item">
-                            <h4>Out-of-Network Care Coordination</h4>
-                            <p>Patient received care at Kaiser and Stanford (out-of-network for some CDA programs), but as a SCAN MA member, he qualifies for all CDA services regardless of where he received care.</p>
-                        </div>
-                        <div class="value-item">
-                            <h4>Proactive Intervention</h4>
-                            <p>ClinPrep's analysis enables SCAN to identify high-risk members and proactively refer to appropriate CDA programs before crisis escalation.</p>
-                        </div>
-                        <div class="value-item">
-                            <h4>Cross-System Visibility</h4>
-                            <p>Other health systems may not know these programs exist, but SCAN can make internal referrals to prevent ongoing high utilization.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Care Cartography Tab -->
-            <div id="care-cartography" class="tab-panel">
-                <div class="card">
-                    <h3>🗺️ Care Cartography - Visual Care Journey</h3>
-                    <div class="map-container" id="care-map"></div>
-                </div>
-
-                <div class="grid-2">
-                    <div class="card">
-                        <h3>📍 Care Site Analysis</h3>
-                        <div class="care-sites">
-                            <div class="site-item">
-                                <strong>Kaiser Redwood City:</strong> 1150 Veterans Blvd, Redwood City, CA 94063<br>
-                                <strong>Utilization:</strong> 2 ED visits, PCP established<br>
-                                <strong>SCAN Status:</strong> In-network
+                    <div id="timeline" class="tab-content">
+                        <div class="narrative-timeline">
+                            <div class="timeline-event">
+                                <div class="event-date">January 15, 2024 - ED Visit #1</div>
+                                <div class="event-details">
+                                    Kaiser Redwood City. Chief complaint: <span class="nlp-highlight">"lots of urinating, a lot of thirst"</span>. 
+                                    Glucose 400 mg/dL. No medication adherence assessment performed.
+                                </div>
                             </div>
-                            <div class="site-item">
-                                <strong>Stanford Medical Center:</strong> 300 Pasteur Dr, Stanford, CA 94305<br>
-                                <strong>Utilization:</strong> 2 ED visits<br>
-                                <strong>SCAN Status:</strong> Out-of-network
+                            <div class="timeline-event">
+                                <div class="event-date">February 12, 2024 - ED Visit #2</div>
+                                <div class="event-details">
+                                    Stanford ED. Patient reported <span class="nlp-highlight">"ran out of insulin"</span>. 
+                                    Physical exam documented stage 2 ulcer, but final billing only coded "foot pain."
+                                    Note: <span class="nlp-highlight">"difficulty paying for transportation to work"</span>
+                                </div>
                             </div>
-                            <div class="site-item">
-                                <strong>San Mateo Medical Center:</strong> 222 W 39th Ave, San Mateo, CA 94403<br>
-                                <strong>Utilization:</strong> Podiatry consultation<br>
-                                <strong>SCAN Status:</strong> County facility
+                            <div class="timeline-event">
+                                <div class="event-date">February 19, 2024 - Podiatry Follow-up</div>
+                                <div class="event-details">
+                                    San Mateo Medical Center. Properly diagnosed stage 2 diabetic ulcer left heel.
+                                    Instructions to follow up with PCP.
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <div class="event-date">March 25, 2024 - ED Visit #3</div>
+                                <div class="event-details">
+                                    Kaiser Redwood City. <span class="nlp-highlight">"Ran out of blood pressure medicine"</span>. 
+                                    BP 201/118. Social work consult: <span class="nlp-highlight">"sold his car, couldn't afford it any longer"</span>
+                                </div>
+                                <div class="cda-intervention">
+                                    <div class="intervention-title">CDA Opportunity: PAVE Housing + Transportation</div>
+                                    Transportation barriers and financial instability qualify for PAVE program intervention.
+                                </div>
+                            </div>
+                            <div class="timeline-event">
+                                <div class="event-date">April 2, 2024 - ED Visit #4</div>
+                                <div class="event-details">
+                                    Stanford ED. GI symptoms likely from metformin formulation change. 
+                                    Note: <span class="nlp-highlight">"Patient compliance improved with financial assistance program"</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="card">
-                        <h3>🏥 SCAN-Affiliated Resources</h3>
-                        <div class="scan-resources">
-                            <div class="resource-item">
-                                <strong>Ravenswood Health Center:</strong> 1885 Bay Rd, East Palo Alto, CA 94303<br>
-                                <strong>Services:</strong> Primary care, pharmacy<br>
-                                <strong>SCAN Benefits:</strong> Preferred provider, reduced copays
-                            </div>
-                            <div class="resource-item">
-                                <strong>Fair Oaks Community Center:</strong> 2600 Middlefield Rd, Redwood City, CA 94063<br>
-                                <strong>Services:</strong> HSA office, financial assistance<br>
-                                <strong>SCAN Benefits:</strong> Direct referral pathway
-                            </div>
+
+                    <div id="geography" class="tab-content">
+                        <div class="map-container" id="careMap"></div>
+                        <div style="font-size: 12px; color: var(--neutral-gray); margin-top: 8px;">
+                            <strong>Care Radius Analysis:</strong><br>
+                            • Home to Kaiser RWC ED: 2.1 miles<br>
+                            • Home to Stanford ED: 8.4 miles<br>
+                            • Transportation: Public transit + walking<br>
+                            • SCAN Network: 3 PCPs within 1 mile
                         </div>
                     </div>
-                </div>
 
-                <div class="card">
-                    <h3>📊 Population Health Insights</h3>
-                    <div class="population-insights">
-                        <div class="insight-item">
-                            <h4>Care Hotspot Identification</h4>
-                            <p>Redwood City area shows high ED utilization patterns. SCAN can identify similar members in this geographic area for targeted CDA interventions.</p>
+                    <div id="cda" class="tab-content">
+                        <div style="font-size: 14px;">
+                            <h3 style="margin-bottom: 12px; color: var(--primary-blue);">SCAN CDA Eligibility</h3>
+                            
+                            <div class="cda-intervention">
+                                <div class="intervention-title">Healthcare In Action (HIA)</div>
+                                Qualified: Multiple ED visits, chronic disease management gaps
+                            </div>
+                            
+                            <div class="cda-intervention">
+                                <div class="intervention-title">PAVE Program</div>
+                                Qualified: Transportation barriers, housing instability, financial constraints
+                            </div>
+                            
+                            <div class="cda-intervention">
+                                <div class="intervention-title">MyPlace Health</div>
+                                Qualified: Complex care coordination needs, medication management
+                            </div>
+                            
+                            <p style="margin-top: 16px; font-size: 12px; color: var(--neutral-gray);">
+                                <strong>Key Advantage:</strong> Andre qualifies for internal SCAN CDA referrals regardless of 
+                                out-of-network care locations. External systems lack visibility into these programs.
+                            </p>
                         </div>
-                        <div class="insight-item">
-                            <h4>Resource Allocation</h4>
-                            <p>Geographic analysis reveals need for additional PCP capacity in Redwood City area. SCAN can work with local providers to expand access.</p>
-                        </div>
-                        <div class="insight-item">
-                            <h4>Transportation Barriers</h4>
-                            <p>Public transportation gaps identified. SCAN can coordinate with local transit authorities or provide transportation vouchers through CDA programs.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3>🎯 CDA Resource Allocation</h3>
-                    <div class="cda-allocation">
-                        <p><strong>This care cartography can be provided to CDA programs for:</strong></p>
-                        <ul>
-                            <li>Specific resource allocation planning</li>
-                            <li>Idea generation for local interventions</li>
-                            <li>Public health/MA population health hotspot identification</li>
-                            <li>Strategic placement of additional resources</li>
-                            <li>Transportation route optimization</li>
-                            <li>Community partnership development</li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Integration Badges -->
-        <section class="integration-section">
-            <h3>Seamless Integration With</h3>
-            <div class="integration-badges">
-                <div class="integration-badge">
-                    <div class="badge-icon epic"></div>
-                    <span>Epic</span>
+    <!-- Reveal Layer for Claims Deep Dive -->
+    <div class="reveal-layer" id="revealLayer">
+        <div class="reveal-content">
+            <button class="close-reveal" onclick="hideRevealLayer()">&times;</button>
+            <h2 style="margin-bottom: 24px; color: var(--primary-blue);">Claims & NLP Analysis Deep Dive</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div>
+                    <h3 style="margin-bottom: 16px;">Stacked Claims Pattern</h3>
+                    <canvas id="utilizationChart" width="400" height="300"></canvas>
                 </div>
-                <div class="integration-badge">
-                    <div class="badge-icon cerner"></div>
-                    <span>Cerner</span>
+                <div>
+                    <h3 style="margin-bottom: 16px;">NLP Signal Extraction</h3>
+                    <div style="background: var(--light-gray); padding: 16px; border-radius: 8px;">
+                        <p><strong>Transportation Barriers:</strong> "sold his car", "couldn't afford uber", "walking everywhere"</p>
+                        <p><strong>Medication Adherence:</strong> "ran out of insulin", "missed doses for 1 week"</p>
+                        <p><strong>Financial Stress:</strong> "difficulty paying rent", "transportation to work"</p>
+                        <p><strong>Documentation Gaps:</strong> Stanford resident documented ulcer → coded as "foot pain"</p>
+                    </div>
+                    
+                    <h4 style="margin: 16px 0 8px 0;">Automated CDA Triggers</h4>
+                    <ul style="font-size: 14px; color: var(--neutral-gray);">
+                        <li>PAVE eligibility triggered by transportation + housing signals</li>
+                        <li>HIA referral triggered by multiple ED pattern</li>
+                        <li>Care coordination gaps identified across 3 health systems</li>
+                    </ul>
                 </div>
-                <div class="integration-badge">
-                    <div class="badge-icon athena"></div>
-                    <span>Athena</span>
-                </div>
-                <div class="integration-badge">
-                    <div class="badge-icon x12"></div>
-                    <span>X12 EDI</span>
-                </div>
-                <div class="compliance-note">HIPAA/SOC2/FDA-aligned</div>
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script>
+        let currentPath = 'current';
+        let revealStep = 0;
+        let map;
+
+        // Story Curve Data
+        const storyData = {
+            current: [
+                {x: 0, y: 50, label: 'Baseline', date: 'Dec 2023'},
+                {x: 100, y: 75, label: 'ED #1', date: 'Jan 15', cost: 8450},
+                {x: 200, y: 85, label: 'ED #2', date: 'Feb 12', cost: 7230},
+                {x: 250, y: 88, label: 'Podiatry', date: 'Feb 19', cost: 340},
+                {x: 350, y: 95, label: 'ED #3', date: 'Mar 25', cost: 9180},
+                {x: 400, y: 100, label: 'ED #4', date: 'Apr 2', cost: 3257}
+            ],
+            optimized: [
+                {x: 0, y: 50, label: 'Baseline', date: 'Dec 2023'},
+                {x: 100, y: 60, label: 'Early Intervention', date: 'Jan 16'},
+                {x: 200, y: 45, label: 'Stabilized', date: 'Feb 1'},
+                {x: 300, y: 40, label: 'Maintained', date: 'Mar 1'},
+                {x: 400, y: 35, label: 'Optimized', date: 'Apr 1'}
+            ]
+        };
+
+        function initializeChart() {
+            const canvas = document.getElementById('storyCurve');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+            
+            drawStoryCurve(ctx, canvas.width, canvas.height);
+        }
+
+        function drawStoryCurve(ctx, width, height) {
+            ctx.clearRect(0, 0, width, height);
+            
+            const data = storyData[currentPath];
+            const margin = 60;
+            const chartWidth = width - 2 * margin;
+            const chartHeight = height - 2 * margin;
+            
+            // Draw path
+            ctx.beginPath();
+            ctx.strokeStyle = currentPath === 'current' ? '#dc2626' : '#059669';
+            ctx.lineWidth = 3;
+            
+            data.forEach((point, index) => {
+                const x = margin + (point.x / 400) * chartWidth;
+                const y = margin + (1 - point.y / 100) * chartHeight;
+                
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                
+                // Draw point
+                ctx.save();
+                ctx.fillStyle = currentPath === 'current' ? '#dc2626' : '#059669';
+                ctx.beginPath();
+                ctx.arc(x, y, 6, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.restore();
+                
+                // Add label
+                ctx.fillStyle = '#374151';
+                ctx.font = '12px Inter';
+                ctx.textAlign = 'center';
+                ctx.fillText(point.label, x, y - 15);
+                ctx.fillText(point.date, x, y + 25);
+            });
+            
+            ctx.stroke();
+        }
+
+        function toggleOptimizedPath() {
+            currentPath = currentPath === 'current' ? 'optimized' : 'current';
+            initializeChart();
+            
+            // Update metrics
+            if (currentPath === 'optimized') {
+                document.getElementById('currentCost').textContent = '$8,240';
+                document.getElementById('edVisits').textContent = '1';
+            } else {
+                document.getElementById('currentCost').textContent = '$28,457';
+                document.getElementById('edVisits').textContent = '4';
+            }
+        }
+
+        function progressiveReveal() {
+            revealStep = (revealStep + 1) % 4;
+            // Implement progressive intervention reveal
+            initializeChart();
+        }
+
+        function showRevealLayer() {
+            document.getElementById('revealLayer').style.display = 'block';
+            setTimeout(initializeUtilizationChart, 100);
+        }
+
+        function hideRevealLayer() {
+            document.getElementById('revealLayer').style.display = 'none';
+        }
+
+        function initializeUtilizationChart() {
+            const ctx = document.getElementById('utilizationChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['ED Visits', 'Specialty Care', 'Primary Care', 'Pharmacy'],
+                    datasets: [{
+                        label: 'Cost Distribution',
+                        data: [28117, 340, 0, 2000],
+                        backgroundColor: ['#dc2626', '#d97706', '#059669', '#2563eb']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Initialize map if geography tab is selected
+            if (tabName === 'geography') {
+                setTimeout(initializeMap, 100);
+            }
+        }
+
+        function initializeMap() {
+            if (map) return; // Map already initialized
+            
+            map = L.map('careMap').setView([37.4851, -122.2051], 12);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            
+            // Andre's home
+            L.marker([37.4851, -122.2051])
+                .addTo(map)
+                .bindPopup('<b>Andre\'s Home</b><br>2014 El Camino Real');
+            
+            // Care locations
+            L.marker([37.4844, -122.2038])
+                .addTo(map)
+                .bindPopup('<b>Kaiser Redwood City ED</b><br>2 ED visits');
+            
+            L.marker([37.4419, -122.1430])
+                .addTo(map)
+                .bindPopup('<b>Stanford ED</b><br>2 ED visits');
+            
+            L.marker([37.4636, -122.2297])
+                .addTo(map)
+                .bindPopup('<b>San Mateo Medical Center</b><br>Podiatry');
+            
+            // Care radius
+            L.circle([37.4851, -122.2051], {
+                color: '#059669',
+                fillColor: '#dcfce7',
+                fillOpacity: 0.3,
+                radius: 2000
+            }).addTo(map).bindPopup('2km Care Radius');
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            initializeChart();
+        });
+
+        window.addEventListener('resize', () => {
+            initializeChart();
+        });
+    </script>
 </body>
 </html>
