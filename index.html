@@ -163,45 +163,121 @@
             <!-- Clinical Intelligence Tab -->
             <div id="clinical-intelligence" class="tab-panel">
                 <div class="clinical-content">
-                    <h3>Clinical Intelligence & CDA Referrals</h3>
-                    <div class="story-container">
-                        <canvas id="clinicalStoryCurve" class="story-canvas"></canvas>
+                    <h3>Clinical Intelligence</h3>
+                    
+                    <div class="clinical-intelligence-layout">
+                        <!-- Left Column: Claims Data -->
+                        <div class="claims-section">
+                            <h4>Sanitized Claims & NLP Data</h4>
+                            <div class="claims-table-container">
+                                <table class="claims-table">
+                                    <thead>
+                                        <tr>
+                                            <th>PERIOD</th>
+                                            <th>SITE</th>
+                                            <th>PRIMARY DX</th>
+                                            <th>CPT</th>
+                                            <th>NOTES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Dec 2023</td>
+                                            <td>PCP Office A</td>
+                                            <td>Z00.00</td>
+                                            <td>99397</td>
+                                            <td>AWV: Normal EKG, updated screening tests, controlled conditions.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jan 2024</td>
+                                            <td>PCP Office A</td>
+                                            <td>Z00.00</td>
+                                            <td>99213</td>
+                                            <td>Routine follow-up: Weight gain noted, obesity diagnosis added.</td>
+                                        </tr>
+                                        <tr class="highlight-row">
+                                            <td>Jan 15, 2024</td>
+                                            <td>ED Facility B</td>
+                                            <td class="highlight-dx">E11.65</td>
+                                            <td>99284</td>
+                                            <td>ED #1: Hyperglycemia, glucose 400 mg/dL, medication non-adherence.</td>
+                                        </tr>
+                                        <tr class="highlight-row">
+                                            <td>Feb 12, 2024</td>
+                                            <td>ED Facility C</td>
+                                            <td class="highlight-dx">E11.65</td>
+                                            <td>99284</td>
+                                            <td>ED #2: Ran out of insulin, stage 2 ulcer documented but coded as foot pain.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Feb 19, 2024</td>
+                                            <td>Specialty Clinic D</td>
+                                            <td>L97.429</td>
+                                            <td>99213</td>
+                                            <td>Podiatry: Properly diagnosed stage 2 diabetic ulcer left heel.</td>
+                                        </tr>
+                                        <tr class="highlight-row">
+                                            <td>Mar 25, 2024</td>
+                                            <td>ED Facility B</td>
+                                            <td class="highlight-dx">I16.0</td>
+                                            <td>99284</td>
+                                            <td>ED #3: Hypertensive urgency, ran out of all meds, social work consult.</td>
+                                        </tr>
+                                        <tr class="highlight-row">
+                                            <td>Apr 2, 2024</td>
+                                            <td>ED Facility C</td>
+                                            <td class="highlight-dx">K59.1</td>
+                                            <td>99284</td>
+                                            <td>ED #4: GI symptoms, likely medication-related diarrhea.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="nlp-note">
+                                <p><strong>Note:</strong> NLP summaries are clinician-facing interpretations (sanitized). Underlying scoring and weights remain proprietary and are not shown here.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: CDA Referrals -->
+                        <div class="cda-section">
+                            <h4>CDA Referral Examples</h4>
+                            <div class="cda-grid">
+                                <div class="cda-item recommended">
+                                    <h5>RECOMMENDED: Care Coordination Program A</h5>
+                                    <p>Qualified by: Multiple ED visits pattern, chronic disease management gaps, medication non-adherence signals.</p>
+                                </div>
+                                <div class="cda-item recommended">
+                                    <h5>RECOMMENDED: Transportation Support Program B</h5>
+                                    <p>Qualified by: Transportation barriers identified in clinical notes, social determinants of health indicators.</p>
+                                </div>
+                                <div class="cda-item consider">
+                                    <h5>CONSIDER: Social Support Program C</h5>
+                                    <p>Qualified by: Financial stress indicators, housing instability signals, social isolation patterns.</p>
+                                </div>
+                                <div class="cda-item consider">
+                                    <h5>CONSIDER: Medication Management Program D</h5>
+                                    <p>Qualified by: Complex medication regimens, adherence gaps, pharmacy utilization patterns.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Clinical Insights Section -->
                     <div class="clinical-insights">
                         <h4>Key Clinical Insights</h4>
                         <div class="insight-grid">
                             <div class="insight-item">
-                                <strong>Medication Adherence Patterns:</strong> Identified through routine documentation analysis
+                                <strong>Medication Adherence Patterns:</strong> Identified through routine documentation analysis.
                             </div>
                             <div class="insight-item">
-                                <strong>Social Determinants:</strong> Transportation barriers surfaced via NLP extraction
+                                <strong>Social Determinants:</strong> Transportation barriers surfaced via NLP extraction.
                             </div>
                             <div class="insight-item">
-                                <strong>Care Coordination Gaps:</strong> Cross-system communication breakdowns identified
+                                <strong>Care Coordination Gaps:</strong> Cross-system communication breakdowns identified.
                             </div>
                             <div class="insight-item">
-                                <strong>Risk Stratification:</strong> Early intervention opportunities detected
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cda-referrals">
-                        <h4>CDA Referral Examples</h4>
-                        <div class="cda-grid">
-                            <div class="cda-item recommended">
-                                <h5>RECOMMENDED: Care Coordination Program A</h5>
-                                <p>Qualified by: Multiple ED visits pattern, chronic disease management gaps, medication non-adherence signals</p>
-                            </div>
-                            <div class="cda-item recommended">
-                                <h5>RECOMMENDED: Transportation Support Program B</h5>
-                                <p>Qualified by: Transportation barriers identified in clinical notes, social determinants of health indicators</p>
-                            </div>
-                            <div class="cda-item consider">
-                                <h5>CONSIDER: Social Support Program C</h5>
-                                <p>Qualified by: Financial stress indicators, housing instability signals, social isolation patterns</p>
-                            </div>
-                            <div class="cda-item consider">
-                                <h5>CONSIDER: Medication Management Program D</h5>
-                                <p>Qualified by: Complex medication regimens, adherence gaps, pharmacy utilization patterns</p>
+                                <strong>Risk Stratification:</strong> Early intervention opportunities detected.
                             </div>
                         </div>
                     </div>

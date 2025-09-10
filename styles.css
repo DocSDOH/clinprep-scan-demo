@@ -1682,3 +1682,112 @@ body {
 .kpi-card.flipping {
     animation: flip 0.6s ease-in-out;
 }
+
+/* Enhanced Clinical Intelligence Styles */
+.clinical-intelligence-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.claims-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.cda-section {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.claims-table-container {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.claims-table th,
+.claims-table td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.claims-table th {
+    background: #f1f5f9;
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.claims-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.highlight-row {
+    background-color: #fef2f2 !important;
+}
+
+.highlight-dx {
+    color: #dc2626;
+    font-weight: 700;
+    background-color: #fef2f2;
+}
+
+.nlp-note {
+    background: #fffbeb;
+    border: 1px solid #fed7aa;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+}
+
+.nlp-note p {
+    color: #92400e;
+    font-size: 0.875rem;
+    margin: 0;
+    font-style: italic;
+}
+
+.cda-section .cda-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cda-section .cda-item {
+    margin-bottom: 0;
+}
+
+/* Responsive Design for Clinical Intelligence */
+@media (max-width: 768px) {
+    .clinical-intelligence-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .claims-table-container {
+        font-size: 0.8rem;
+    }
+    
+    .claims-table th,
+    .claims-table td {
+        padding: 0.5rem;
+    }
+}
