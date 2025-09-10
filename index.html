@@ -34,48 +34,11 @@
     </header>
 
     <div class="main-content">
-        <!-- Executive Summary Section -->
-        <div class="executive-summary">
-            <h2 class="executive-title">Executive Overview</h2>
-            <div class="key-outcomes">
-                <h3>Key Outcomes Demonstrated</h3>
-                <div class="outcome-grid">
-                    <div class="outcome-item">
-                        <div class="outcome-value">71%</div>
-                        <div class="outcome-label">Reduction in preventable ED utilization through early intervention</div>
-                    </div>
-                    <div class="outcome-item">
-                        <div class="outcome-value">100%</div>
-                        <div class="outcome-label">Care coordination gaps identified from routine documentation</div>
-                    </div>
-                    <div class="outcome-item">
-                        <div class="outcome-value">Zero</div>
-                        <div class="outcome-label">Workflow disruption with cross-system integration</div>
-                    </div>
-                    <div class="outcome-item">
-                        <div class="outcome-value">Auto</div>
-                        <div class="outcome-label">Referral generation with clinical evidence trail</div>
-                    </div>
-                </div>
-            </div>
-            <div class="risk-mitigation">
-                <h3>Risk Mitigation & Compliance</h3>
-                <div class="risk-grid">
-                    <div class="risk-item">Zero algorithmic bias across validated populations</div>
-                    <div class="risk-item">Enterprise security and compliance framework</div>
-                    <div class="risk-item">Transparent methodology with audit capabilities</div>
-                    <div class="risk-item">Existing data utilization (no new collection requirements)</div>
-                </div>
-            </div>
-        </div>
 
         <!-- Banner Section -->
         <div class="banner-section">
             <h1 class="banner-title">Orchestrating Pathways</h1>
             <p class="banner-subtitle">Transforming fragmented data into high-intent asset utilization and protection at the margin</p>
-            <div class="verified-claims">
-                National Population Representation | Validated Bias-Free Algorithms | Enterprise EHR Integration Ready
-            </div>
         </div>
 
         <!-- Story Curve Section -->
@@ -153,55 +116,45 @@
             </div>
         </div>
 
-        <!-- Executive Tab Navigation -->
+        <!-- Clean Tab Navigation -->
         <div class="tab-navigation">
-            <button class="tab-btn active" onclick="showTab('executive-overview')">Executive Overview</button>
+            <button class="tab-btn active" onclick="showTab('key-outcomes')">Key Outcomes</button>
             <button class="tab-btn" onclick="showTab('clinical-intelligence')">Clinical Intelligence</button>
             <button class="tab-btn" onclick="showTab('integration-architecture')">Integration Architecture</button>
-            <button class="tab-btn" onclick="showTab('outcomes-compliance')">Outcomes & Compliance</button>
+            <button class="tab-btn" onclick="showTab('care-geography')">Care Geography</button>
         </div>
 
-        <!-- Executive Tab Content -->
+        <!-- Clean Tab Content -->
         <div class="tab-content">
-            <!-- Executive Overview Tab -->
-            <div id="executive-overview" class="tab-panel active">
-                <div class="executive-content">
-                    <h3>Strategic Value Proposition</h3>
-                    <div class="value-grid">
-                        <div class="value-card">
-                            <h4>CFO Perspective</h4>
-                            <ul>
-                                <li>71% reduction in preventable ED utilization</li>
-                                <li>High fidelity referrals reduce utilization spikes post-risk adjustment</li>
-                                <li>Existing data utilization (no new collection costs)</li>
-                                <li>Transparent ROI with audit capabilities</li>
-                            </ul>
+            <!-- Key Outcomes Tab -->
+            <div id="key-outcomes" class="tab-panel active">
+                <div class="outcomes-content">
+                    <h3>Key Outcomes</h3>
+                    <div class="outcome-grid">
+                        <div class="outcome-item">
+                            <h4>High-fidelity Care Asset Deployment</h4>
+                            <p>Precise targeting of care coordination resources while limiting runaway costs at the margin</p>
                         </div>
-                        <div class="value-card">
-                            <h4>CIO Perspective</h4>
-                            <ul>
-                                <li>Zero workflow disruption with cross-system integration</li>
-                                <li>Enterprise-grade security and compliance framework</li>
-                                <li>Integrated EMR + Claims + NLP pipeline (HIPAA-compliant)</li>
-                                <li>Scalable architecture with existing infrastructure</li>
-                            </ul>
+                        <div class="outcome-item">
+                            <h4>Context Visibility for Care Gaps</h4>
+                            <p>Complete visibility into each care gap with underlying social determinants and barriers</p>
+                        </div>
+                        <div class="outcome-item">
+                            <h4>Zero Workflow Disruption</h4>
+                            <p>Seamless cross-system integration without impacting existing clinical workflows</p>
+                        </div>
+                        <div class="outcome-item">
+                            <h4>Auto Referral Generation</h4>
+                            <p>Automated referral generation with clinical evidence trail and audit capabilities</p>
                         </div>
                     </div>
-                    <div class="roi-summary">
-                        <h4>Key ROI Metrics</h4>
-                        <div class="roi-grid">
-                            <div class="roi-item">
-                                <span class="roi-metric">$28,457</span>
-                                <span class="roi-label">Current Total Cost (Baseline)</span>
-                            </div>
-                            <div class="roi-item">
-                                <span class="roi-metric">$8,240</span>
-                                <span class="roi-label">Optimized Cost (With Intervention)</span>
-                            </div>
-                            <div class="roi-item">
-                                <span class="roi-metric">71%</span>
-                                <span class="roi-label">Cost Reduction</span>
-                            </div>
+                    <div class="risk-mitigation">
+                        <h4>Risk Mitigation</h4>
+                        <div class="risk-grid">
+                            <div class="risk-item">Zero algorithmic bias across validated populations</div>
+                            <div class="risk-item">Enterprise security and compliance framework</div>
+                            <div class="risk-item">Transparent methodology with audit capabilities</div>
+                            <div class="risk-item">Existing data utilization (no new collection requirements)</div>
                         </div>
                     </div>
                 </div>
@@ -210,7 +163,7 @@
             <!-- Clinical Intelligence Tab -->
             <div id="clinical-intelligence" class="tab-panel">
                 <div class="clinical-content">
-                    <h3>Patient Journey & Clinical Events</h3>
+                    <h3>Clinical Intelligence & CDA Referrals</h3>
                     <div class="story-container">
                         <canvas id="clinicalStoryCurve" class="story-canvas"></canvas>
                     </div>
@@ -231,17 +184,37 @@
                             </div>
                         </div>
                     </div>
+                    <div class="cda-referrals">
+                        <h4>CDA Referral Examples</h4>
+                        <div class="cda-grid">
+                            <div class="cda-item recommended">
+                                <h5>RECOMMENDED: Care Coordination Program A</h5>
+                                <p>Qualified by: Multiple ED visits pattern, chronic disease management gaps, medication non-adherence signals</p>
+                            </div>
+                            <div class="cda-item recommended">
+                                <h5>RECOMMENDED: Transportation Support Program B</h5>
+                                <p>Qualified by: Transportation barriers identified in clinical notes, social determinants of health indicators</p>
+                            </div>
+                            <div class="cda-item consider">
+                                <h5>CONSIDER: Social Support Program C</h5>
+                                <p>Qualified by: Financial stress indicators, housing instability signals, social isolation patterns</p>
+                            </div>
+                            <div class="cda-item consider">
+                                <h5>CONSIDER: Medication Management Program D</h5>
+                                <p>Qualified by: Complex medication regimens, adherence gaps, pharmacy utilization patterns</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Integration Architecture Tab -->
             <div id="integration-architecture" class="tab-panel">
                 <div class="integration-content">
-                    <h3>Technical Integration Overview</h3>
+                    <h3>Integration Architecture</h3>
                     <div class="integration-overview">
                         <div class="integration-flow">
                             <div class="flow-step">
-                                <div class="step-icon">📊</div>
                                 <div class="step-content">
                                     <h4>Data Sources</h4>
                                     <p>Core EMR systems, pharmacy claims feeds, payer eligibility data</p>
@@ -249,7 +222,6 @@
                             </div>
                             <div class="flow-arrow">→</div>
                             <div class="flow-step">
-                                <div class="step-icon">🔍</div>
                                 <div class="step-content">
                                     <h4>NLP Processing</h4>
                                     <p>Automated extraction of clinical signals and social determinants</p>
@@ -257,7 +229,6 @@
                             </div>
                             <div class="flow-arrow">→</div>
                             <div class="flow-step">
-                                <div class="step-icon">🎯</div>
                                 <div class="step-content">
                                     <h4>Referral Generation</h4>
                                     <p>High-fidelity referrals with clinical evidence trail</p>
@@ -285,35 +256,29 @@
                 </div>
             </div>
 
-            <!-- Outcomes & Compliance Tab -->
-            <div id="outcomes-compliance" class="tab-panel">
-                <div class="outcomes-content">
-                    <h3>Outcomes & Compliance</h3>
-                    <div class="outcomes-grid">
-                        <div class="outcome-section">
-                            <h4>Clinical Outcomes</h4>
-                            <div class="outcome-metrics">
-                                <div class="metric-item">
-                                    <span class="metric-value">4 → 1</span>
-                                    <span class="metric-label">ED Visits (Current → Optimized)</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">100%</span>
-                                    <span class="metric-label">Care Gap Identification</span>
-                                </div>
-                                <div class="metric-item">
-                                    <span class="metric-value">24hr</span>
-                                    <span class="metric-label">Intervention Response Time</span>
-                                </div>
+            <!-- Care Geography Tab -->
+            <div id="care-geography" class="tab-panel">
+                <div class="geography-content">
+                    <h3>Care Geography & Resource Optimization</h3>
+                    <div class="map-container" id="careGeographyMap"></div>
+                    <div class="geography-analysis">
+                        <h4>Geographic Intelligence</h4>
+                        <div class="geo-grid">
+                            <div class="geo-item">
+                                <h5>Care Radius Analysis</h5>
+                                <p>Patient location to care sites: 2.1 miles to nearest ED, 8.4 miles to specialty care</p>
                             </div>
-                        </div>
-                        <div class="compliance-section">
-                            <h4>Compliance & Risk Management</h4>
-                            <div class="compliance-items">
-                                <div class="compliance-item">✓ Zero algorithmic bias across validated populations</div>
-                                <div class="compliance-item">✓ Enterprise security and compliance framework</div>
-                                <div class="compliance-item">✓ Transparent methodology with audit capabilities</div>
-                                <div class="compliance-item">✓ Existing data utilization (no new collection requirements)</div>
+                            <div class="geo-item">
+                                <h5>Transportation Patterns</h5>
+                                <p>Public transit + walking identified as primary transportation method</p>
+                            </div>
+                            <div class="geo-item">
+                                <h5>Network Coverage</h5>
+                                <p>3 primary care providers within 1 mile radius, 2 specialty care within 5 miles</p>
+                            </div>
+                            <div class="geo-item">
+                                <h5>Resource Optimization</h5>
+                                <p>Geographic clustering of high-utilization patients for targeted resource allocation</p>
                             </div>
                         </div>
                     </div>

@@ -84,6 +84,10 @@ function showTab(tabName) {
         setTimeout(() => {
             initializeClinicalChart();
         }, 100);
+    } else if (tabName === 'care-geography') {
+        setTimeout(() => {
+            initCareGeographyMap();
+        }, 100);
     } else if (tabName === 'geographic-intelligence' && !geoMap) {
         initGeoMap();
     } else if (tabName === 'care-cartography' && !careMap) {
@@ -123,6 +127,59 @@ function initializeMaps() {
     if (currentTab === 'care-cartography') {
         initCareMap();
     }
+    
+    // Initialize care geography map if the tab is active
+    if (currentTab === 'care-geography') {
+        initCareGeographyMap();
+    }
+}
+
+// Care Geography Map
+function initCareGeographyMap() {
+    const mapContainer = document.getElementById('careGeographyMap');
+    if (!mapContainer || careMap) return; // Don't reinitialize if already exists
+    
+    careMap = L.map('careGeographyMap').setView([37.4851, -122.2051], 12);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(careMap);
+    
+    // Patient home location
+    L.marker([37.4851, -122.2051])
+        .addTo(careMap)
+        .bindPopup('<b>Patient Location</b><br>2014 El Camino Real, Redwood City, CA');
+    
+    // Care locations
+    L.marker([37.4844, -122.2038])
+        .addTo(careMap)
+        .bindPopup('<b>Emergency Department</b><br>2.1 miles - Primary ED location');
+    
+    L.marker([37.4419, -122.1430])
+        .addTo(careMap)
+        .bindPopup('<b>Specialty Care</b><br>8.4 miles - Secondary care location');
+    
+    L.marker([37.4636, -122.2297])
+        .addTo(careMap)
+        .bindPopup('<b>Primary Care</b><br>1.2 miles - Local PCP');
+    
+    // Care radius
+    L.circle([37.4851, -122.2051], {
+        color: '#059669',
+        fillColor: '#dcfce7',
+        fillOpacity: 0.3,
+        radius: 2000
+    }).addTo(careMap).bindPopup('2km Care Radius');
+    
+    // Transportation routes (simplified)
+    L.polyline([
+        [37.4851, -122.2051],
+        [37.4844, -122.2038]
+    ], {
+        color: '#2563eb',
+        weight: 3,
+        opacity: 0.7
+    }).addTo(careMap).bindPopup('Primary Transportation Route');
 }
 
 function initCareMap() {
