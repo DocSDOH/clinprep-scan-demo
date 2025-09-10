@@ -197,7 +197,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
-    max-width: 200px;
+    max-width: 250px;
     opacity: 0;
     transform: translateY(20px);
     transition: all 0.5s ease;
@@ -1681,6 +1681,37 @@ body {
 
 .kpi-card.flipping {
     animation: flip 0.6s ease-in-out;
+}
+
+/* Patient Summary Styles */
+.patient-summary-section {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.patient-summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #2563eb;
+    max-width: 800px;
+    width: 100%;
+}
+
+.patient-summary-card h3 {
+    color: #1f2937;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.patient-summary-card p {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
 }
 
 /* Enhanced Clinical Intelligence Styles */

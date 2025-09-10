@@ -41,11 +41,19 @@
             <p class="banner-subtitle">Transforming fragmented data into high-intent asset utilization and protection at the margin</p>
         </div>
 
+        <!-- Patient Summary Section -->
+        <div class="patient-summary-section">
+            <div class="patient-summary-card">
+                <h3>Patient Summary</h3>
+                <p>67 year old male with history of diabetes mellitus, hypertension, hyperlipidemia enrolled in a Medicare Advantage program experiencing sudden high utilization, social hardships, and worsening disease courses.</p>
+            </div>
+        </div>
+
         <!-- Story Curve Section -->
         <div class="story-curve-section">
             <div class="story-controls">
                 <button class="story-btn active" onclick="showStoryMode('current')">Current Crisis Path</button>
-                <button class="story-btn" onclick="showStoryMode('optimized')">Care Coordination Path</button>
+                <button class="story-btn" onclick="showStoryMode('optimized')">CDA Deployment Pathway</button>
                 <button class="story-btn" onclick="showDataAnalysis()">Show Data Analysis</button>
             </div>
             
@@ -64,18 +72,18 @@
                     <div class="nlp-quote">"Haven't taken my medications in several days"</div>
                 </div>
 
-                <div class="story-moment trigger" id="moment-trigger1" style="top: 240px; left: 320px;">
+                <div class="story-moment trigger" id="moment-trigger1" style="top: 260px; left: 320px;">
                     <div class="moment-title">Signal Missed</div>
                     <div class="moment-detail">Medication non-adherence documented but no care coordination triggered. The first domino falls.</div>
                 </div>
 
-                <div class="story-moment crisis" id="moment-crisis2" style="top: 280px; left: 460px;">
+                <div class="story-moment crisis" id="moment-crisis2" style="top: 320px; left: 460px;">
                     <div class="moment-title">Crisis #2: Secondary ED Visit</div>
                     <div class="moment-detail">Medication access issues. Complications developing. Social barriers emerge.</div>
                     <div class="nlp-quote">"Having trouble getting to appointments"</div>
                 </div>
 
-                <div class="story-moment crisis" id="moment-crisis3" style="top: 340px; left: 680px;">
+                <div class="story-moment crisis" id="moment-crisis3" style="top: 380px; left: 680px;">
                     <div class="moment-title">The Cascade Continues</div>
                     <div class="moment-detail">Additional emergency visits. Complications escalate. Social determinants deepen. The system sees episodes, not the underlying story.</div>
                 </div>
@@ -232,31 +240,31 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
+                    </div>
 
                             <div class="nlp-note">
                                 <p><strong>Note:</strong> NLP summaries are clinician-facing interpretations (sanitized). Underlying scoring and weights remain proprietary and are not shown here.</p>
                             </div>
-                        </div>
+                            </div>
 
                         <!-- Right Column: CDA Referrals -->
                         <div class="cda-section">
-                            <h4>CDA Referral Examples</h4>
-                            <div class="cda-grid">
-                                <div class="cda-item recommended">
-                                    <h5>RECOMMENDED: Care Coordination Program A</h5>
+                        <h4>CDA Referral Examples</h4>
+                        <div class="cda-grid">
+                            <div class="cda-item recommended">
+                                <h5>RECOMMENDED: Care Coordination Program A</h5>
                                     <p>Qualified by: Multiple ED visits pattern, chronic disease management gaps, medication non-adherence signals.</p>
-                                </div>
-                                <div class="cda-item recommended">
-                                    <h5>RECOMMENDED: Transportation Support Program B</h5>
+                            </div>
+                            <div class="cda-item recommended">
+                                <h5>RECOMMENDED: Transportation Support Program B</h5>
                                     <p>Qualified by: Transportation barriers identified in clinical notes, social determinants of health indicators.</p>
-                                </div>
-                                <div class="cda-item consider">
-                                    <h5>CONSIDER: Social Support Program C</h5>
+                            </div>
+                            <div class="cda-item consider">
+                                <h5>CONSIDER: Social Support Program C</h5>
                                     <p>Qualified by: Financial stress indicators, housing instability signals, social isolation patterns.</p>
-                                </div>
-                                <div class="cda-item consider">
-                                    <h5>CONSIDER: Medication Management Program D</h5>
+                            </div>
+                            <div class="cda-item consider">
+                                <h5>CONSIDER: Medication Management Program D</h5>
                                     <p>Qualified by: Complex medication regimens, adherence gaps, pharmacy utilization patterns.</p>
                                 </div>
                             </div>
