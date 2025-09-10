@@ -43,6 +43,15 @@ This demo showcases ClinPrep's capabilities in:
 - **Priority Scoring**: Urgent vs. standard referral classification with clinical justification
 - **Geographic Matching**: Service area validation and optimization for Andre's location
 
+### 🧠 Enhanced Clinical Intelligence (NEW)
+- **ICD10 Claims Data Visualization**: Comprehensive patient journey tracking with highlighted critical diagnoses
+- **Two-Column Layout**: Optimal presentation of claims data alongside CDA referral examples
+- **Critical Diagnosis Highlighting**: Red highlighting for emergency department visits (E11.65, I16.0, K59.1)
+- **Sanitized Claims & NLP Data**: Professional table showing 7 patient encounters with clinical progression
+- **CDA Referral Examples**: Clear categorization of recommended vs. consideration programs
+- **Clinical Insights**: Four key intelligence categories with detailed analysis
+- **Responsive Design**: Mobile-optimized layout for all device types
+
 ### 🗺️ Geographic Intelligence
 - **Care Radius Analysis**: Travel distance and accessibility metrics
 - **Transportation Barriers**: Vehicle access and public transit evaluation
