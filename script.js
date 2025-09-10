@@ -79,8 +79,12 @@ function showTab(tabName) {
     // Update current tab
     currentTab = tabName;
     
-    // Initialize maps when their tabs are shown
-    if (tabName === 'geographic-intelligence' && !geoMap) {
+    // Initialize charts and maps when their tabs are shown
+    if (tabName === 'clinical-intelligence') {
+        setTimeout(() => {
+            initializeClinicalChart();
+        }, 100);
+    } else if (tabName === 'geographic-intelligence' && !geoMap) {
         initGeoMap();
     } else if (tabName === 'care-cartography' && !careMap) {
         initCareMap();
@@ -481,6 +485,74 @@ function initializeStoryCurve() {
     });
 
     revealStoryMoments();
+}
+
+// Clinical Intelligence Chart
+function initializeClinicalChart() {
+    const canvas = document.getElementById('clinicalStoryCurve');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Baseline', 'Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5'],
+            datasets: [{
+                label: 'Current Path',
+                data: [30, 45, 65, 70, 85, 100],
+                borderColor: '#dc2626',
+                borderWidth: 3,
+                pointRadius: 6,
+                tension: 0.2,
+                fill: false
+            }, {
+                label: 'Optimized Path',
+                data: [30, 35, 25, 20, 18, 15],
+                borderColor: '#059669',
+                borderWidth: 3,
+                pointRadius: 6,
+                tension: 0.1,
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                }
+            },
+            scales: {
+                x: {
+                    display: true,
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#6b7280',
+                        font: {
+                            size: 12
+                        }
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: 110,
+                    display: true,
+                    grid: {
+                        display: true,
+                        color: '#f3f4f6'
+                    },
+                    ticks: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
 }
 
 function showStoryMode(mode) {

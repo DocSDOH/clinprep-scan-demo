@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Care Coordination Intelligence - Conceptual Demonstration</title>
+    <title>Strategic Care Optimization Platform - Executive Review</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="styles.css">
     <style>
@@ -20,8 +20,8 @@
             <div class="logo-section">
                 <img src="logo.png" alt="ClinPrep Logo" class="company-logo">
                 <div class="logo-text">
-                    <h1>Care Coordination Intelligence</h1>
-                    <p>Conceptual Demonstration Platform</p>
+                    <h1>Strategic Care Optimization Platform</h1>
+                    <p>Executive Review - Care Coordination Intelligence</p>
                 </div>
             </div>
             <div class="header-controls">
@@ -34,6 +34,41 @@
     </header>
 
     <div class="main-content">
+        <!-- Executive Summary Section -->
+        <div class="executive-summary">
+            <h2 class="executive-title">Executive Overview</h2>
+            <div class="key-outcomes">
+                <h3>Key Outcomes Demonstrated</h3>
+                <div class="outcome-grid">
+                    <div class="outcome-item">
+                        <div class="outcome-value">71%</div>
+                        <div class="outcome-label">Reduction in preventable ED utilization through early intervention</div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-value">100%</div>
+                        <div class="outcome-label">Care coordination gaps identified from routine documentation</div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-value">Zero</div>
+                        <div class="outcome-label">Workflow disruption with cross-system integration</div>
+                    </div>
+                    <div class="outcome-item">
+                        <div class="outcome-value">Auto</div>
+                        <div class="outcome-label">Referral generation with clinical evidence trail</div>
+                    </div>
+                </div>
+            </div>
+            <div class="risk-mitigation">
+                <h3>Risk Mitigation & Compliance</h3>
+                <div class="risk-grid">
+                    <div class="risk-item">Zero algorithmic bias across validated populations</div>
+                    <div class="risk-item">Enterprise security and compliance framework</div>
+                    <div class="risk-item">Transparent methodology with audit capabilities</div>
+                    <div class="risk-item">Existing data utilization (no new collection requirements)</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Banner Section -->
         <div class="banner-section">
             <h1 class="banner-title">Orchestrating Pathways</h1>
@@ -118,20 +153,175 @@
             </div>
         </div>
 
-        <!-- Tab Navigation -->
+        <!-- Executive Tab Navigation -->
         <div class="tab-navigation">
-            <button class="tab-btn active" onclick="showTab('claims-analysis')">Claims Analysis</button>
-            <button class="tab-btn" onclick="showTab('care-gaps')">Care Gaps</button>
-            <button class="tab-btn" onclick="showTab('integration-nlp')">Integration, Clinical Notes, and NLP</button>
-            <button class="tab-btn" onclick="showTab('geographic-intelligence')">Geographic Intelligence</button>
-            <button class="tab-btn" onclick="showTab('scan-cda-referrals')">SCAN CDA Referrals</button>
-            <button class="tab-btn" onclick="showTab('care-cartography')">Care Cartography</button>
+            <button class="tab-btn active" onclick="showTab('executive-overview')">Executive Overview</button>
+            <button class="tab-btn" onclick="showTab('clinical-intelligence')">Clinical Intelligence</button>
+            <button class="tab-btn" onclick="showTab('integration-architecture')">Integration Architecture</button>
+            <button class="tab-btn" onclick="showTab('outcomes-compliance')">Outcomes & Compliance</button>
         </div>
 
-        <!-- Tab Content -->
+        <!-- Executive Tab Content -->
         <div class="tab-content">
-            <!-- Claims Analysis Tab -->
-            <div id="claims-analysis" class="tab-panel active">
+            <!-- Executive Overview Tab -->
+            <div id="executive-overview" class="tab-panel active">
+                <div class="executive-content">
+                    <h3>Strategic Value Proposition</h3>
+                    <div class="value-grid">
+                        <div class="value-card">
+                            <h4>CFO Perspective</h4>
+                            <ul>
+                                <li>71% reduction in preventable ED utilization</li>
+                                <li>High fidelity referrals reduce utilization spikes post-risk adjustment</li>
+                                <li>Existing data utilization (no new collection costs)</li>
+                                <li>Transparent ROI with audit capabilities</li>
+                            </ul>
+                        </div>
+                        <div class="value-card">
+                            <h4>CIO Perspective</h4>
+                            <ul>
+                                <li>Zero workflow disruption with cross-system integration</li>
+                                <li>Enterprise-grade security and compliance framework</li>
+                                <li>Integrated EMR + Claims + NLP pipeline (HIPAA-compliant)</li>
+                                <li>Scalable architecture with existing infrastructure</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roi-summary">
+                        <h4>Key ROI Metrics</h4>
+                        <div class="roi-grid">
+                            <div class="roi-item">
+                                <span class="roi-metric">$28,457</span>
+                                <span class="roi-label">Current Total Cost (Baseline)</span>
+                            </div>
+                            <div class="roi-item">
+                                <span class="roi-metric">$8,240</span>
+                                <span class="roi-label">Optimized Cost (With Intervention)</span>
+                            </div>
+                            <div class="roi-item">
+                                <span class="roi-metric">71%</span>
+                                <span class="roi-label">Cost Reduction</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clinical Intelligence Tab -->
+            <div id="clinical-intelligence" class="tab-panel">
+                <div class="clinical-content">
+                    <h3>Patient Journey & Clinical Events</h3>
+                    <div class="story-container">
+                        <canvas id="clinicalStoryCurve" class="story-canvas"></canvas>
+                    </div>
+                    <div class="clinical-insights">
+                        <h4>Key Clinical Insights</h4>
+                        <div class="insight-grid">
+                            <div class="insight-item">
+                                <strong>Medication Adherence Patterns:</strong> Identified through routine documentation analysis
+                            </div>
+                            <div class="insight-item">
+                                <strong>Social Determinants:</strong> Transportation barriers surfaced via NLP extraction
+                            </div>
+                            <div class="insight-item">
+                                <strong>Care Coordination Gaps:</strong> Cross-system communication breakdowns identified
+                            </div>
+                            <div class="insight-item">
+                                <strong>Risk Stratification:</strong> Early intervention opportunities detected
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Integration Architecture Tab -->
+            <div id="integration-architecture" class="tab-panel">
+                <div class="integration-content">
+                    <h3>Technical Integration Overview</h3>
+                    <div class="integration-overview">
+                        <div class="integration-flow">
+                            <div class="flow-step">
+                                <div class="step-icon">📊</div>
+                                <div class="step-content">
+                                    <h4>Data Sources</h4>
+                                    <p>Core EMR systems, pharmacy claims feeds, payer eligibility data</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-icon">🔍</div>
+                                <div class="step-content">
+                                    <h4>NLP Processing</h4>
+                                    <p>Automated extraction of clinical signals and social determinants</p>
+                                </div>
+                            </div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step">
+                                <div class="step-icon">🎯</div>
+                                <div class="step-content">
+                                    <h4>Referral Generation</h4>
+                                    <p>High-fidelity referrals with clinical evidence trail</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="technical-specs">
+                        <h4>Technical Specifications</h4>
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <strong>Security:</strong> Enterprise-grade security and compliance framework
+                            </div>
+                            <div class="spec-item">
+                                <strong>Integration:</strong> HIPAA-compliant data pipeline
+                            </div>
+                            <div class="spec-item">
+                                <strong>Scalability:</strong> Cloud-native architecture
+                            </div>
+                            <div class="spec-item">
+                                <strong>Audit:</strong> Transparent methodology with full audit capabilities
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outcomes & Compliance Tab -->
+            <div id="outcomes-compliance" class="tab-panel">
+                <div class="outcomes-content">
+                    <h3>Outcomes & Compliance</h3>
+                    <div class="outcomes-grid">
+                        <div class="outcome-section">
+                            <h4>Clinical Outcomes</h4>
+                            <div class="outcome-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-value">4 → 1</span>
+                                    <span class="metric-label">ED Visits (Current → Optimized)</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-value">100%</span>
+                                    <span class="metric-label">Care Gap Identification</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-value">24hr</span>
+                                    <span class="metric-label">Intervention Response Time</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="compliance-section">
+                            <h4>Compliance & Risk Management</h4>
+                            <div class="compliance-items">
+                                <div class="compliance-item">✓ Zero algorithmic bias across validated populations</div>
+                                <div class="compliance-item">✓ Enterprise security and compliance framework</div>
+                                <div class="compliance-item">✓ Transparent methodology with audit capabilities</div>
+                                <div class="compliance-item">✓ Existing data utilization (no new collection requirements)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legacy Claims Analysis Tab (Hidden) -->
+            <div id="claims-analysis" class="tab-panel" style="display: none;">
                 <h3>Claims Analysis - MA Program Billing Codes</h3>
                 
                 <div class="claims-details">
@@ -661,31 +851,32 @@
             <div class="integration-badges">
                 <div class="integration-badge">
                     <div class="badge-icon epic"></div>
-                    <span>Epic</span>
+                    <span>Core EMR Systems</span>
                 </div>
                 <div class="integration-badge">
                     <div class="badge-icon cerner"></div>
-                    <span>Cerner</span>
+                    <span>Pharmacy Claims Feeds</span>
                 </div>
                 <div class="integration-badge">
                     <div class="badge-icon bitfocus"></div>
-                    <span>Athena</span>
+                    <span>Payer Eligibility Data</span>
                 </div>
                 <div class="integration-badge">
                     <div class="badge-icon x12"></div>
-                    <span>X12 EDI</span>
+                    <span>Standard EDI</span>
                 </div>
             </div>
-            <p class="compliance-note">HIPAA Compliant • SOC 2 Type II • HITRUST Certified</p>
+            <p class="compliance-note">Enterprise-grade security and compliance framework</p>
         </div>
 
-        <!-- Footer Disclaimer -->
+        <!-- Enhanced Footer Disclaimer -->
         <footer class="footer-disclaimer">
             <div class="disclaimer-content">
-                <h4>Conceptual Demonstration Disclaimer</h4>
-                <p>This is a conceptual demonstration of care coordination intelligence capabilities. All patient data, clinical scenarios, and care pathways shown are hypothetical examples created for demonstration purposes only. This platform is designed to showcase potential applications of AI-driven care coordination and does not represent actual patient care or operational workflows.</p>
+                <h4>Strategic Illustration Disclaimer</h4>
+                <p><strong>This demo is for strategic illustration only. Nothing shown herein constitutes SCAN's final design or implementation—and the underlying algorithmic logic is proprietary.</strong> All patient data is fictional and used for demonstration purposes only.</p>
                 <p><strong>Not for Clinical Use:</strong> This demonstration is not intended for clinical decision-making or patient care. All examples are fictional and should not be used as a basis for medical decisions or care planning.</p>
-                <p><strong>Confidentiality:</strong> This demonstration contains conceptual frameworks and should be treated as confidential intellectual property.</p>
+                <p><strong>Proprietary Information:</strong> This demonstration contains conceptual frameworks and proprietary intellectual property. Underlying algorithms, methodologies, and technical implementations are confidential and proprietary.</p>
+                <p class="copyright-notice"><strong>© 2025 ClinPrep Health. Proprietary and Confidential.</strong> This demonstration uses fictional patient scenarios for strategic illustration only. No actual patient data or operational details are represented.</p>
             </div>
         </footer>
     </div>
