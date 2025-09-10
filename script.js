@@ -137,30 +137,35 @@ function initializeMaps() {
 // Care Geography Map
 function initCareGeographyMap() {
     const mapContainer = document.getElementById('careGeographyMap');
-    if (!mapContainer || careMap) return; // Don't reinitialize if already exists
+    if (!mapContainer) return;
     
-    careMap = L.map('careGeographyMap').setView([37.4851, -122.2051], 12);
+    // Check if map already exists and destroy it
+    if (window.geographyMap) {
+        window.geographyMap.remove();
+    }
+    
+    window.geographyMap = L.map('careGeographyMap').setView([37.4851, -122.2051], 12);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
-    }).addTo(careMap);
+    }).addTo(window.geographyMap);
     
     // Patient home location
     L.marker([37.4851, -122.2051])
-        .addTo(careMap)
+        .addTo(window.geographyMap)
         .bindPopup('<b>Patient Location</b><br>2014 El Camino Real, Redwood City, CA');
     
     // Care locations
     L.marker([37.4844, -122.2038])
-        .addTo(careMap)
+        .addTo(window.geographyMap)
         .bindPopup('<b>Emergency Department</b><br>2.1 miles - Primary ED location');
     
     L.marker([37.4419, -122.1430])
-        .addTo(careMap)
+        .addTo(window.geographyMap)
         .bindPopup('<b>Specialty Care</b><br>8.4 miles - Secondary care location');
     
     L.marker([37.4636, -122.2297])
-        .addTo(careMap)
+        .addTo(window.geographyMap)
         .bindPopup('<b>Primary Care</b><br>1.2 miles - Local PCP');
     
     // Care radius
@@ -169,7 +174,7 @@ function initCareGeographyMap() {
         fillColor: '#dcfce7',
         fillOpacity: 0.3,
         radius: 2000
-    }).addTo(careMap).bindPopup('2km Care Radius');
+    }).addTo(window.geographyMap).bindPopup('2km Care Radius');
     
     // Transportation routes (simplified)
     L.polyline([
@@ -179,7 +184,7 @@ function initCareGeographyMap() {
         color: '#2563eb',
         weight: 3,
         opacity: 0.7
-    }).addTo(careMap).bindPopup('Primary Transportation Route');
+    }).addTo(window.geographyMap).bindPopup('Primary Transportation Route');
 }
 
 function initCareMap() {
