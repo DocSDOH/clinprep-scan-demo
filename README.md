@@ -1,8 +1,8 @@
-# 🏥 ClinPrep HealthPilot - SCAN Integration Demo
+# ClinPrep HealthPilot - SCAN Integration Demo
 
 A comprehensive demonstration of ClinPrep's patient intelligence platform integrated with SCAN Health Plan, showcasing advanced SDOH analytics, automated CDA referrals, and geographic care optimization.
 
-## 🎯 Overview
+## Overview
 
 This demo showcases ClinPrep's capabilities in:
 - **Patient Risk Assessment**: Real-time identification of high-risk patients
@@ -11,45 +11,45 @@ This demo showcases ClinPrep's capabilities in:
 - **Geographic Intelligence**: Care optimization based on patient location
 - **Care Cartography**: Visual journey mapping and gap analysis
 
-## 🚀 Live Demo
+## Live Demo
 
 [![Deploy to GitHub Pages](https://github.com/michaelryder/clinprep-scan-demo/actions/workflows/deploy.yml/badge.svg)](https://github.com/michaelryder/clinprep-scan-demo/actions/workflows/deploy.yml)
 
 **Live Demo**: [https://michaelryder.github.io/clinprep-scan-demo/](https://michaelryder.github.io/clinprep-scan-demo/)
 
-## 📊 Key Features
+## Key Features
 
-### 🎯 KPI Dashboard
+### KPI Dashboard
 - **Algorithmic Bias Rate**: 0.0% across validated CMS Medicare data
 - **Population Coverage**: 98.2% validated across 1,379 Medicare patients
 - **High-Risk Detection**: 25.0% readmission rate in identified high-risk patients
 - **FDA Submission Ready**: Complete regulatory compliance documentation
 
-### 👤 Patient Intelligence (Andre P. Case Study)
+### Patient Intelligence (Andre P. Case Study)
 - **Real-time Risk Scoring**: Advanced algorithms for patient stratification (Risk Score: 8.3)
 - **Care Timeline Visualization**: 4 ED visits in 90 days with detailed clinical progression
 - **Clinical Notes Analysis**: NLP-powered insights from medical records and social determinants
 - **Medication Management**: Multi-pharmacy usage pattern analysis and coordination gaps
 
-### 🏘️ SDOH Analytics
+### SDOH Analytics
 - **Resource Mapping**: Interactive geographic visualization of social services
 - **Transportation Analysis**: Public transit and accessibility assessment
 - **Food Security**: Local food bank and assistance program identification
 - **Healthcare Access**: Primary care and specialty service availability
 
-### 🏥 SCAN Health Plan Integration (NLP-Driven CDA Referrals)
+### SCAN Health Plan Integration (NLP-Driven CDA Referrals)
 - **HIA Referrals**: Automated Healthcare In Action program referrals based on NLP analysis
 - **PAVE Program**: Housing and financial stability assessment referrals from social determinants
 - **Priority Scoring**: Urgent vs. standard referral classification with clinical justification
 - **Geographic Matching**: Service area validation and optimization for Andre's location
 
-### 🗺️ Geographic Intelligence
+### Geographic Intelligence
 - **Care Radius Analysis**: Travel distance and accessibility metrics
 - **Transportation Barriers**: Vehicle access and public transit evaluation
 - **Resource Optimization**: Care consolidation recommendations
 - **Mobile Health Solutions**: Telehealth and mobile clinic suggestions
 
-## 🛠️ Technical Stack
+## Technical Stack
 
 - **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
 - **Maps**: Leaflet.js for interactive geographic visualization
@@ -58,7 +58,7 @@ This demo showcases ClinPrep's capabilities in:
 - **Icons**: Unicode emojis and custom CSS icons
 - **Deployment**: GitHub Pages with automatic deployment
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 clinprep-scan-demo/
@@ -71,7 +71,7 @@ clinprep-scan-demo/
         └── deploy.yml  # GitHub Pages deployment
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option 1: GitHub Pages (Recommended)
 1. Fork this repository
@@ -99,7 +99,7 @@ clinprep-scan-demo/
 3. Upload all files from this repository
 4. Click "Run" to deploy instantly
 
-## 🎨 Customization
+## Customization
 
 ### Updating Patient Data
 Edit the patient information in `script.js`:
@@ -142,28 +142,28 @@ function showTab(tabName) {
 }
 ```
 
-## 📱 Responsive Design
+## Responsive Design
 
 The demo is fully responsive and optimized for:
 - **Desktop**: Full feature set with side-by-side layouts
 - **Tablet**: Adapted grid layouts and touch-friendly interactions
 - **Mobile**: Stacked layouts and optimized navigation
 
-## 🔧 Browser Support
+## Browser Support
 
 - **Chrome**: 90+ (Recommended)
 - **Firefox**: 88+
 - **Safari**: 14+
 - **Edge**: 90+
 
-## 📊 Performance Metrics
+## Performance Metrics
 
 - **Load Time**: < 2 seconds on 3G connection
 - **Bundle Size**: < 500KB total
 - **Lighthouse Score**: 95+ across all categories
 - **Accessibility**: WCAG 2.1 AA compliant
 
-## 🎯 Demo Script for Presentations
+## Demo Script for Presentations
 
 ### Opening (30 seconds)
 "Here's the ClinPrep HealthPilot demo showcasing our integration capabilities with SCAN Health Plan. This demonstrates patient intelligence, SDOH analytics, and automated CDA referrals."
@@ -176,9 +176,9 @@ The demo is fully responsive and optimized for:
 5. **Clinical Decision Support**: "Every referral includes specific quotes from clinical notes that drove the decision"
 
 ### Closing
-"This demonstrates how ClinPrep can help SCAN identify and coordinate care for high-risk members, potentially reducing ED utilization and improving outcomes."
+"This demonstrates how ClinPrep can help Managed Care Plans identify and coordinate care for high-risk members, potentially reducing ED utilization and improving outcomes."
 
-## 🤝 Integration Capabilities
+## Integration Capabilities
 
 ### EHR Systems
 - **Epic**: Direct integration via FHIR APIs
@@ -190,12 +190,7 @@ The demo is fully responsive and optimized for:
 - **X12 EDI**: Claims and enrollment data
 - **HL7**: Clinical data exchange
 
-### Compliance
-- **HIPAA**: Full compliance with healthcare privacy regulations
-- **SOC2**: Security and availability controls
-- **FDA**: Regulatory submission ready
-
-## 📈 Business Impact
+## Business Impact
 
 ### For SCAN Health Plan
 - **Reduced ED Utilization**: 15-25% reduction in high-risk member ED visits
@@ -209,7 +204,7 @@ The demo is fully responsive and optimized for:
 - **Care Gaps**: Automated identification and closure recommendations
 - **Workflow Optimization**: Streamlined care coordination processes
 
-## 🔮 Future Enhancements
+## Future Enhancements
 
 - **AI-Powered Predictions**: Machine learning for risk prediction
 - **Real-time Alerts**: Instant notifications for care team
@@ -220,20 +215,16 @@ The demo is fully responsive and optimized for:
 
 **Michael Ryder**  
 Founder & CEO, ClinPrep Health  
-Email: michael@clinprep.health  
+Email: michael@clinprephealth.com  
 LinkedIn: [linkedin.com/in/michaelryder](https://linkedin.com/in/michaelryder)
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- **SCAN Health Plan** for partnership and collaboration
-- **CMS** for Medicare data validation
 - **OpenStreetMap** for geographic data
 - **Leaflet.js** for interactive mapping capabilities
 
 ---
-
-**Built with ❤️ for better healthcare outcomes**
